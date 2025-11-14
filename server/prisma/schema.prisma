@@ -1,0 +1,306 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+// ========== ENUMS ==========
+
+enum ProjectCategory {
+    WEB_APPLICATION
+    MOBILE_APP_APPLICATION
+}
+
+enum ProjectType {
+    BEGINNER
+    INTERMEDIATE
+    ADVANCED
+    SUPER_ADVANCED
+}
+
+enum ProjectStatus {
+    WORKING
+    DEVELOPMENT
+    PRODUCTION
+    UPDATE
+}
+
+enum UserRole {
+    SUPER_ADMIN
+    ADMIN
+    AUTHOR
+    EDITOR
+}
+
+enum TestimonialPlatform {
+    UPWORK
+    LINKEDIN
+}
+
+// ========== MODELS ==========
+
+model User {
+    id        String   @id @default(uuid())
+    cognitoId String   @unique
+    email     String   @unique
+    name      String
+    role      UserRole @default(AUTHOR)
+    isActive  Boolean  @default(true)
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    // Relations
+    projects Project[]
+    blogs    Blog[]
+
+    @@map("users")
+}
+
+// ========== PROJECTS MODULE ==========
+
+model Project {
+    id               String          @id @default(uuid())
+    title            String
+    subtitle         String?
+    description      String[] // Bullet points
+    category         ProjectCategory
+    type             ProjectType
+    status           ProjectStatus
+    documentationUrl String? // Project documentation link
+    liveLink         String? // Live project link
+    githubClientLink String? // GitHub client repository link
+    githubServerLink String? // GitHub server repository link
+    videoUrl         String? // Summary video (optional but necessary)
+    publishedAt      DateTime        @default(now())
+    deletedAt        DateTime? // Soft delete timestamp
+    createdAt        DateTime        @default(now())
+    updatedAt        DateTime        @updatedAt
+
+    // Relations
+    authorId String
+    author   User           @relation(fields: [authorId], references: [id], onDelete: Cascade)
+    images   ProjectImage[]
+
+    @@index([authorId])
+    @@index([deletedAt])
+    @@map("projects")
+}
+
+model ProjectImage {
+    id        String   @id @default(uuid())
+    url       String
+    order     Int // For carousel ordering (1-10)
+    createdAt DateTime @default(now())
+
+    // Relations
+    projectId String
+    project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+    @@index([projectId])
+    @@map("project_images")
+}
+
+// ========== BLOGS MODULE ==========
+
+model Blog {
+    id          String    @id @default(uuid())
+    title       String
+    subtitle    String?
+    description String    @db.Text
+    tags        String[] // Blog topic tags
+    videoUrl    String? // Blog explain video (optional but necessary)
+    publishedAt DateTime  @default(now())
+    deletedAt   DateTime? // Soft delete timestamp
+    createdAt   DateTime  @default(now())
+    updatedAt   DateTime  @updatedAt
+
+    // Relations
+    authorId String
+    author   User        @relation(fields: [authorId], references: [id], onDelete: Cascade)
+    images   BlogImage[]
+
+    @@index([authorId])
+    @@index([deletedAt])
+    @@map("blogs")
+}
+
+model BlogImage {
+    id        String   @id @default(uuid())
+    url       String
+    order     Int // For carousel ordering (1-10)
+    createdAt DateTime @default(now())
+
+    // Relations
+    blogId String
+    blog   Blog   @relation(fields: [blogId], references: [id], onDelete: Cascade)
+
+    @@index([blogId])
+    @@map("blog_images")
+}
+
+// ========== ABOUT MODULE ==========
+
+model About {
+    id                String   @id @default(uuid())
+    numberOfClients   Int      @default(0)
+    numberOfProjects  Int      @default(0)
+    hoursOfSupport    Int      @default(0)
+    yearsOfExperience Int      @default(0)
+    createdAt         DateTime @default(now())
+    updatedAt         DateTime @updatedAt
+
+    @@map("about")
+}
+
+// ========== SERVICES MODULE ==========
+
+model Service {
+    id          String    @id @default(uuid())
+    title       String
+    subtitle    String?
+    description String    @db.Text
+    iconUrl     String // Icon SVG/image URL or icon identifier
+    color       String // Hex color code
+    deletedAt   DateTime? // Soft delete timestamp
+    createdAt   DateTime  @default(now())
+    updatedAt   DateTime  @updatedAt
+
+    @@index([deletedAt])
+    @@map("services")
+}
+
+// ========== SKILLS MODULE ==========
+
+model Skill {
+    id        String    @id @default(uuid())
+    name      String
+    progress  Int // Progress percentage (0-100)
+    iconUrl   String // Icon SVG/image URL or icon identifier
+    deletedAt DateTime? // Soft delete timestamp
+    createdAt DateTime  @default(now())
+    updatedAt DateTime  @updatedAt
+
+    @@index([deletedAt])
+    @@map("skills")
+}
+
+// ========== RESUME MODULE ==========
+
+model ResumeSummary {
+    id        String   @id @default(uuid())
+    summary   String   @db.Text // 2-3 lines summary
+    address   String
+    phone     String
+    email     String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@map("resume_summary")
+}
+
+model Education {
+    id         String    @id @default(uuid())
+    degree     String
+    years      String // e.g., "2015-2019"
+    university String
+    deletedAt  DateTime? // Soft delete timestamp
+    createdAt  DateTime  @default(now())
+    updatedAt  DateTime  @updatedAt
+
+    @@index([deletedAt])
+    @@map("education")
+}
+
+model ProfessionalExperience {
+    id           String    @id @default(uuid())
+    jobTitle     String
+    companyName  String
+    years        String // e.g., "2020-2022"
+    achievements String[] // 3-4 bullet points
+    deletedAt    DateTime? // Soft delete timestamp
+    createdAt    DateTime  @default(now())
+    updatedAt    DateTime  @updatedAt
+
+    @@index([deletedAt])
+    @@map("professional_experience")
+}
+
+model Achievement {
+    id          String    @id @default(uuid())
+    role        String
+    years       String
+    description String[] // 3-4 bullet points
+    deletedAt   DateTime? // Soft delete timestamp
+    createdAt   DateTime  @default(now())
+    updatedAt   DateTime  @updatedAt
+
+    @@index([deletedAt])
+    @@map("achievements")
+}
+
+model Reference {
+    id          String    @id @default(uuid())
+    name        String
+    jobTitle    String
+    companyName String
+    deletedAt   DateTime? // Soft delete timestamp
+    createdAt   DateTime  @default(now())
+    updatedAt   DateTime  @updatedAt
+
+    @@index([deletedAt])
+    @@map("references")
+}
+
+// ========== TESTIMONIALS MODULE ==========
+
+model Testimonial {
+    id          String              @id @default(uuid())
+    name        String // Name of the person
+    jobPosition String // Job position
+    imageUrl    String? // Icon/image URL
+    testimonial String              @db.Text // Testimonial's words from the client
+    platform    TestimonialPlatform // UPWORK or LINKEDIN
+    deletedAt   DateTime? // Soft delete timestamp
+    createdAt   DateTime            @default(now())
+    updatedAt   DateTime            @updatedAt
+
+    @@index([deletedAt])
+    @@map("testimonials")
+}
+
+// ========== FAQ MODULE ==========
+
+model FAQ {
+    id        String    @id @default(uuid())
+    question  String
+    answer    String    @db.Text
+    order     Int       @default(0) // For sorting FAQs
+    deletedAt DateTime? // Soft delete timestamp
+    createdAt DateTime  @default(now())
+    updatedAt DateTime  @updatedAt
+
+    @@index([deletedAt])
+    @@index([order])
+    @@map("faqs")
+}
+
+// ========== TRASH MODULE ==========
+
+model Trash {
+    id         String   @id @default(uuid())
+    entityType String // projects, blogs, services, skills, etc.
+    entityId   String // ID of the deleted item
+    entityData String   @db.JsonB // Serialized data of the deleted item
+    deletedAt  DateTime @default(now())
+    expiresAt  DateTime // Auto-delete after 31 days
+
+    @@index([entityType])
+    @@index([expiresAt])
+    @@map("trash")
+}
