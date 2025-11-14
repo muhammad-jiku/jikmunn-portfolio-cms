@@ -82,11 +82,11 @@ jikmunn-portfolio-cms/
 - [x] **About module** - Statistics management
 - [x] **Services module** - Full CRUD
 - [x] **Skills module** - Full CRUD with progress indicators
+- [x] **Resume module** - All 5 sub-modules (Summary, Education, Experience, Achievements, References)
 - [x] Soft delete with 31-day trash retention
 
 ### 🚧 In Progress
 
-- [ ] Resume modules (Summary, Education, Experience, Achievements, References)
 - [ ] Testimonials module
 - [ ] FAQ module
 - [ ] Trash management endpoints
@@ -164,6 +164,11 @@ Server runs on `http://localhost:5000`
 - `GET /services/:id` - Get service by ID
 - `GET /skills` - Get all skills
 - `GET /skills/:id` - Get skill by ID
+- `GET /resume/summary` - Get resume summary
+- `GET /resume/education` - Get all education
+- `GET /resume/experience` - Get all experience
+- `GET /resume/achievements` - Get all achievements
+- `GET /resume/references` - Get all references
 
 #### Protected Endpoints (Admin/Super Admin only)
 
@@ -180,6 +185,19 @@ Server runs on `http://localhost:5000`
 - `PUT /skills/:id` - Update skill
 - `DELETE /skills/:id` - Delete skill (soft delete)
 - `PUT /about` - Update about statistics
+- `PUT /resume/summary/:id` - Update resume summary
+- `POST /resume/education` - Create education
+- `PUT /resume/education/:id` - Update education
+- `DELETE /resume/education/:id` - Delete education (soft delete)
+- `POST /resume/experience` - Create experience
+- `PUT /resume/experience/:id` - Update experience
+- `DELETE /resume/experience/:id` - Delete experience (soft delete)
+- `POST /resume/achievements` - Create achievement
+- `PUT /resume/achievements/:id` - Update achievement
+- `DELETE /resume/achievements/:id` - Delete achievement (soft delete)
+- `POST /resume/references` - Create reference
+- `PUT /resume/references/:id` - Update reference
+- `DELETE /resume/references/:id` - Delete reference (soft delete)
 
 ## 📚 Documentation
 

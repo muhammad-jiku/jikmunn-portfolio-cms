@@ -53,6 +53,7 @@ server/
 │       │   ├── about/
 │       │   ├── services/
 │       │   ├── skills/
+│       │   ├── resume/
 │       │   └── common/      # Shared services
 │       └── routes/          # API routes
 ├── prisma/
