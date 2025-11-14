@@ -22,7 +22,7 @@ export class SkillService {
       data: {
         entityType: 'skills',
         entityId: id,
-        entityData: JSON.stringify(skill),
+        entityData: (skill || {}) as any,
         expiresAt: addDays(new Date(), 31),
       },
     });
@@ -66,7 +66,7 @@ export class EducationService {
       data: {
         entityType: 'education',
         entityId: id,
-        entityData: JSON.stringify(education),
+        entityData: (education || {}) as any,
         expiresAt: addDays(new Date(), 31),
       },
     });
@@ -95,7 +95,7 @@ export class ProfessionalExperienceService {
       data: {
         entityType: 'experience',
         entityId: id,
-        entityData: JSON.stringify(exp),
+        entityData: (exp || {}) as any,
         expiresAt: addDays(new Date(), 31),
       },
     });
@@ -124,7 +124,7 @@ export class AchievementService {
       data: {
         entityType: 'achievements',
         entityId: id,
-        entityData: JSON.stringify(achievement),
+        entityData: (achievement || {}) as any,
         expiresAt: addDays(new Date(), 31),
       },
     });
@@ -153,7 +153,7 @@ export class ReferenceService {
       data: {
         entityType: 'references',
         entityId: id,
-        entityData: JSON.stringify(reference),
+        entityData: (reference || {}) as any,
         expiresAt: addDays(new Date(), 31),
       },
     });
@@ -182,7 +182,7 @@ export class TestimonialService {
       data: {
         entityType: 'testimonials',
         entityId: id,
-        entityData: JSON.stringify(testimonial),
+        entityData: (testimonial || {}) as any,
         expiresAt: addDays(new Date(), 31),
       },
     });
@@ -206,9 +206,9 @@ export class FAQService {
     const deleted = await prisma.fAQ.update({ where: { id }, data: { deletedAt: new Date() } });
     await prisma.trash.create({
       data: {
-        entityType: 'faqs',
+        entityType: 'faq',
         entityId: id,
-        entityData: JSON.stringify(faq),
+        entityData: (faq || {}) as any,
         expiresAt: addDays(new Date(), 31),
       },
     });
@@ -229,13 +229,14 @@ export class TrashService {
     const item = await prisma.trash.findUnique({ where: { id } });
     if (!item) throw new Error('Trash item not found');
 
-    // Parse entity data and restore based on type
-    const entityData = JSON.parse(item.entityData);
-
+    // entityData is already a Json object, no need to parse
     // Delete from trash
     await prisma.trash.delete({ where: { id } });
 
-    return { message: 'Item restored (implement specific restore logic per entity type)' };
+    return {
+      message: 'Item restored (implement specific restore logic per entity type)',
+      data: item.entityData,
+    };
   }
 
   async permanentlyDelete(id: string) {

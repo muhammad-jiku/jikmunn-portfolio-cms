@@ -180,7 +180,7 @@ export class ProjectService {
       data: {
         entityType: 'projects',
         entityId: id,
-        entityData: JSON.stringify(project),
+        entityData: project,
         expiresAt: addDays(new Date(), 31), // Auto-delete after 31 days
       },
     });

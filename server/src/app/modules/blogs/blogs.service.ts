@@ -72,7 +72,7 @@ export class BlogService {
       data: {
         entityType: 'blogs',
         entityId: id,
-        entityData: JSON.stringify(blog),
+        entityData: blog,
         expiresAt: addDays(new Date(), 31),
       },
     });

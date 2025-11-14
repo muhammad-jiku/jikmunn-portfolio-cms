@@ -30,7 +30,7 @@ export class ServiceService {
       data: {
         entityType: 'services',
         entityId: id,
-        entityData: JSON.stringify(service),
+        entityData: service,
         expiresAt: addDays(new Date(), 31),
       },
     });

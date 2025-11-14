@@ -296,7 +296,7 @@ model Trash {
     id         String   @id @default(uuid())
     entityType String // projects, blogs, services, skills, etc.
     entityId   String // ID of the deleted item
-    entityData String   @db.JsonB // Serialized data of the deleted item
+    entityData Json     @db.JsonB // Serialized data of the deleted item
     deletedAt  DateTime @default(now())
     expiresAt  DateTime // Auto-delete after 31 days
 

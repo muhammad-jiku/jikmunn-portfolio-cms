@@ -46,7 +46,7 @@ const limiter = rateLimit({
 app.use('/api', limiter);
 
 // Root route
-app.get('/', (req, res) => {
+app.get('/', (_req, res) => {
   res.json({
     success: true,
     message: 'Welcome to Portfolio CMS API',
