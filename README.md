@@ -12,20 +12,31 @@ jikmunn-portfolio-cms/
 │   └── Project requirements.txt
 ├── server/                        # Backend (Node.js + Express + Prisma)
 │   ├── src/
-│   │   ├── app/
-│   │   │   ├── config/               # Configuration files
-│   │   │   ├── middleware/           # Auth, validation, error handling
-│   │   │   ├── modules/              # Feature modules
-│   │   │   │   ├── projects/
-│   │   │   │   ├── blogs/
-│   │   │   │   ├── about/
-│   │   │   │   ├── services/
-│   │   │   │   └── common/           # Shared services
-│   │   │   ├── routes/               # API routes
-│   │   │   └── utils/                # Utilities (S3, logger, helpers)
-│   │   └── index.ts
+│   │   ├── app.ts                    # Express app configuration
+│   │   ├── index.ts                  # Server startup
+│   │   ├── config/                   # Configuration files
+│   │   │   ├── aws.config.ts
+│   │   │   ├── cognito.config.ts
+│   │   │   ├── database.config.ts
+│   │   │   └── index.config.ts
+│   │   ├── utils/                    # Utilities (S3, logger, helpers)
+│   │   │   ├── helpers.util.ts
+│   │   │   ├── logger.util.ts
+│   │   │   ├── pagination.util.ts
+│   │   │   ├── response.util.ts
+│   │   │   └── s3.util.ts
+│   │   └── app/
+│   │       ├── middleware/           # Auth, validation, error handling
+│   │       ├── modules/              # Feature modules
+│   │       │   ├── projects/
+│   │       │   ├── blogs/
+│   │       │   ├── about/
+│   │       │   ├── services/
+│   │       │   ├── skills/
+│   │       │   └── common/           # Shared services
+│   │       └── routes/               # API routes
 │   ├── prisma/
-│   │   └── schema.prisma         # Database schema
+│   │   └── schema.prisma             # Database schema
 │   ├── package.json
 │   ├── tsconfig.json
 │   └── README.md
@@ -58,28 +69,28 @@ jikmunn-portfolio-cms/
 
 ### ✅ Completed (Backend)
 
-- [x] Project structure setup
-- [x] TypeScript configuration
+- [x] Project structure setup with TypeScript
 - [x] Prisma schema with all modules
-- [x] AWS Cognito authentication middleware
-- [x] Role-based access control (Super Admin, Admin, Author, Editor)
+- [x] AWS Cognito authentication & JWT verification
+- [x] Role-based access control (SUPER_ADMIN, ADMIN, AUTHOR, EDITOR)
 - [x] AWS S3 file upload utilities
-- [x] Projects module (CRUD + image upload)
-- [x] Blogs module (CRUD + image upload)
-- [x] About module (statistics management)
-- [x] Services module (CRUD)
-- [x] Soft delete with trash recovery (31-day retention)
-- [x] Error handling & logging
-- [x] API rate limiting
+- [x] Global error handling with Prisma/Zod support
+- [x] API rate limiting & security middleware
+- [x] Winston/Morgan logging
+- [x] **Projects module** - Full CRUD + image/video upload
+- [x] **Blogs module** - Full CRUD + pagination + tags
+- [x] **About module** - Statistics management
+- [x] **Services module** - Full CRUD
+- [x] **Skills module** - Full CRUD with progress indicators
+- [x] Soft delete with 31-day trash retention
 
 ### 🚧 In Progress
 
-- [ ] Complete all resume sub-modules (Skills, Education, Experience, Achievements, References)
+- [ ] Resume modules (Summary, Education, Experience, Achievements, References)
 - [ ] Testimonials module
 - [ ] FAQ module
 - [ ] Trash management endpoints
-- [ ] Admin user management
-- [ ] Cron job for auto-deleting expired trash items
+- [ ] Cron job for auto-deleting expired trash (31 days)
 
 ### 📅 Upcoming
 
@@ -144,18 +155,31 @@ Server runs on `http://localhost:5000`
 #### Public Endpoints
 
 - `GET /health` - Health check
-- `GET /projects` - Get all projects
+- `GET /projects` - Get all projects (with pagination)
 - `GET /projects/:id` - Get project by ID
-- `GET /blogs` - Get all blogs
+- `GET /blogs` - Get all blogs (with pagination & tags)
 - `GET /blogs/:id` - Get blog by ID
+- `GET /about` - Get about statistics
+- `GET /services` - Get all services
+- `GET /services/:id` - Get service by ID
+- `GET /skills` - Get all skills
+- `GET /skills/:id` - Get skill by ID
 
-#### Protected Endpoints (Require Authentication)
+#### Protected Endpoints (Admin/Super Admin only)
 
 - `POST /projects` - Create project
 - `PUT /projects/:id` - Update project
-- `DELETE /projects/:id` - Delete project
-- `POST /projects/:id/images` - Upload project images
-- Similar CRUD for blogs, services, etc.
+- `DELETE /projects/:id` - Delete project (soft delete)
+- `POST /blogs` - Create blog
+- `PUT /blogs/:id` - Update blog
+- `DELETE /blogs/:id` - Delete blog (soft delete)
+- `POST /services` - Create service
+- `PUT /services/:id` - Update service
+- `DELETE /services/:id` - Delete service (soft delete)
+- `POST /skills` - Create skill
+- `PUT /skills/:id` - Update skill
+- `DELETE /skills/:id` - Delete skill (soft delete)
+- `PUT /about` - Update about statistics
 
 ## 📚 Documentation
 

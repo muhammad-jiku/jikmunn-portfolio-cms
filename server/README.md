@@ -29,18 +29,32 @@ Backend API for Portfolio CMS built with Node.js, Express.js, Prisma, and Postgr
 ```
 server/
 ├── src/
-│   ├── app/
-│   │   ├── config/          # Configuration files
-│   │   ├── middleware/      # Express middleware
-│   │   ├── modules/         # Feature modules
-│   │   │   ├── projects/
-│   │   │   ├── blogs/
-│   │   │   ├── about/
-│   │   │   ├── services/
-│   │   │   └── ...
-│   │   ├── routes/          # API routes
-│   │   └── utils/           # Utility functions
-│   └── index.ts             # Application entry point
+│   ├── app.ts               # Express app configuration
+│   ├── index.ts             # Server startup
+│   ├── config/              # Configuration files
+│   │   ├── aws.config.ts
+│   │   ├── cognito.config.ts
+│   │   ├── database.config.ts
+│   │   └── index.config.ts
+│   ├── utils/               # Utility functions
+│   │   ├── helpers.util.ts
+│   │   ├── logger.util.ts
+│   │   ├── pagination.util.ts
+│   │   ├── response.util.ts
+│   │   └── s3.util.ts
+│   └── app/                 # Application modules
+│       ├── middleware/      # Express middleware
+│       │   ├── auth.middleware.ts
+│       │   ├── errorHandler.middleware.ts
+│       │   └── validation.middleware.ts
+│       ├── modules/         # Feature modules
+│       │   ├── projects/
+│       │   ├── blogs/
+│       │   ├── about/
+│       │   ├── services/
+│       │   ├── skills/
+│       │   └── common/      # Shared services
+│       └── routes/          # API routes
 ├── prisma/
 │   └── schema.prisma        # Database schema
 └── package.json
@@ -97,37 +111,55 @@ The server will start on `http://localhost:5000`
 
 ### API Endpoints
 
+#### Public Endpoints
+
 - **Health Check:** `GET /api/v1/health`
-- **Projects:** `/api/v1/projects`
-- **Blogs:** `/api/v1/blogs`
-- **About:** `/api/v1/about`
-- **Services:** `/api/v1/services`
-- More endpoints coming soon...
+
+#### Implemented Modules
+
+- **Projects:** `/api/v1/projects` (Full CRUD + image/video upload)
+- **Blogs:** `/api/v1/blogs` (Full CRUD + pagination)
+- **About:** `/api/v1/about` (Stats management)
+- **Services:** `/api/v1/services` (Full CRUD)
+- **Skills:** `/api/v1/skills` (Full CRUD)
+
+#### Coming Soon
+
+- Resume sections (Summary, Education, Experience, Achievements, References)
+- Testimonials
+- FAQs
+- Trash/Recovery
 
 ### Scripts
 
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm start` - Start production server
-- `npm run prisma:migrate` - Run database migrations
-- `npm run prisma:studio` - Open Prisma Studio
-- `npm run lint` - Run ESLint
-- `npm run format` - Format code with Prettier
+- `yarn dev` / `npm run dev` - Start development server with hot reload
+- `yarn build` / `npm run build` - Build TypeScript for production
+- `yarn start` / `npm start` - Start production server
+- `yarn prisma:generate` - Generate Prisma Client
+- `yarn prisma:migrate` - Run database migrations
+- `yarn prisma:studio` - Open Prisma Studio (database GUI)
+- `yarn lint` - Run ESLint
+- `yarn format` - Format code with Prettier
 
 ## Database Schema
 
 The database includes the following main entities:
 
-- Users (with role-based access)
-- Projects (with images and categorization)
-- Blogs (with tags and images)
-- About (portfolio statistics)
-- Services
-- Skills
-- Resume sections (Summary, Education, Experience, Achievements, References)
-- Testimonials
-- FAQs
-- Trash (soft delete recovery)
+- **Users** - Role-based access control (SUPER_ADMIN, ADMIN, AUTHOR, EDITOR)
+- **Projects** - Portfolio projects with images, videos, documentation, and categorization
+- **Blogs** - Blog posts with tags, images, and video support
+- **About** - Portfolio statistics (clients, projects, hours, experience years)
+- **Services** - Services offered with icons and descriptions
+- **Skills** - Technical skills with progress indicators and icons
+- **Resume** - Multiple sections:
+  - Summary (contact info and introduction)
+  - Education (degree, institution, years)
+  - Experience (job title, company, achievements)
+  - Achievements (awards, roles, descriptions)
+  - References (name, title, company)
+- **Testimonials** - Client testimonials with platform and images
+- **FAQs** - Frequently asked questions
+- **Trash** - Soft delete recovery system (31-day retention)
 
 ## Authentication
 
