@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 
 import app from './app';
 import { config } from './config/index.config';
+import { startCronJobs } from './utils/cron.util';
 import { logger } from './utils/logger.util';
 
 // Load environment variables
@@ -14,6 +15,9 @@ const server = app.listen(PORT, () => {
   logger.info(`🚀 Server running on port ${PORT} in ${config.env} mode`);
   logger.info(`📡 API endpoint: http://localhost:${PORT}/api/${config.apiVersion}`);
   logger.info(`🏥 Health check: http://localhost:${PORT}/api/${config.apiVersion}/health`);
+
+  // Start cron jobs
+  startCronJobs();
 });
 
 // Handle unhandled promise rejections

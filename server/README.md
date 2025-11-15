@@ -131,6 +131,10 @@ The server will start on `http://localhost:5000`
 - **FAQ:** `/api/v1/faq` (Ordered Q&A pairs)
 - **Trash:** `/api/v1/trash` (Restore/permanent delete with cleanup)
 
+#### Automation
+
+- **Cron Jobs:** Daily cleanup of expired trash items (runs at 2:00 AM)
+
 ### Scripts
 
 - `yarn dev` / `npm run dev` - Start development server with hot reload

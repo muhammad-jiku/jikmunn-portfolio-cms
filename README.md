@@ -90,13 +90,12 @@ jikmunn-portfolio-cms/
 - [x] **Testimonials module** - Full CRUD with platform support (Upwork/LinkedIn)
 - [x] **FAQ module** - Ordered Q&A pairs
 - [x] **Trash module** - Restore/permanent delete with expiration handling
+- [x] Automated cron job for cleaning expired trash (daily at 2:00 AM)
 - [x] Soft delete with 31-day trash retention
 
 ### 🚧 In Progress
 
-- [ ] Cron job for auto-deleting expired trash (31 days)
-
-### 📅 Upcoming
+- [ ] Frontend implementation (Next.js)
 
 - [ ] Frontend implementation (Next.js)
 - [ ] AWS deployment setup
