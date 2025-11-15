@@ -92,12 +92,22 @@ jikmunn-portfolio-cms/
 - [x] **Trash module** - Restore/permanent delete with expiration handling
 - [x] Automated cron job for cleaning expired trash (daily at 2:00 AM)
 - [x] Soft delete with 31-day trash retention
+- [x] **General Backend Features:**
+  - Comprehensive logging (Winston with file rotation)
+  - HTTP request logging (Morgan)
+  - Rate limiting (configurable per IP)
+  - Security headers (Helmet)
+  - CORS configuration
+  - API versioning (/api/v1)
+  - Compression middleware
+  - Global error handling
 
 ### 🚧 In Progress
 
 - [ ] Frontend implementation (Next.js)
 
-- [ ] Frontend implementation (Next.js)
+### 📹 Upcoming
+
 - [ ] AWS deployment setup
 - [ ] API documentation (Swagger/OpenAPI)
 - [ ] Unit & integration tests

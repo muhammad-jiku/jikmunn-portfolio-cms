@@ -1,0 +1,91 @@
+I am gonna build device responsive CMS for my portfolio. 
+Tech Stack:
+	Frontend: Next.js (client dir), tailwind css, redux
+		pattern: 
+			i. (root dir)/client/...
+			ii. (root dir)/client/src/...
+	Backend: Express.js, Node.js (server dir)
+		pattern:
+			i. (root dir)/server/...
+			ii. (root dir)/server/app/...
+			iii. (root dir)/server/app/modules/admins/admins.services.ts
+			iv. (root dir)/server/app/modules/...
+	Database: Prisma, PostgreSQL
+	Hosting/Deployment/Domain: AWS RDS, EC2, Amplify, Cognito, VPC, Routes, S3
+In my CMS, I will have:
+	1. role based signin/signup
+	2. display all projects
+	3. display all blogs
+	4. projects will have following features:
+		i. title
+		ii. sub-title
+		iii. description (in bullet points)
+		iv. project status (working, development, production, update)
+		v. project category (web application, mobile app application)
+		vi. project type (beginner, intermediate, advanced, super-advised)
+		vii. project documentation
+		viii. project links (live link, github code links(client, server))
+		ix. project screenshot (10 images; atleast 4 is mandatory, and other 6 is optional) will display in carousel and user can select which image to display based on the aligining of the images below carousel.
+		x. project summary video (optional; but necessary)
+		xi. project published date
+		xii. project author
+		xiii. if anythin i forget to add, then you should add them.
+	5. in projects page, there will be '+' button, which will lead to open a modal to create new project
+	6. in projects page, there will be link to project id, which will open a single project page, in which there would be project details, and edit and delete buttons. edit buttons will open a modal with the project data to modify any section of the project. and delete will open a dialog to ask a question about project to send in trash or cancel.
+	7. blogs will have following features:
+		i. title
+		ii. sub-title
+		iii. description
+		iv. blog topic tags
+		v. blog screenshot (10 images; atleast 4 is mandatory, and other 6 is optional) will display in carousel and user can select which image to display based on the aligining of the images below carousel.
+		vi. blog explain video (optional; but necessary)
+		vii. blog published date
+		viii. blog author
+		ix. if anythin i forget to add, then you should add them.
+	8. in blogs page, there will be '+' button, which will lead to open a modal to create new blog
+	9. in blogs page, there will be link to blog id, which will open a single blog page, in which there would be blog details, and edit and delete buttons. edit buttons will open a modal with the blog data to modify any section of the blog. and delete will open a dialog to ask a question about blog to send in trash or cancel.
+	10. in about page, there would be form to create, update, and reset the number of clients, projects, hours, years of experience
+	11. in services page, there would be form to create, update, and delete services. which will have:
+		i. title
+		ii. subtitle
+		iii. icons
+		iv. description
+		v. colors
+	12. in skills page, there would be form to create, update, and delete skills. which will have:
+		i. name
+		ii. progress
+		iii. icon
+	13. in resume page, there would be form to create, update, and delete resume's summary, education, professional experience, and achievements (optional). which will have:
+		i. summary:
+			a. 2-3 lines summary	
+			b. three bullet points (address, contact number, email)
+		ii. education:
+			a. degree
+			b. years
+			c. university
+		iii. professional summary:
+			a. job title
+			b. company name
+			c. years
+			d. achievements (in 3-4 bullet points)
+		iv. achievements:
+			a. role
+			b. years
+			c. description (in 3-4 bullet points)
+		v. references:
+			a. name
+			b. job title
+			c. company name
+	14. in testimonials page, there would be form to create, update, and delete testimonials. which will have:
+		i. name of the person
+		ii. job position
+		iii. icon/image
+		iv. testimonial's words from the client
+		v. from upwork/linkedin
+	15. in faq page,there would be form to create, update, and delete skills. which will have:
+		i. question
+		ii. answer
+	
+	16. in trash pages, there would be section for each pages where deleted items will appeared. and can be permanently deleted all the items or selected items manually and also can be automatically deleted after 31 days
+
+now create PRD by following the structure from the attached PRD of this project i created by chatgpt.

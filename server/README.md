@@ -135,6 +135,15 @@ The server will start on `http://localhost:5000`
 
 - **Cron Jobs:** Daily cleanup of expired trash items (runs at 2:00 AM)
 
+#### General Features (Phase 11)
+
+- **Logging:** Winston (file: error.log, combined.log) + Morgan (HTTP requests)
+- **Rate Limiting:** Configurable per IP (default: 100 req/min)
+- **Security:** Helmet (security headers) + CORS configuration
+- **API Versioning:** `/api/v1` with environment-based versioning
+- **Error Handling:** Global error handler with Prisma/Zod support
+- **Compression:** Response compression for performance
+
 ### Scripts
 
 - `yarn dev` / `npm run dev` - Start development server with hot reload
