@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import aboutRoutes from '../modules/about/about.routes';
 import blogRoutes from '../modules/blogs/blogs.routes';
+import faqRoutes from '../modules/faq/faq.routes';
 import projectRoutes from '../modules/projects/projects.routes';
 import resumeRoutes from '../modules/resume/resume.routes';
 import serviceRoutes from '../modules/services/services.routes';
@@ -30,9 +31,9 @@ router.use('/services', serviceRoutes);
 router.use('/skills', skillRoutes);
 router.use('/resume', resumeRoutes);
 router.use('/testimonials', testimonialRoutes);
+router.use('/faq', faqRoutes);
 
 // TODO: Add remaining module routes
-// router.use('/faq', faqRoutes);
 // router.use('/trash', trashRoutes);
 
 export default router;
