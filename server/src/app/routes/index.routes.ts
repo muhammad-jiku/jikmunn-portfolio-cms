@@ -5,6 +5,7 @@ import projectRoutes from '../modules/projects/projects.routes';
 import resumeRoutes from '../modules/resume/resume.routes';
 import serviceRoutes from '../modules/services/services.routes';
 import skillRoutes from '../modules/skills/skills.routes';
+import testimonialRoutes from '../modules/testimonials/testimonials.routes';
 
 const router = Router();
 
@@ -28,9 +29,9 @@ router.use('/about', aboutRoutes);
 router.use('/services', serviceRoutes);
 router.use('/skills', skillRoutes);
 router.use('/resume', resumeRoutes);
+router.use('/testimonials', testimonialRoutes);
 
 // TODO: Add remaining module routes
-// router.use('/testimonials', testimonialRoutes);
 // router.use('/faq', faqRoutes);
 // router.use('/trash', trashRoutes);
 

@@ -54,6 +54,7 @@ server/
 │       │   ├── services/
 │       │   ├── skills/
 │       │   ├── resume/
+│       │   ├── testimonials/
 │       │   └── common/      # Shared services
 │       └── routes/          # API routes
 ├── prisma/
@@ -123,11 +124,11 @@ The server will start on `http://localhost:5000`
 - **About:** `/api/v1/about` (Stats management)
 - **Services:** `/api/v1/services` (Full CRUD)
 - **Skills:** `/api/v1/skills` (Full CRUD)
+- **Resume:** `/api/v1/resume` (All 5 sub-modules: Summary, Education, Experience, Achievements, References)
+- **Testimonials:** `/api/v1/testimonials` (Full CRUD with platform support)
 
 #### Coming Soon
 
-- Resume sections (Summary, Education, Experience, Achievements, References)
-- Testimonials
 - FAQs
 - Trash/Recovery
 
@@ -158,7 +159,7 @@ The database includes the following main entities:
   - Experience (job title, company, achievements)
   - Achievements (awards, roles, descriptions)
   - References (name, title, company)
-- **Testimonials** - Client testimonials with platform and images
+- **Testimonials** - Client testimonials with platform (Upwork/LinkedIn) and images
 - **FAQs** - Frequently asked questions
 - **Trash** - Soft delete recovery system (31-day retention)
 

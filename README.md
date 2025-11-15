@@ -33,6 +33,8 @@ jikmunn-portfolio-cms/
 │   │       │   ├── about/
 │   │       │   ├── services/
 │   │       │   ├── skills/
+│   │       │   ├── resume/
+│   │       │   ├── testimonials/
 │   │       │   └── common/           # Shared services
 │   │       └── routes/               # API routes
 │   ├── prisma/
@@ -83,11 +85,11 @@ jikmunn-portfolio-cms/
 - [x] **Services module** - Full CRUD
 - [x] **Skills module** - Full CRUD with progress indicators
 - [x] **Resume module** - All 5 sub-modules (Summary, Education, Experience, Achievements, References)
+- [x] **Testimonials module** - Full CRUD with platform support (Upwork/LinkedIn)
 - [x] Soft delete with 31-day trash retention
 
 ### 🚧 In Progress
 
-- [ ] Testimonials module
 - [ ] FAQ module
 - [ ] Trash management endpoints
 - [ ] Cron job for auto-deleting expired trash (31 days)
@@ -169,6 +171,8 @@ Server runs on `http://localhost:5000`
 - `GET /resume/experience` - Get all experience
 - `GET /resume/achievements` - Get all achievements
 - `GET /resume/references` - Get all references
+- `GET /testimonials` - Get all testimonials
+- `GET /testimonials/:id` - Get testimonial by ID
 
 #### Protected Endpoints (Admin/Super Admin only)
 
@@ -198,6 +202,9 @@ Server runs on `http://localhost:5000`
 - `POST /resume/references` - Create reference
 - `PUT /resume/references/:id` - Update reference
 - `DELETE /resume/references/:id` - Delete reference (soft delete)
+- `POST /testimonials` - Create testimonial
+- `PUT /testimonials/:id` - Update testimonial
+- `DELETE /testimonials/:id` - Delete testimonial (soft delete)
 
 ## 📚 Documentation
 
