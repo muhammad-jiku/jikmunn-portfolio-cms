@@ -36,6 +36,7 @@ jikmunn-portfolio-cms/
 │   │       │   ├── resume/
 │   │       │   ├── testimonials/
 │   │       │   ├── faq/
+│   │       │   ├── trash/
 │   │       │   └── common/           # Shared services
 │   │       └── routes/               # API routes
 │   ├── prisma/
@@ -88,11 +89,11 @@ jikmunn-portfolio-cms/
 - [x] **Resume module** - All 5 sub-modules (Summary, Education, Experience, Achievements, References)
 - [x] **Testimonials module** - Full CRUD with platform support (Upwork/LinkedIn)
 - [x] **FAQ module** - Ordered Q&A pairs
+- [x] **Trash module** - Restore/permanent delete with expiration handling
 - [x] Soft delete with 31-day trash retention
 
 ### 🚧 In Progress
 
-- [ ] Trash management endpoints
 - [ ] Cron job for auto-deleting expired trash (31 days)
 
 ### 📅 Upcoming
@@ -211,6 +212,11 @@ Server runs on `http://localhost:5000`
 - `POST /faq` - Create FAQ
 - `PUT /faq/:id` - Update FAQ
 - `DELETE /faq/:id` - Delete FAQ (soft delete)
+- `GET /trash` - List all trash items (admin only)
+- `GET /trash/:id` - Get trash item by ID (admin only)
+- `POST /trash/:id/restore` - Restore item from trash (admin only)
+- `DELETE /trash/:id` - Permanently delete trash item (admin only)
+- `POST /trash/cleanup` - Cleanup expired trash (super admin only)
 
 ## 📚 Documentation
 

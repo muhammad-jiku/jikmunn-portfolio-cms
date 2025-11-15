@@ -56,6 +56,7 @@ server/
 │       │   ├── resume/
 │       │   ├── testimonials/
 │       │   ├── faq/
+│       │   ├── trash/
 │       │   └── common/      # Shared services
 │       └── routes/          # API routes
 ├── prisma/
@@ -128,10 +129,7 @@ The server will start on `http://localhost:5000`
 - **Resume:** `/api/v1/resume` (All 5 sub-modules: Summary, Education, Experience, Achievements, References)
 - **Testimonials:** `/api/v1/testimonials` (Full CRUD with platform support)
 - **FAQ:** `/api/v1/faq` (Ordered Q&A pairs)
-
-#### Coming Soon
-
-- Trash/Recovery
+- **Trash:** `/api/v1/trash` (Restore/permanent delete with cleanup)
 
 ### Scripts
 

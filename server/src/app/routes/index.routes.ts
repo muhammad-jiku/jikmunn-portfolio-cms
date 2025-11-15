@@ -7,6 +7,7 @@ import resumeRoutes from '../modules/resume/resume.routes';
 import serviceRoutes from '../modules/services/services.routes';
 import skillRoutes from '../modules/skills/skills.routes';
 import testimonialRoutes from '../modules/testimonials/testimonials.routes';
+import trashRoutes from '../modules/trash/trash.routes';
 
 const router = Router();
 
@@ -32,8 +33,6 @@ router.use('/skills', skillRoutes);
 router.use('/resume', resumeRoutes);
 router.use('/testimonials', testimonialRoutes);
 router.use('/faq', faqRoutes);
-
-// TODO: Add remaining module routes
-// router.use('/trash', trashRoutes);
+router.use('/trash', trashRoutes);
 
 export default router;
