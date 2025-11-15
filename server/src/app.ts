@@ -4,10 +4,12 @@ import express, { Application } from 'express';
 import rateLimit from 'express-rate-limit';
 import helmet from 'helmet';
 import morgan from 'morgan';
+import swaggerUi from 'swagger-ui-express';
 
 import { globalErrorHandler, notFound } from './app/middleware/errorHandler.middleware';
 import routes from './app/routes/index.routes';
 import { config } from './config/index.config';
+import { swaggerSpec } from './config/swagger.config';
 
 // Initialize Express app
 const app: Application = express();
@@ -54,6 +56,39 @@ app.get('/', (_req, res) => {
     documentation: '/api/docs',
   });
 });
+
+/**
+ * @openapi
+ * /health:
+ *   get:
+ *     tags:
+ *       - Health
+ *     summary: Health check endpoint
+ *     description: Returns API health status
+ *     responses:
+ *       200:
+ *         description: API is running
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: Portfolio CMS API is running
+ *                 timestamp:
+ *                   type: string
+ *                   format: date-time
+ *                 version:
+ *                   type: string
+ *                   example: v1
+ */
+
+// Swagger documentation
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // API routes
 app.use(`/api/${config.apiVersion}`, routes);
