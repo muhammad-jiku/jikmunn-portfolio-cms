@@ -1,6 +1,8 @@
 import { Router } from 'express';
 import aboutRoutes from '../modules/about/about.routes';
 import blogRoutes from '../modules/blogs/blogs.routes';
+import devRoutes from '../modules/common/dev.routes';
+import maintenanceRoutes from '../modules/common/maintenance.routes';
 import faqRoutes from '../modules/faq/faq.routes';
 import projectRoutes from '../modules/projects/projects.routes';
 import resumeRoutes from '../modules/resume/resume.routes';
@@ -15,7 +17,7 @@ const router = Router();
 const API_VERSION = process.env.API_VERSION || 'v1';
 
 // Health check
-router.get('/health', (req, res) => {
+router.get('/health', (_req, res) => {
   res.json({
     success: true,
     message: 'Portfolio CMS API is running',
@@ -34,5 +36,11 @@ router.use('/resume', resumeRoutes);
 router.use('/testimonials', testimonialRoutes);
 router.use('/faq', faqRoutes);
 router.use('/trash', trashRoutes);
+
+// Maintenance mode
+router.use('/maintenance', maintenanceRoutes);
+
+// Development-only routes (returns 404 in production)
+router.use('/dev', devRoutes);
 
 export default router;

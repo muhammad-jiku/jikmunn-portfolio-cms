@@ -73,7 +73,7 @@ const handleZodError = (error: ZodError) => {
 /**
  * Global error handler middleware
  */
-export const globalErrorHandler = (err: any, req: Request, res: Response, next: NextFunction) => {
+export const globalErrorHandler = (err: any, _req: Request, res: Response, _next: NextFunction) => {
   config.env === 'development'
     ? console.log('Global development error handler:', { err })
     : console.error('Global production error handler:', err);
@@ -117,7 +117,7 @@ export const globalErrorHandler = (err: any, req: Request, res: Response, next: 
 /**
  * Handle 404 routes
  */
-export const notFound = (req: Request, res: Response, next: NextFunction) => {
+export const notFound = (req: Request, _res: Response, next: NextFunction) => {
   const error = new ApiError(404, `Route not found: ${req.originalUrl}`);
   next(error);
 };

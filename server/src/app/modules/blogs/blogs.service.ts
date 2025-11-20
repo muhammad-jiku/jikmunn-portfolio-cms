@@ -11,10 +11,12 @@ export class BlogService {
     });
   }
 
-  async getAllBlogs(params: any) {
+  async getAllBlogs(params: any, isAuthenticated: boolean = false) {
     const { page, limit, skip, search, tags } = params;
     const where: Prisma.BlogWhereInput = {
       deletedAt: null,
+      // If not authenticated, only show PRODUCTION blogs
+      ...(!isAuthenticated && { status: 'PRODUCTION' }),
       ...(search && {
         OR: [
           { title: { contains: search, mode: 'insensitive' } },
@@ -41,9 +43,17 @@ export class BlogService {
     return { blogs, total, page, limit };
   }
 
-  async getBlogById(id: string) {
+  async getBlogById(id: string, isAuthenticated: boolean = false) {
+    const whereCondition: any = { id };
+
+    // If not authenticated, only show PRODUCTION blogs
+    if (!isAuthenticated) {
+      whereCondition.status = 'PRODUCTION';
+      whereCondition.deletedAt = null;
+    }
+
     return await prisma.blog.findUnique({
-      where: { id },
+      where: whereCondition,
       include: {
         author: { select: { id: true, name: true, email: true } },
         images: { orderBy: { order: 'asc' } },

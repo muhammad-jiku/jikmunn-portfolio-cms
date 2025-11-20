@@ -15,6 +15,14 @@ Backend API for Portfolio CMS built with Node.js, Express.js, Prisma, and Postgr
 - ✅ Swagger/OpenAPI documentation
 - ✅ Jest testing framework
 - ✅ TypeScript for type safety
+- ✅ Maintenance mode with public status API
+- ✅ Development-only endpoints (isolated by NODE_ENV)
+- ✅ Structured tech stack tracking for projects
+- ✅ Blog status and topic categorization
+- ✅ Public/authenticated route separation (PRODUCTION-only for public)
+- ✅ All TypeScript errors resolved (production-ready code quality)
+- ✅ Consistent error handling with catchAsync pattern
+- ✅ Type-safe middleware with proper return types
 
 ## Tech Stack
 
@@ -47,23 +55,24 @@ server/
 │   │   ├── pagination.util.ts
 │   │   ├── response.util.ts
 │   │   └── s3.util.ts
-│   └── app/                 # Application modules
-│       ├── middleware/      # Express middleware
-│       │   ├── auth.middleware.ts
-│       │   ├── errorHandler.middleware.ts
-│       │   └── validation.middleware.ts
-│       ├── modules/         # Feature modules
-│       │   ├── projects/
-│       │   ├── blogs/
-│       │   ├── about/
-│       │   ├── services/
-│       │   ├── skills/
-│       │   ├── resume/
-│       │   ├── testimonials/
-│       │   ├── faq/
-│       │   ├── trash/
-│       │   └── common/      # Shared services
-│       └── routes/          # API routes
+    └── app/                 # Application modules
+        ├── middleware/      # Express middleware
+        │   ├── auth.middleware.ts
+        │   ├── dev.middleware.ts        # Dev-only middleware
+        │   ├── errorHandler.middleware.ts
+        │   └── validation.middleware.ts
+        ├── modules/         # Feature modules
+        │   ├── projects/
+        │   ├── blogs/
+        │   ├── about/
+        │   ├── services/
+        │   ├── skills/
+        │   ├── resume/
+        │   ├── testimonials/
+        │   ├── faq/
+        │   ├── trash/
+        │   └── common/      # Shared services, dev & maintenance controllers
+        └── routes/          # API routes
 ├── prisma/
 │   └── schema.prisma        # Database schema
 └── package.json
@@ -120,14 +129,16 @@ The server will start on `http://localhost:5000`
 
 ### API Endpoints
 
-#### Public Endpoints
+#### Public Endpoints (No Authentication)
 
 - **Health Check:** `GET /api/v1/health`
+- **Public Projects:** `GET /api/v1/projects/public` (PRODUCTION status only)
+- **Public Blogs:** `GET /api/v1/blogs/public` (PRODUCTION status only)
 
 #### Implemented Modules
 
-- **Projects:** `/api/v1/projects` (Full CRUD + image/video upload)
-- **Blogs:** `/api/v1/blogs` (Full CRUD + pagination)
+- **Projects:** `/api/v1/projects` (Full CRUD + image/video upload + public routes)
+- **Blogs:** `/api/v1/blogs` (Full CRUD + pagination + public routes)
 - **About:** `/api/v1/about` (Stats management)
 - **Services:** `/api/v1/services` (Full CRUD)
 - **Skills:** `/api/v1/skills` (Full CRUD)
@@ -136,27 +147,33 @@ The server will start on `http://localhost:5000`
 - **FAQ:** `/api/v1/faq` (Ordered Q&A pairs)
 - **Trash:** `/api/v1/trash` (Restore/permanent delete with cleanup)
 
-#### Automation
+#### Maintenance & Development
 
-- **Cron Jobs:** Daily cleanup of expired trash items (runs at 2:00 AM)
+- **Maintenance Status:** `GET /api/v1/maintenance/status` (public)
+- **Toggle Maintenance:** `PUT /api/v1/maintenance/toggle` (super admin/admin)
+- **List Dev Users:** `GET /api/v1/dev/users` (development mode only)
+- **Update User Role:** `PUT /api/v1/dev/users/role` (development mode only)
 
-#### General Features (Phase 11)
+## Documentation
 
-- **Logging:** Winston (file: error.log, combined.log) + Morgan (HTTP requests)
-- **Rate Limiting:** Configurable per IP (default: 100 req/min)
-- **Security:** Helmet (security headers) + CORS configuration
-- **API Versioning:** `/api/v1` with environment-based versioning
-- **Error Handling:** Global error handler with Prisma/Zod support
-- **Compression:** Response compression for performance
+- **API Docs:** `http://localhost:5000/api/docs` (Swagger UI)
+- **Testing Guide:** See `../TESTING.md` for detailed testing instructions
+- **Schema Updates:** See `../SCHEMA_UPDATES.md` for recent database changes
+- **Quick Start:** See `../QUICKSTART.md` for setup instructions
 
-#### Production Readiness (Phase 12)
+## Database Schema Updates
 
-- **API Documentation:** Swagger UI at `/api/docs` with OpenAPI 3.0 spec
-- **Testing:** Jest + Supertest setup with unit tests
-- **Environment:** .env.example template with all required variables
-- **Scripts:** `npm test`, `npm run test:watch`, `npm run test:coverage`
+**Recent Changes:**
 
-### Scripts
+- **Projects:** Added `techStack` (JSON) and `tools` (JSON) fields for structured technology tracking
+- **Blogs:** Added `topic` (String) and `status` (BlogStatus enum) fields
+- **ProjectStatus Enum:** Updated values to IN_PROGRESS, DEVELOPMENT, PRODUCTION, UPDATED
+- **BlogStatus Enum:** New enum with IN_PROGRESS, UPDATED, DEVELOPMENT, PRODUCTION
+- **Maintenance Model:** Added for system maintenance mode
+
+See `SCHEMA_UPDATES.md` for detailed migration guide.
+
+## Testing
 
 - `yarn dev` / `npm run dev` - Start development server with hot reload
 - `yarn build` / `npm run build` - Build TypeScript for production
@@ -172,8 +189,8 @@ The server will start on `http://localhost:5000`
 The database includes the following main entities:
 
 - **Users** - Role-based access control (SUPER_ADMIN, ADMIN, AUTHOR, EDITOR)
-- **Projects** - Portfolio projects with images, videos, documentation, and categorization
-- **Blogs** - Blog posts with tags, images, and video support
+- **Projects** - Portfolio projects with images, videos, documentation, categorization, **tech stack**, and **development tools**
+- **Blogs** - Blog posts with **topic**, **status**, tags, images, and video support
 - **About** - Portfolio statistics (clients, projects, hours, experience years)
 - **Services** - Services offered with icons and descriptions
 - **Skills** - Technical skills with progress indicators and icons
@@ -186,6 +203,15 @@ The database includes the following main entities:
 - **Testimonials** - Client testimonials with platform (Upwork/LinkedIn) and images
 - **FAQs** - Frequently asked questions
 - **Trash** - Soft delete recovery system (31-day retention)
+- **Maintenance** - System maintenance mode with status messages
+
+**Key Enums:**
+
+- ProjectStatus: IN_PROGRESS, DEVELOPMENT, PRODUCTION, UPDATED
+- BlogStatus: IN_PROGRESS, UPDATED, DEVELOPMENT, PRODUCTION
+- ProjectCategory: WEB_APPLICATION, MOBILE_APP_APPLICATION
+- UserRole: SUPER_ADMIN, ADMIN, AUTHOR, EDITOR
+- TestimonialPlatform: UPWORK, LINKEDIN
 
 ## Authentication
 

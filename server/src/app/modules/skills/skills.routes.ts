@@ -1,6 +1,6 @@
 import express from 'express';
 import { requireRole, verifyToken } from '../../middleware/auth.middleware';
-import { validateRequest } from '../../middleware/validation.middleware';
+import { validate } from '../../middleware/validation.middleware';
 import { SkillController } from './skills.controller';
 import { createSkillSchema, updateSkillSchema } from './skills.validation';
 
@@ -14,23 +14,23 @@ router.get('/:id', SkillController.getSkillById);
 router.post(
   '/',
   verifyToken,
-  requireRole(['SUPER_ADMIN', 'ADMIN']),
-  validateRequest(createSkillSchema),
+  requireRole('SUPER_ADMIN', 'ADMIN'),
+  validate(createSkillSchema),
   SkillController.createSkill
 );
 
 router.put(
   '/:id',
   verifyToken,
-  requireRole(['SUPER_ADMIN', 'ADMIN']),
-  validateRequest(updateSkillSchema),
+  requireRole('SUPER_ADMIN', 'ADMIN'),
+  validate(updateSkillSchema),
   SkillController.updateSkill
 );
 
 router.delete(
   '/:id',
   verifyToken,
-  requireRole(['SUPER_ADMIN', 'ADMIN']),
+  requireRole('SUPER_ADMIN', 'ADMIN'),
   SkillController.deleteSkill
 );
 

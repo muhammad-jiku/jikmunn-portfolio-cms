@@ -15,7 +15,7 @@ const createSkill = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-const getAllSkills = catchAsync(async (req: Request, res: Response) => {
+const getAllSkills = catchAsync(async (_req: Request, res: Response) => {
   const skills = await skillService.getAllSkills();
 
   sendResponse(res, {

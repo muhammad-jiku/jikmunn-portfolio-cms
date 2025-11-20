@@ -7,12 +7,14 @@ export const createProjectSchema = z.object({
     description: z.array(z.string()).min(1, 'At least one description point is required'),
     category: z.enum(['WEB_APPLICATION', 'MOBILE_APP_APPLICATION']),
     type: z.enum(['BEGINNER', 'INTERMEDIATE', 'ADVANCED', 'SUPER_ADVANCED']),
-    status: z.enum(['WORKING', 'DEVELOPMENT', 'PRODUCTION', 'UPDATE']),
+    status: z.enum(['IN_PROGRESS', 'DEVELOPMENT', 'PRODUCTION', 'UPDATED']),
     documentationUrl: z.string().url().optional(),
     liveLink: z.string().url().optional(),
     githubClientLink: z.string().url().optional(),
     githubServerLink: z.string().url().optional(),
     videoUrl: z.string().url().optional(),
+    techStack: z.record(z.string()).optional(), // {"Frontend": "React", "Backend": "Node.js"}
+    tools: z.record(z.string()).optional(), // {"Code Editor": "VS Code", "Version Control": "Git"}
   }),
 });
 
@@ -26,12 +28,14 @@ export const updateProjectSchema = z.object({
     description: z.array(z.string()).optional(),
     category: z.enum(['WEB_APPLICATION', 'MOBILE_APP_APPLICATION']).optional(),
     type: z.enum(['BEGINNER', 'INTERMEDIATE', 'ADVANCED', 'SUPER_ADVANCED']).optional(),
-    status: z.enum(['WORKING', 'DEVELOPMENT', 'PRODUCTION', 'UPDATE']).optional(),
+    status: z.enum(['IN_PROGRESS', 'DEVELOPMENT', 'PRODUCTION', 'UPDATED']).optional(),
     documentationUrl: z.string().url().optional(),
     liveLink: z.string().url().optional(),
     githubClientLink: z.string().url().optional(),
     githubServerLink: z.string().url().optional(),
     videoUrl: z.string().url().optional(),
+    techStack: z.record(z.string()).optional(),
+    tools: z.record(z.string()).optional(),
   }),
 });
 

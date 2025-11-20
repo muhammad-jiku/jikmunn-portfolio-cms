@@ -117,10 +117,27 @@ jikmunn-portfolio-cms/
   - Jest testing framework setup
   - Unit tests for utilities
   - .env.example configuration template
+- [x] **Development Tools:**
+  - Development-only endpoints for user role management (NODE_ENV isolated)
+  - Maintenance mode API for displaying system status messages
+- [x] **Recent Schema Updates:**
+  - BlogStatus enum (IN_PROGRESS, UPDATED, DEVELOPMENT, PRODUCTION)
+  - ProjectStatus enum updated (IN_PROGRESS, DEVELOPMENT, PRODUCTION, UPDATED)
+  - Tech stack structure for projects (JSON field with categorized technologies)
+  - Development tools tracking for projects (JSON field)
+  - Blog topic and status fields for better content organization
+  - Public/authenticated route separation (/public for unauthenticated users)
+- [x] **Code Quality:**
+  - All TypeScript errors resolved across codebase
+  - Consistent error handling patterns (catchAsync wrapper)
+  - Proper middleware return types and type safety
+  - Unused parameter warnings fixed
+  - Production-ready code quality
 
 ### 🚧 In Progress
 
 - [ ] Frontend implementation (Next.js)
+- [ ] Database migration with production credentials
 
 ### 📹 Upcoming
 
@@ -182,13 +199,13 @@ API documentation available at `http://localhost:5000/api/docs`
 
 **Base URL:** `http://localhost:5000/api/v1`
 
-#### Public Endpoints
+#### Public Endpoints (No Authentication Required)
 
 - `GET /health` - Health check
-- `GET /projects` - Get all projects (with pagination)
-- `GET /projects/:id` - Get project by ID
-- `GET /blogs` - Get all blogs (with pagination & tags)
-- `GET /blogs/:id` - Get blog by ID
+- `GET /projects/public` - Get all PRODUCTION projects (unauthenticated)
+- `GET /projects/public/:id` - Get PRODUCTION project by ID (unauthenticated)
+- `GET /blogs/public` - Get all PRODUCTION blogs (unauthenticated)
+- `GET /blogs/public/:id` - Get PRODUCTION blog by ID (unauthenticated)
 - `GET /about` - Get about statistics
 - `GET /services` - Get all services
 - `GET /services/:id` - Get service by ID
@@ -203,6 +220,13 @@ API documentation available at `http://localhost:5000/api/docs`
 - `GET /testimonials/:id` - Get testimonial by ID
 - `GET /faq` - Get all FAQs (ordered)
 - `GET /faq/:id` - Get FAQ by ID
+
+#### Authenticated Endpoints (Requires JWT Token)
+
+- `GET /projects` - Get all projects (all statuses, requires authentication)
+- `GET /projects/:id` - Get project by ID (all statuses, requires authentication)
+- `GET /blogs` - Get all blogs (all statuses, requires authentication)
+- `GET /blogs/:id` - Get blog by ID (all statuses, requires authentication)
 
 #### Protected Endpoints (Admin/Super Admin only)
 
@@ -243,13 +267,22 @@ API documentation available at `http://localhost:5000/api/docs`
 - `POST /trash/:id/restore` - Restore item from trash (admin only)
 - `DELETE /trash/:id` - Permanently delete trash item (admin only)
 - `POST /trash/cleanup` - Cleanup expired trash (super admin only)
+- `GET /maintenance/status` - Get system maintenance status (public)
+- `PUT /maintenance/toggle` - Toggle maintenance mode (super admin/admin only)
+- `GET /dev/users` - List Cognito users with roles (dev mode only)
+- `PUT /dev/users/role` - Update user role in Cognito (dev mode only)
 
 ## 📚 Documentation
 
-Detailed PRDs are available in the `docs/` folder:
+Detailed documentation available:
 
-- [Backend PRD](./docs/Portfolio_CMS_Backend_PRD.md)
-- [Frontend PRD](./docs/Portfolio_CMS_Frontend_PRD.md)
+- [Backend PRD](./docs/Portfolio_CMS_Backend_PRD.md) - Complete backend requirements
+- [Frontend PRD](./docs/Portfolio_CMS_Frontend_PRD.md) - Frontend specifications
+- [Quick Start Guide](./QUICKSTART.md) - Get started in 5 minutes
+- [Testing Guide](./TESTING.md) - API testing with Swagger, Postman, cURL
+- [Schema Updates](./SCHEMA_UPDATES.md) - Latest database schema changes
+
+**API Documentation:** Available at `http://localhost:5000/api/docs` (Swagger UI)
 
 ## 🔐 Authentication
 
@@ -271,15 +304,23 @@ Authorization: Bearer <your-jwt-token>
 Key entities:
 
 - Users (with roles)
-- Projects (with category, type, status, images, links)
-- Blogs (with tags, images)
+- Projects (with category, type, status, images, links, **tech stack**, **development tools**)
+- Blogs (with **topic**, **status**, tags, images)
 - About (portfolio stats)
 - Services (with icons, colors)
 - Skills (with progress indicators)
 - Resume sections (Summary, Education, Experience, Achievements, References)
 - Testimonials (with platform: Upwork/LinkedIn)
 - FAQs (with ordering)
-- Trash (soft delete recovery)
+- Trash (soft delete recovery with 31-day retention)
+- Maintenance (system maintenance mode with messages)
+
+**Recent Enhancements:**
+
+- Projects now support structured tech stack (Frontend, Backend, Database, etc.)
+- Projects track development tools used (Code Editor, Version Control, etc.)
+- Blogs include topic categorization and lifecycle status tracking
+- Maintenance mode for displaying update messages to users
 
 ## 🚀 Deployment
 

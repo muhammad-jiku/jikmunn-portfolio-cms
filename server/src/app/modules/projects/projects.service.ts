@@ -8,12 +8,14 @@ interface CreateProjectData {
   description: string[];
   category: 'WEB_APPLICATION' | 'MOBILE_APP_APPLICATION';
   type: 'BEGINNER' | 'INTERMEDIATE' | 'ADVANCED' | 'SUPER_ADVANCED';
-  status: 'WORKING' | 'DEVELOPMENT' | 'PRODUCTION' | 'UPDATE';
+  status: 'IN_PROGRESS' | 'DEVELOPMENT' | 'PRODUCTION' | 'UPDATED';
   documentationUrl?: string;
   liveLink?: string;
   githubClientLink?: string;
   githubServerLink?: string;
   videoUrl?: string;
+  techStack?: Record<string, string>;
+  tools?: Record<string, string>;
   authorId: string;
 }
 
@@ -23,12 +25,14 @@ interface UpdateProjectData {
   description?: string[];
   category?: 'WEB_APPLICATION' | 'MOBILE_APP_APPLICATION';
   type?: 'BEGINNER' | 'INTERMEDIATE' | 'ADVANCED' | 'SUPER_ADVANCED';
-  status?: 'WORKING' | 'DEVELOPMENT' | 'PRODUCTION' | 'UPDATE';
+  status?: 'IN_PROGRESS' | 'DEVELOPMENT' | 'PRODUCTION' | 'UPDATED';
   documentationUrl?: string;
   liveLink?: string;
   githubClientLink?: string;
   githubServerLink?: string;
   videoUrl?: string;
+  techStack?: Record<string, string>;
+  tools?: Record<string, string>;
 }
 
 interface IProjectFilterRequest {
@@ -68,14 +72,23 @@ export class ProjectService {
   /**
    * Get all projects with pagination and filters
    */
-  async getAllProjects(params: GetProjectsParams) {
-    const { page, limit, skip, category, type, status, search } = params;
+  async getAllProjects(
+    filters: IProjectFilterRequest,
+    options: IPaginationOptions,
+    isAuthenticated: boolean = false
+  ) {
+    const { searchTerm: search, category, type, status } = filters;
+    const { page = 1, limit = 10 } = options;
+    const skip = (page - 1) * limit;
 
     const where: Prisma.ProjectWhereInput = {
       deletedAt: null, // Only active projects
+      // If not authenticated, only show PRODUCTION projects
+      ...(!isAuthenticated && { status: 'PRODUCTION' }),
       ...(category && { category: category as any }),
       ...(type && { type: type as any }),
-      ...(status && { status: status as any }),
+      // If authenticated, allow status filtering
+      ...(isAuthenticated && status && { status: status as any }),
       ...(search && {
         OR: [
           { title: { contains: search, mode: 'insensitive' } },
@@ -110,15 +123,31 @@ export class ProjectService {
       prisma.project.count({ where }),
     ]);
 
-    return { projects, total, page, limit };
+    return {
+      data: projects,
+      meta: {
+        total,
+        page,
+        limit,
+        totalPages: Math.ceil(total / limit),
+      },
+    };
   }
 
   /**
    * Get project by ID
    */
-  async getProjectById(id: string) {
+  async getProjectById(id: string, isAuthenticated: boolean = false) {
+    const whereCondition: any = { id };
+
+    // If not authenticated, only show PRODUCTION projects
+    if (!isAuthenticated) {
+      whereCondition.status = 'PRODUCTION';
+      whereCondition.deletedAt = null;
+    }
+
     return await prisma.project.findUnique({
-      where: { id },
+      where: whereCondition,
       include: {
         author: {
           select: {

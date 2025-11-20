@@ -53,7 +53,7 @@ export const sendSuccessWithPagination = (
   },
   message?: string,
   statusCode: number = 200
-): Response<SuccessResponse> => {
+): Response => {
   return res.status(statusCode).json({
     success: true,
     message: message || 'Request successful',
@@ -73,7 +73,7 @@ export const sendError = (
   message: string,
   statusCode: number = 500,
   errors?: any[]
-): Response<ErrorResponse> => {
+): Response => {
   return res.status(statusCode).json({
     success: false,
     message,

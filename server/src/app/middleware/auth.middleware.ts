@@ -22,15 +22,20 @@ export interface AuthRequest extends Request {
 /**
  * Middleware to verify Cognito JWT token
  */
-export const verifyToken = async (req: AuthRequest, res: Response, next: NextFunction) => {
+export const verifyToken = async (
+  req: AuthRequest,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
   try {
     const authHeader = req.headers.authorization;
 
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
-      return res.status(401).json({
+      res.status(401).json({
         success: false,
         message: 'Unauthorized: No token provided',
       });
+      return;
     }
 
     const token = authHeader.split(' ')[1];
@@ -40,19 +45,19 @@ export const verifyToken = async (req: AuthRequest, res: Response, next: NextFun
 
     // Attach user info to request
     req.user = {
-      sub: payload.sub,
-      email: payload.email || '',
-      role: payload['custom:role'] || 'AUTHOR',
-      ...payload,
+      sub: payload.sub as string,
+      email: (payload.email as string) || '',
+      role: (payload['custom:role'] as string) || 'AUTHOR',
     };
 
     next();
   } catch (error) {
     console.error('Token verification error:', error);
-    return res.status(403).json({
+    res.status(403).json({
       success: false,
       message: 'Forbidden: Invalid or expired token',
     });
+    return;
   }
 };
 
@@ -60,21 +65,23 @@ export const verifyToken = async (req: AuthRequest, res: Response, next: NextFun
  * Middleware to check if user has required role
  */
 export const requireRole = (...allowedRoles: string[]) => {
-  return (req: AuthRequest, res: Response, next: NextFunction) => {
+  return (req: AuthRequest, res: Response, next: NextFunction): void => {
     if (!req.user) {
-      return res.status(401).json({
+      res.status(401).json({
         success: false,
         message: 'Unauthorized: No user context',
       });
+      return;
     }
 
     const userRole = req.user.role;
 
     if (!allowedRoles.includes(userRole)) {
-      return res.status(403).json({
+      res.status(403).json({
         success: false,
         message: `Forbidden: Required role(s): ${allowedRoles.join(', ')}`,
       });
+      return;
     }
 
     next();

@@ -11,7 +11,7 @@ import {
 } from './resume.service';
 
 // RESUME SUMMARY CONTROLLERS
-const getResumeSummary = catchAsync(async (req: Request, res: Response) => {
+const getResumeSummary = catchAsync(async (_req: Request, res: Response) => {
   const summary = await resumeSummaryService.getSummary();
 
   sendResponse(res, {
@@ -45,7 +45,7 @@ const createEducation = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-const getAllEducation = catchAsync(async (req: Request, res: Response) => {
+const getAllEducation = catchAsync(async (_req: Request, res: Response) => {
   const education = await educationService.getAllEducation();
 
   sendResponse(res, {
@@ -101,7 +101,7 @@ const createExperience = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-const getAllExperience = catchAsync(async (req: Request, res: Response) => {
+const getAllExperience = catchAsync(async (_req: Request, res: Response) => {
   const experience = await experienceService.getAllExperience();
 
   sendResponse(res, {
@@ -157,7 +157,7 @@ const createAchievement = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-const getAllAchievements = catchAsync(async (req: Request, res: Response) => {
+const getAllAchievements = catchAsync(async (_req: Request, res: Response) => {
   const achievements = await achievementService.getAllAchievements();
 
   sendResponse(res, {
@@ -213,7 +213,7 @@ const createReference = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-const getAllReferences = catchAsync(async (req: Request, res: Response) => {
+const getAllReferences = catchAsync(async (_req: Request, res: Response) => {
   const references = await referenceService.getAllReferences();
 
   sendResponse(res, {

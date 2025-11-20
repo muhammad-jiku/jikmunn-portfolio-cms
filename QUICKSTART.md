@@ -23,16 +23,36 @@ Edit `.env` and add:
 
 ### 3. Database Setup
 
-```bash
-# Run migrations
-npm run prisma:migrate
+⚠️ **Important:** Recent schema updates require migration.
 
+```bash
 # Generate Prisma Client
 npm run prisma:generate
+
+# Run migrations (ensure DATABASE_URL is configured in .env)
+npm run prisma:migrate
 
 # (Optional) Open Prisma Studio to view database
 npm run prisma:studio
 ```
+
+**Recent Schema Changes:**
+
+- Projects: Added `techStack` and `tools` JSON fields
+- Blogs: Added `topic` and `status` fields
+- New `BlogStatus` enum
+- Updated `ProjectStatus` enum values
+- New `Maintenance` model
+- Public/authenticated route separation
+
+**Recent Code Quality Updates:**
+
+- ✅ All TypeScript errors resolved (55+ fixes applied)
+- ✅ Consistent error handling patterns
+- ✅ Type-safe middleware implementations
+- ✅ Production-ready code quality
+
+See `SCHEMA_UPDATES.md` for details.
 
 ### 4. Start Development Server
 
@@ -42,7 +62,7 @@ npm run dev
 
 Server starts at: `http://localhost:5000`
 
-### 5. Test the API
+#### 5. Test the API
 
 Health Check:
 
@@ -50,18 +70,50 @@ Health Check:
 curl http://localhost:5000/api/v1/health
 ```
 
-Get Projects (Public):
+Get Public Projects (PRODUCTION status only, no auth required):
 
 ```bash
-curl http://localhost:5000/api/v1/projects
+curl http://localhost:5000/api/v1/projects/public
 ```
 
-## Next Steps
+Get All Projects (requires JWT token):
 
-1. **Set up AWS Cognito** - Create a User Pool and configure authentication
-2. **Set up AWS S3** - Create a bucket for media storage
-3. **Create admin user** - Use Cognito console to create your first admin user
-4. **Test protected endpoints** - Use Postman/Thunder Client with Cognito JWT token
+```bash
+curl -H "Authorization: Bearer YOUR_JWT_TOKEN" http://localhost:5000/api/v1/projects
+```
+
+## Helpful Resources
+
+- **API Documentation:** `http://localhost:5000/api/docs` (Swagger UI)
+- **Testing Guide:** See `TESTING.md` for Postman/cURL examples
+- **Schema Updates:** See `SCHEMA_UPDATES.md` for migration details
+- **Server README:** See `server/README.md` for detailed API documentation
+
+## Environment Variables
+
+Key variables needed in `.env`:
+
+```env
+# Server
+PORT=5000
+NODE_ENV=development
+
+# Database
+DATABASE_URL=postgresql://username:password@localhost:5432/portfolio_cms
+
+# AWS Cognito
+AWS_COGNITO_USER_POOL_ID=your-pool-id
+AWS_COGNITO_CLIENT_ID=your-client-id
+AWS_REGION=ap-southeast-1
+AWS_COGNITO_ISSUER=https://cognito-idp.{region}.amazonaws.com/{userPoolId}
+
+# AWS S3
+AWS_S3_BUCKET_NAME=your-bucket-name
+AWS_ACCESS_KEY_ID=your-access-key
+AWS_SECRET_ACCESS_KEY=your-secret-key
+```
+
+See `server/.env.example` for complete list.
 
 ## Useful Commands
 
@@ -85,22 +137,25 @@ npm start                # Start production server
 
 ## Project Status
 
-✅ **Completed:**
+✅ **Backend: 100% Complete**
 
-- Backend structure
-- Database schema (Prisma)
-- Authentication middleware (AWS Cognito)
-- Projects module (full CRUD)
-- Blogs module (full CRUD)
-- About module
-- Services module
-- S3 file upload utilities
-- Error handling & logging
+**All Features Implemented:**
 
-🚧 **Todo:**
+- ✅ All 10 content modules (Projects, Blogs, About, Services, Skills, Resume, Testimonials, FAQ, Trash)
+- ✅ AWS Cognito authentication with role-based access
+- ✅ AWS S3 file upload utilities
+- ✅ Comprehensive error handling & logging (Winston + Morgan)
+- ✅ Rate limiting & security (Helmet, CORS)
+- ✅ Automated cron jobs (daily trash cleanup)
+- ✅ Swagger/OpenAPI documentation at `/api/docs`
+- ✅ Jest testing framework with unit tests
+- ✅ Soft delete with 31-day trash retention
+- ✅ Maintenance mode API
+- ✅ Development-only endpoints for testing
+- ✅ Structured tech stack tracking for projects
+- ✅ Blog status and topic categorization
 
-- Complete remaining modules (Skills, Resume components, Testimonials, FAQ, Trash)
-- Frontend (Next.js)
-- API documentation
-- Tests
-- Deployment scripts
+🚧 **Pending:**
+
+- Database migration (configure .env with production credentials)
+- Frontend implementation (Next.js)

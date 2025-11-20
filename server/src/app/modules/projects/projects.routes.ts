@@ -3,31 +3,35 @@ import multer from 'multer';
 import { requireRole, verifyToken } from '../../middleware/auth.middleware';
 import { validate } from '../../middleware/validation.middleware';
 import {
-    createProject,
-    deleteProject,
-    deleteProjectImage,
-    getAllProjects,
-    getProjectById,
-    updateProject,
-    uploadProjectImages,
+  createProject,
+  deleteProject,
+  deleteProjectImage,
+  getAllProjects,
+  getProjectById,
+  updateProject,
+  uploadProjectImages,
 } from './projects.controller';
 import {
-    createProjectSchema,
-    deleteProjectSchema,
-    getProjectByIdSchema,
-    updateProjectSchema,
-    uploadProjectImagesSchema,
+  createProjectSchema,
+  deleteProjectSchema,
+  getProjectByIdSchema,
+  updateProjectSchema,
+  uploadProjectImagesSchema,
 } from './projects.validation';
 
 const router = Router();
 const upload = multer({ storage: multer.memoryStorage() });
 
-// Public routes
+// Public routes - Only PRODUCTION status projects visible
+router.get('/public', getAllProjects);
+router.get('/public/:id', validate(getProjectByIdSchema), getProjectById);
+
+// Protected routes - require authentication (shows ALL projects regardless of status)
+router.use(verifyToken);
+
+// Authenticated users can see all their projects
 router.get('/', getAllProjects);
 router.get('/:id', validate(getProjectByIdSchema), getProjectById);
-
-// Protected routes - require authentication
-router.use(verifyToken);
 
 // Admin/Author routes
 router.post(

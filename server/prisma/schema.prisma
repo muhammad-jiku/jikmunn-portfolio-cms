@@ -25,10 +25,17 @@ enum ProjectType {
 }
 
 enum ProjectStatus {
-    WORKING
+    IN_PROGRESS
     DEVELOPMENT
     PRODUCTION
-    UPDATE
+    UPDATED
+}
+
+enum BlogStatus {
+    IN_PROGRESS
+    UPDATED
+    DEVELOPMENT
+    PRODUCTION
 }
 
 enum UserRole {
@@ -77,6 +84,8 @@ model Project {
     githubClientLink String? // GitHub client repository link
     githubServerLink String? // GitHub server repository link
     videoUrl         String? // Summary video (optional but necessary)
+    techStack        Json? // Tech stack with layers: {"Frontend": "React", "Backend": "Node.js", ...}
+    tools            Json? // Development tools: {"Code Editor": "VS Code", "Version Control": "Git", ...}
     publishedAt      DateTime        @default(now())
     deletedAt        DateTime? // Soft delete timestamp
     createdAt        DateTime        @default(now())
@@ -109,16 +118,18 @@ model ProjectImage {
 // ========== BLOGS MODULE ==========
 
 model Blog {
-    id          String    @id @default(uuid())
+    id          String     @id @default(uuid())
     title       String
     subtitle    String?
-    description String    @db.Text
+    description String     @db.Text
+    topic       String? // Main topic/category of the blog
     tags        String[] // Blog topic tags
+    status      BlogStatus @default(IN_PROGRESS)
     videoUrl    String? // Blog explain video (optional but necessary)
-    publishedAt DateTime  @default(now())
+    publishedAt DateTime   @default(now())
     deletedAt   DateTime? // Soft delete timestamp
-    createdAt   DateTime  @default(now())
-    updatedAt   DateTime  @updatedAt
+    createdAt   DateTime   @default(now())
+    updatedAt   DateTime   @updatedAt
 
     // Relations
     authorId String
@@ -303,4 +314,17 @@ model Trash {
     @@index([entityType])
     @@index([expiresAt])
     @@map("trash")
+}
+
+// ========== MAINTENANCE MODULE ==========
+
+model Maintenance {
+    id               String    @id @default(uuid())
+    isActive         Boolean   @default(false)
+    message          String    @db.Text // Message to display to users
+    estimatedEndTime DateTime? // Optional estimated completion time
+    createdAt        DateTime  @default(now())
+    updatedAt        DateTime  @updatedAt
+
+    @@map("maintenance")
 }

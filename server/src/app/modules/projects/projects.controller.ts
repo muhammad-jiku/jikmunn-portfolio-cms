@@ -1,8 +1,10 @@
-import { Response } from 'express';
-import { sendError, sendSuccess } from '../../../utils/response.util';
-import { deleteFromS3, extractS3KeyFromUrl, uploadMultipleToS3 } from '../../../utils/s3.util';
+import { NextFunction, Response } from 'express';
+import httpStatus from 'http-status';
+import { catchAsync, pick } from '../../../utils/helpers.util';
+import { sendResponse } from '../../../utils/response.util';
+import { deleteFromS3, uploadMultipleToS3 } from '../../../utils/s3.util';
 import { AuthRequest } from '../../middleware/auth.middleware';
-import { asyncHandler } from '../../middleware/errorHandler.middleware';
+import { projectFilterableFields } from './projects.constants';
 import { ProjectService } from './projects.service';
 
 const projectService = new ProjectService();
@@ -22,7 +24,7 @@ export const createProject = catchAsync(
 
       const result = await projectService.createProject(projectData);
 
-      sendResponse<Project>(res, {
+      sendResponse(res, {
         statusCode: httpStatus.CREATED,
         success: true,
         message: 'Project created successfully!',
@@ -43,9 +45,16 @@ export const getAllProjects = catchAsync(
       const filters = pick(req.query, projectFilterableFields);
       const paginationOptions = pick(req.query, ['page', 'limit', 'sortBy', 'sortOrder']);
 
-      const result = await projectService.getAllProjects(filters, paginationOptions);
+      // Check if user is authenticated
+      const isAuthenticated = !!req.user;
 
-      sendResponse<Project[]>(res, {
+      const result = await projectService.getAllProjects(
+        filters,
+        paginationOptions,
+        isAuthenticated
+      );
+
+      sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
         message: 'Projects retrieved successfully!',
@@ -65,9 +74,13 @@ export const getProjectById = catchAsync(
   async (req: AuthRequest, res: Response, next: NextFunction) => {
     try {
       const { id } = req.params;
-      const result = await projectService.getProjectById(id);
 
-      sendResponse<Project>(res, {
+      // Check if user is authenticated
+      const isAuthenticated = !!req.user;
+
+      const result = await projectService.getProjectById(id, isAuthenticated);
+
+      sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
         message: 'Project retrieved successfully!',
@@ -82,60 +95,93 @@ export const getProjectById = catchAsync(
 /**
  * Update project
  */
-export const updateProject = asyncHandler(async (req: AuthRequest, res: Response) => {
+export const updateProject = catchAsync(async (req: AuthRequest, res: Response) => {
   const { id } = req.params;
 
-  const project = await projectService.getProjectById(id);
+  const project = await projectService.getProjectById(id, true);
 
   if (!project) {
-    return sendError(res, 'Project not found', 404);
+    return sendResponse(res, {
+      statusCode: httpStatus.NOT_FOUND,
+      success: false,
+      message: 'Project not found',
+    });
   }
 
   const updatedProject = await projectService.updateProject(id, req.body);
 
-  return sendSuccess(res, updatedProject, 'Project updated successfully');
+  return sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Project updated successfully',
+    data: updatedProject,
+  });
 });
 
 /**
  * Delete project (soft delete)
  */
-export const deleteProject = asyncHandler(async (req: AuthRequest, res: Response) => {
+export const deleteProject = catchAsync(async (req: AuthRequest, res: Response) => {
   const { id } = req.params;
 
-  const project = await projectService.getProjectById(id);
+  const project = await projectService.getProjectById(id, true);
 
   if (!project) {
-    return sendError(res, 'Project not found', 404);
+    return sendResponse(res, {
+      statusCode: httpStatus.NOT_FOUND,
+      success: false,
+      message: 'Project not found',
+    });
   }
 
   await projectService.deleteProject(id);
 
-  return sendSuccess(res, null, 'Project moved to trash successfully');
+  return sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Project moved to trash successfully',
+  });
 });
 
 /**
  * Upload project images
  */
-export const uploadProjectImages = asyncHandler(async (req: AuthRequest, res: Response) => {
+export const uploadProjectImages = catchAsync(async (req: AuthRequest, res: Response) => {
   const { id } = req.params;
   const files = req.files as Express.Multer.File[];
 
   if (!files || files.length === 0) {
-    return sendError(res, 'No images provided', 400);
+    return sendResponse(res, {
+      statusCode: httpStatus.BAD_REQUEST,
+      success: false,
+      message: 'No images provided',
+    });
   }
 
   if (files.length < 4) {
-    return sendError(res, 'At least 4 images are required', 400);
+    return sendResponse(res, {
+      statusCode: httpStatus.BAD_REQUEST,
+      success: false,
+      message: 'At least 4 images are required',
+    });
   }
 
   if (files.length > 10) {
-    return sendError(res, 'Maximum 10 images allowed', 400);
+    return sendResponse(res, {
+      statusCode: httpStatus.BAD_REQUEST,
+      success: false,
+      message: 'Maximum 10 images allowed',
+    });
   }
 
-  const project = await projectService.getProjectById(id);
+  const project = await projectService.getProjectById(id, true);
 
   if (!project) {
-    return sendError(res, 'Project not found', 404);
+    return sendResponse(res, {
+      statusCode: httpStatus.NOT_FOUND,
+      success: false,
+      message: 'Project not found',
+    });
   }
 
   // Upload to S3
@@ -149,28 +195,40 @@ export const uploadProjectImages = asyncHandler(async (req: AuthRequest, res: Re
 
   await projectService.addProjectImages(id, images);
 
-  return sendSuccess(res, images, 'Project images uploaded successfully');
+  return sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Project images uploaded successfully',
+    data: images,
+  });
 });
 
 /**
  * Delete project image
  */
-export const deleteProjectImage = asyncHandler(async (req: AuthRequest, res: Response) => {
+export const deleteProjectImage = catchAsync(async (req: AuthRequest, res: Response) => {
   const { imageId } = req.params;
 
   const images = await projectService.getProjectImages(req.params.projectId);
   const image = images.find(img => img.id === imageId);
 
   if (!image) {
-    return sendError(res, 'Image not found', 404);
+    return sendResponse(res, {
+      statusCode: httpStatus.NOT_FOUND,
+      success: false,
+      message: 'Image not found',
+    });
   }
 
   // Delete from S3
-  const s3Key = extractS3KeyFromUrl(image.url);
-  await deleteFromS3(s3Key);
+  await deleteFromS3(image.url);
 
   // Delete from database
   await projectService.deleteProjectImage(imageId);
 
-  return sendSuccess(res, null, 'Project image deleted successfully');
+  return sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Project image deleted successfully',
+  });
 });
