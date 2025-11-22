@@ -1,0 +1,167 @@
+[
+  {
+    "title": "E-Commerce Platform",
+    "subtitle": "Full-stack online shopping solution",
+    "description": [
+      "Built responsive user interface with React and TypeScript",
+      "Implemented secure payment integration with Stripe API",
+      "Developed RESTful API with Node.js and Express",
+      "Created admin dashboard for inventory management",
+      "Integrated real-time notifications using Socket.io"
+    ],
+    "category": "WEB_APPLICATION",
+    "type": "ADVANCED",
+    "status": "PRODUCTION",
+    "documentationUrl": "https://github.com/username/ecommerce-docs",
+    "liveLink": "https://ecommerce-demo.com",
+    "githubClientLink": "https://github.com/username/ecommerce-client",
+    "githubServerLink": "https://github.com/username/ecommerce-server",
+    "techStack": {
+      "Frontend": "React 18, TypeScript, Tailwind CSS",
+      "Backend": "Node.js, Express.js",
+      "Database": "PostgreSQL with Prisma ORM",
+      "Authentication": "JWT with bcrypt",
+      "Payments": "Stripe API",
+      "File Storage": "AWS S3",
+      "Deployment": "AWS EC2, Vercel"
+    },
+    "tools": {
+      "Code Editor": "VS Code",
+      "Version Control": "Git & GitHub",
+      "API Testing": "Postman",
+      "Database GUI": "Prisma Studio",
+      "Design": "Figma",
+      "Project Management": "Jira"
+    },
+    "videoUrl": "https://sample-videos.com/ecommerce-demo.mp4"
+  },
+  {
+    "title": "Task Management App",
+    "subtitle": "Collaborative project management tool",
+    "description": [
+      "Designed intuitive drag-and-drop interface for task organization",
+      "Implemented real-time collaboration features",
+      "Built RESTful API with role-based access control",
+      "Created automated email notifications for task updates",
+      "Integrated calendar view for deadline tracking"
+    ],
+    "category": "WEB_APPLICATION",
+    "type": "INTERMEDIATE",
+    "status": "PRODUCTION",
+    "documentationUrl": "https://github.com/username/taskmanager-docs",
+    "liveLink": "https://taskmanager-demo.com",
+    "githubClientLink": "https://github.com/username/taskmanager-client",
+    "githubServerLink": "https://github.com/username/taskmanager-server",
+    "techStack": {
+      "Frontend": "Next.js 14, TypeScript, shadcn/ui",
+      "Backend": "Node.js, Express.js",
+      "Database": "MongoDB with Mongoose",
+      "Authentication": "NextAuth.js with OAuth",
+      "Real-time": "Socket.io",
+      "Deployment": "Vercel, MongoDB Atlas"
+    },
+    "tools": {
+      "Code Editor": "VS Code",
+      "Version Control": "Git & GitHub",
+      "API Testing": "Thunder Client",
+      "Database GUI": "MongoDB Compass",
+      "Design": "Figma"
+    }
+  },
+  {
+    "title": "Fitness Tracking Mobile App",
+    "subtitle": "Track workouts and nutrition goals",
+    "description": [
+      "Developed cross-platform mobile app with React Native",
+      "Integrated device sensors for step counting and heart rate",
+      "Created workout planner with exercise library",
+      "Built calorie tracker with barcode scanning",
+      "Implemented progress charts and achievement system"
+    ],
+    "category": "MOBILE_APP_APPLICATION",
+    "type": "ADVANCED",
+    "status": "DEVELOPMENT",
+    "documentationUrl": "https://github.com/username/fitness-docs",
+    "githubClientLink": "https://github.com/username/fitness-app",
+    "githubServerLink": "https://github.com/username/fitness-api",
+    "techStack": {
+      "Mobile": "React Native, Expo",
+      "Backend": "Node.js, Express.js",
+      "Database": "PostgreSQL",
+      "Authentication": "Firebase Auth",
+      "Storage": "Firebase Storage",
+      "Charts": "Victory Native"
+    },
+    "tools": {
+      "Code Editor": "VS Code",
+      "Version Control": "Git & GitHub",
+      "Testing": "Jest, React Native Testing Library",
+      "Design": "Adobe XD"
+    },
+    "videoUrl": "https://sample-videos.com/fitness-demo.mp4"
+  },
+  {
+    "title": "Portfolio Website",
+    "subtitle": "Personal portfolio and blog",
+    "description": [
+      "Designed modern, responsive portfolio website",
+      "Implemented server-side rendering for SEO optimization",
+      "Created blog system with markdown support",
+      "Built contact form with email integration",
+      "Added dark mode theme toggle"
+    ],
+    "category": "WEB_APPLICATION",
+    "type": "BEGINNER",
+    "status": "PRODUCTION",
+    "documentationUrl": "https://github.com/username/portfolio-docs",
+    "liveLink": "https://johnsmith.dev",
+    "githubClientLink": "https://github.com/username/portfolio",
+    "techStack": {
+      "Frontend": "Next.js 14, TypeScript, Tailwind CSS",
+      "Content": "MDX for blog posts",
+      "Deployment": "Vercel",
+      "Analytics": "Google Analytics",
+      "Email": "SendGrid API"
+    },
+    "tools": {
+      "Code Editor": "VS Code",
+      "Version Control": "Git & GitHub",
+      "Design": "Figma"
+    }
+  },
+  {
+    "title": "Real Estate Platform",
+    "subtitle": "Property listing and management system",
+    "description": [
+      "Built property search with advanced filters and map integration",
+      "Implemented virtual tour feature using 360° images",
+      "Created agent dashboard for listing management",
+      "Developed appointment scheduling system",
+      "Integrated mortgage calculator and comparison tools"
+    ],
+    "category": "WEB_APPLICATION",
+    "type": "SUPER_ADVANCED",
+    "status": "IN_PROGRESS",
+    "documentationUrl": "https://github.com/username/realestate-docs",
+    "githubClientLink": "https://github.com/username/realestate-client",
+    "githubServerLink": "https://github.com/username/realestate-server",
+    "techStack": {
+      "Frontend": "React, TypeScript, Material-UI",
+      "Backend": "Node.js, Express.js, GraphQL",
+      "Database": "PostgreSQL with PostGIS",
+      "Maps": "Mapbox GL JS",
+      "Search": "Elasticsearch",
+      "File Storage": "AWS S3",
+      "Deployment": "AWS EC2, CloudFront"
+    },
+    "tools": {
+      "Code Editor": "VS Code",
+      "Version Control": "Git & GitLab",
+      "API Testing": "Postman, GraphQL Playground",
+      "Database GUI": "DBeaver",
+      "Design": "Sketch",
+      "Project Management": "Asana"
+    },
+    "videoUrl": "https://sample-videos.com/realestate-demo.mp4"
+  }
+]

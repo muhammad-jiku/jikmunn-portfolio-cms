@@ -1,35 +1,57 @@
 import { Router } from 'express';
 import multer from 'multer';
 import { requireRole, verifyToken } from '../../middleware/auth.middleware';
+import { validate } from '../../middleware/validation.middleware';
+import { BlogControllers } from './blogs.controller';
 import {
-  createBlog,
-  deleteBlog,
-  getAllBlogs,
-  getBlogById,
-  updateBlog,
-  uploadBlogImages,
-} from './blogs.controller';
+  createBlogSchema,
+  deleteBlogSchema,
+  getBlogByIdSchema,
+  updateBlogSchema,
+  uploadBlogImagesSchema,
+} from './blogs.validation';
 
 const router = Router();
 const upload = multer({ storage: multer.memoryStorage() });
 
 // Public routes - Only PRODUCTION status blogs visible
-router.get('/public', getAllBlogs);
-router.get('/public/:id', getBlogById);
+router.route('/public').get(BlogControllers.getAllBlogs);
+
+router.route('/public/:id').get(validate(getBlogByIdSchema), BlogControllers.getBlogById);
 
 // Protected routes - require authentication (shows ALL blogs regardless of status)
 router.use(verifyToken);
 
-router.get('/', getAllBlogs);
-router.get('/:id', getBlogById);
-router.post('/', requireRole('ADMIN', 'SUPER_ADMIN', 'AUTHOR'), createBlog);
-router.put('/:id', requireRole('ADMIN', 'SUPER_ADMIN', 'AUTHOR'), updateBlog);
-router.delete('/:id', requireRole('ADMIN', 'SUPER_ADMIN'), deleteBlog);
-router.post(
-  '/:id/images',
-  requireRole('ADMIN', 'SUPER_ADMIN', 'AUTHOR'),
-  upload.array('images', 10),
-  uploadBlogImages
-);
+router
+  .route('/')
+  .get(BlogControllers.getAllBlogs)
+  .post(
+    requireRole('ADMIN', 'SUPER_ADMIN', 'AUTHOR'),
+    validate(createBlogSchema),
+    BlogControllers.createBlog
+  );
 
-export default router;
+router
+  .route('/:id')
+  .get(validate(getBlogByIdSchema), BlogControllers.getBlogById)
+  .put(
+    requireRole('ADMIN', 'SUPER_ADMIN', 'AUTHOR'),
+    validate(updateBlogSchema),
+    BlogControllers.updateBlog
+  )
+  .delete(
+    requireRole('ADMIN', 'SUPER_ADMIN'),
+    validate(deleteBlogSchema),
+    BlogControllers.deleteBlog
+  );
+
+router
+  .route('/:id/images')
+  .post(
+    requireRole('ADMIN', 'SUPER_ADMIN', 'AUTHOR'),
+    validate(uploadBlogImagesSchema),
+    upload.array('images', 10),
+    BlogControllers.uploadBlogImages
+  );
+
+export const BlogRoutes = router;

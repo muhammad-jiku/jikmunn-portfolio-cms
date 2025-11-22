@@ -15,11 +15,26 @@ export const createTestimonialSchema = z.object({
 });
 
 export const updateTestimonialSchema = z.object({
+  params: z.object({
+    id: z.string().uuid(),
+  }),
   body: z.object({
     name: z.string().min(1, 'Name cannot be empty').optional(),
     jobPosition: z.string().min(1, 'Job position cannot be empty').optional(),
     testimonial: z.string().min(10, 'Testimonial must be at least 10 characters').optional(),
     platform: z.enum(['UPWORK', 'LINKEDIN']).optional(),
     imageUrl: z.string().url('Invalid image URL').optional().nullable(),
+  }),
+});
+
+export const getTestimonialByIdSchema = z.object({
+  params: z.object({
+    id: z.string().uuid(),
+  }),
+});
+
+export const deleteTestimonialSchema = z.object({
+  params: z.object({
+    id: z.string().uuid(),
   }),
 });

@@ -1,12 +1,28 @@
 import { Router } from 'express';
 import { requireRole, verifyToken } from '../../middleware/auth.middleware';
-import { getAbout, resetAbout, updateAbout } from './about.controller';
+import { validate } from '../../middleware/validation.middleware';
+import { AboutControllers } from './about.controller';
+import { resetAboutSchema, updateAboutSchema } from './about.validation';
 
 const router = Router();
 
-router.get('/', getAbout);
-router.use(verifyToken);
-router.put('/', requireRole('ADMIN', 'SUPER_ADMIN'), updateAbout);
-router.post('/reset', requireRole('ADMIN', 'SUPER_ADMIN'), resetAbout);
+router
+  .route('/')
+  .get(AboutControllers.getAbout)
+  .put(
+    verifyToken,
+    requireRole('ADMIN', 'SUPER_ADMIN'),
+    validate(updateAboutSchema),
+    AboutControllers.updateAbout
+  );
 
-export default router;
+router
+  .route('/reset')
+  .post(
+    verifyToken,
+    requireRole('ADMIN', 'SUPER_ADMIN'),
+    validate(resetAboutSchema),
+    AboutControllers.resetAbout
+  );
+
+export const AboutRoutes = router;

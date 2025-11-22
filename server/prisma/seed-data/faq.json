@@ -1,0 +1,52 @@
+[
+  {
+    "question": "What technologies do you specialize in?",
+    "answer": "I specialize in modern full-stack development with expertise in React, Next.js, TypeScript, Node.js, Express, PostgreSQL, MongoDB, Prisma ORM, AWS, and Docker. I'm proficient in both frontend and backend development, with a focus on building scalable, maintainable applications.",
+    "order": 1
+  },
+  {
+    "question": "How long does it take to complete a typical project?",
+    "answer": "Project timelines vary based on complexity and requirements. A simple website takes 2-4 weeks, a medium-complexity web application takes 6-12 weeks, and enterprise-level applications can take 3-6 months. I provide detailed timelines during the discovery phase and maintain transparent communication throughout development.",
+    "order": 2
+  },
+  {
+    "question": "Do you offer ongoing maintenance and support?",
+    "answer": "Yes! I offer flexible maintenance packages including bug fixes, security updates, feature enhancements, performance monitoring, and technical support. Maintenance plans can be customized based on your needs, from basic monthly support to comprehensive 24/7 coverage.",
+    "order": 3
+  },
+  {
+    "question": "What is your development process?",
+    "answer": "I follow an agile methodology with these phases: 1) Discovery & Planning - understanding requirements and defining scope, 2) Design & Prototyping - creating wireframes and mockups, 3) Development - iterative development with regular demos, 4) Testing - comprehensive QA and user acceptance testing, 5) Deployment - production release with monitoring, 6) Support - ongoing maintenance and updates.",
+    "order": 4
+  },
+  {
+    "question": "Can you work with my existing team?",
+    "answer": "Absolutely! I have extensive experience collaborating with development teams, designers, product managers, and stakeholders. I'm comfortable using tools like Jira, Slack, GitHub, and participating in daily standups, sprint planning, and code reviews. I adapt to your team's workflow and communication style.",
+    "order": 5
+  },
+  {
+    "question": "Do you provide source code and documentation?",
+    "answer": "Yes, upon project completion, you receive full ownership of the source code, comprehensive documentation including API docs, deployment guides, and architecture diagrams. I also provide training sessions for your team if needed to ensure smooth handover and long-term maintainability.",
+    "order": 6
+  },
+  {
+    "question": "What are your payment terms?",
+    "answer": "For fixed-price projects: 30% upfront, 40% at milestone completion, and 30% upon final delivery. For hourly contracts: weekly or bi-weekly invoicing. I accept payments via bank transfer, PayPal, Stripe, and cryptocurrency. Detailed invoices with time tracking are provided for all work.",
+    "order": 7
+  },
+  {
+    "question": "How do you ensure code quality and security?",
+    "answer": "I follow industry best practices including: writing clean, maintainable code with comprehensive comments, implementing automated testing (unit, integration, E2E), conducting security audits and vulnerability scanning, following OWASP guidelines for secure coding, using TypeScript for type safety, performing code reviews, and maintaining detailed documentation. All code is version-controlled with Git.",
+    "order": 8
+  },
+  {
+    "question": "Can you help with cloud deployment and DevOps?",
+    "answer": "Yes! I have expertise in AWS, Azure, Vercel, and other cloud platforms. Services include: setting up CI/CD pipelines, containerization with Docker, infrastructure as code (Terraform), monitoring and logging setup, load balancing and auto-scaling, database optimization and backups, and security configurations. I can handle the entire DevOps lifecycle.",
+    "order": 9
+  },
+  {
+    "question": "What makes you different from other developers?",
+    "answer": "Beyond technical skills, I bring: business understanding to align solutions with goals, excellent communication and transparency, proactive problem-solving and suggestions, commitment to deadlines and quality, experience with diverse industries and project types, post-launch support and mentorship, and a passion for staying current with emerging technologies. I'm not just a developer - I'm a technology partner invested in your success.",
+    "order": 10
+  }
+]

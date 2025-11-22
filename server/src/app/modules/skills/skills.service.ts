@@ -1,85 +1,138 @@
-import { Skill } from '@prisma/client';
+import { Prisma } from '@prisma/client';
 import httpStatus from 'http-status';
 import prisma from '../../../config/database.config';
 import { addDays } from '../../../utils/helpers.util';
+import { paginationHelpers } from '../../../utils/pagination.util';
+import { IGenericResponse, IPaginationOptions } from '../../../utils/types.util';
 import { ApiError } from '../../middleware/errorHandler.middleware';
+import { skillSearchableFields } from './skills.constants';
+import { ICreateSkill, ISkill, ISkillFilters, IUpdateSkill } from './skills.interface';
 
-export class SkillService {
-  async createSkill(data: { name: string; progress: number; iconUrl: string }): Promise<Skill> {
-    const skill = await prisma.skill.create({ data });
-    return skill;
+const createSkill = async (data: ICreateSkill): Promise<ISkill> => {
+  const result = await prisma.skill.create({
+    data: {
+      ...data,
+      iconUrl: data.iconUrl || '',
+    },
+  });
+  return result as ISkill;
+};
+
+const getAllSkills = async (
+  filters: ISkillFilters,
+  paginationOptions: IPaginationOptions
+): Promise<IGenericResponse<ISkill[]>> => {
+  const { searchTerm } = filters;
+  const { page, limit, skip, sortBy, sortOrder } =
+    paginationHelpers.calculatePagination(paginationOptions);
+
+  const andConditions = [];
+
+  andConditions.push({
+    deletedAt: null,
+  });
+
+  if (searchTerm) {
+    andConditions.push({
+      OR: skillSearchableFields.map(field => ({
+        [field]: {
+          contains: searchTerm,
+          mode: 'insensitive' as Prisma.QueryMode,
+        },
+      })),
+    });
   }
 
-  async getAllSkills(): Promise<Skill[]> {
-    const skills = await prisma.skill.findMany({
-      where: { deletedAt: null },
-      orderBy: { createdAt: 'desc' },
-    });
-    return skills;
+  const whereConditions: Prisma.SkillWhereInput =
+    andConditions.length > 0 ? { AND: andConditions as any } : {};
+
+  const sortConditions: { [key: string]: 'asc' | 'desc' } = {};
+  if (sortBy && sortOrder) {
+    sortConditions[sortBy] = sortOrder;
   }
 
-  async getSkillById(id: string): Promise<Skill | null> {
-    const skill = await prisma.skill.findFirst({
-      where: { id, deletedAt: null },
-    });
+  const result = await prisma.skill.findMany({
+    where: whereConditions,
+    skip,
+    take: limit,
+    orderBy: sortConditions.length ? sortConditions : { createdAt: 'desc' },
+  });
 
-    if (!skill) {
-      throw new ApiError(httpStatus.NOT_FOUND, 'Skill not found');
-    }
+  const total = await prisma.skill.count({
+    where: whereConditions,
+  });
 
-    return skill;
+  return {
+    meta: {
+      page,
+      limit,
+      total,
+    },
+    data: result as any,
+  };
+};
+
+const getSkillById = async (id: string): Promise<ISkill> => {
+  const result = await prisma.skill.findFirst({
+    where: { id, deletedAt: null },
+  });
+
+  if (!result) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Skill not found');
   }
 
-  async updateSkill(
-    id: string,
-    data: Partial<{ name: string; progress: number; iconUrl: string }>
-  ): Promise<Skill> {
-    // Check if skill exists
-    const existingSkill = await prisma.skill.findFirst({
-      where: { id, deletedAt: null },
-    });
+  return result as ISkill;
+};
 
-    if (!existingSkill) {
-      throw new ApiError(httpStatus.NOT_FOUND, 'Skill not found');
-    }
+const updateSkill = async (id: string, data: IUpdateSkill): Promise<ISkill> => {
+  const existingSkill = await prisma.skill.findFirst({
+    where: { id, deletedAt: null },
+  });
 
-    const skill = await prisma.skill.update({
-      where: { id },
-      data,
-    });
-
-    return skill;
+  if (!existingSkill) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Skill not found');
   }
 
-  async deleteSkill(id: string): Promise<Skill> {
-    // Check if skill exists
-    const existingSkill = await prisma.skill.findFirst({
-      where: { id, deletedAt: null },
-    });
+  const result = await prisma.skill.update({
+    where: { id },
+    data,
+  });
 
-    if (!existingSkill) {
-      throw new ApiError(httpStatus.NOT_FOUND, 'Skill not found');
-    }
+  return result as ISkill;
+};
 
-    // Soft delete
-    const skill = await prisma.skill.findUnique({ where: { id } });
-    const deleted = await prisma.skill.update({
-      where: { id },
-      data: { deletedAt: new Date() },
-    });
+const deleteSkill = async (id: string): Promise<ISkill> => {
+  const existingSkill = await prisma.skill.findFirst({
+    where: { id, deletedAt: null },
+  });
 
-    // Add to trash
-    await prisma.trash.create({
-      data: {
-        entityType: 'skills',
-        entityId: id,
-        entityData: (skill || {}) as any,
-        expiresAt: addDays(new Date(), 31),
-      },
-    });
-
-    return deleted;
+  if (!existingSkill) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Skill not found');
   }
-}
 
-export const skillService = new SkillService();
+  const skill = await prisma.skill.findUnique({ where: { id } });
+
+  const deleted = await prisma.skill.update({
+    where: { id },
+    data: { deletedAt: new Date() },
+  });
+
+  await prisma.trash.create({
+    data: {
+      entityType: 'skills',
+      entityId: id,
+      entityData: (skill || {}) as any,
+      expiresAt: addDays(new Date(), 31),
+    },
+  });
+
+  return deleted as ISkill;
+};
+
+export const SkillServices = {
+  createSkill,
+  getAllSkills,
+  getSkillById,
+  updateSkill,
+  deleteSkill,
+};

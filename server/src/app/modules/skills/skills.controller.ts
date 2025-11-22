@@ -1,65 +1,98 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import httpStatus from 'http-status';
-import { catchAsync } from '../../../utils/helpers.util';
+import { catchAsync, pick } from '../../../utils/helpers.util';
 import { sendResponse } from '../../../utils/response.util';
-import { skillService } from './skills.service';
+import { paginationFields } from '../../../utils/types.util';
+import { skillFilterableFields } from './skills.constants';
+import { ISkill } from './skills.interface';
+import { SkillServices } from './skills.service';
 
-const createSkill = catchAsync(async (req: Request, res: Response) => {
-  const skill = await skillService.createSkill(req.body);
+const createSkill = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const result = await SkillServices.createSkill(req.body);
 
-  sendResponse(res, {
-    statusCode: httpStatus.CREATED,
-    success: true,
-    message: 'Skill created successfully',
-    data: skill,
-  });
+    sendResponse<ISkill>(res, {
+      statusCode: httpStatus.CREATED,
+      success: true,
+      message: 'Skill created successfully!',
+      data: result,
+    });
+  } catch (error) {
+    return next(error);
+  }
 });
 
-const getAllSkills = catchAsync(async (_req: Request, res: Response) => {
-  const skills = await skillService.getAllSkills();
+const getAllSkills = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const filters = pick(req.query, skillFilterableFields);
+    const paginationOptions = pick(req.query, paginationFields);
 
-  sendResponse(res, {
-    statusCode: httpStatus.OK,
-    success: true,
-    message: 'Skills retrieved successfully',
-    data: skills,
-  });
+    const result = await SkillServices.getAllSkills(filters, paginationOptions);
+
+    sendResponse<ISkill[]>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Skills retrieved successfully!',
+      meta: result.meta,
+      data: result.data,
+    });
+  } catch (error) {
+    return next(error);
+  }
 });
 
-const getSkillById = catchAsync(async (req: Request, res: Response) => {
-  const skill = await skillService.getSkillById(req.params.id);
+const getSkillById = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { id } = req.params;
 
-  sendResponse(res, {
-    statusCode: httpStatus.OK,
-    success: true,
-    message: 'Skill retrieved successfully',
-    data: skill,
-  });
+    const result = await SkillServices.getSkillById(id);
+
+    sendResponse<ISkill>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Skill retrieved successfully!',
+      data: result,
+    });
+  } catch (error) {
+    return next(error);
+  }
 });
 
-const updateSkill = catchAsync(async (req: Request, res: Response) => {
-  const skill = await skillService.updateSkill(req.params.id, req.body);
+const updateSkill = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { id } = req.params;
 
-  sendResponse(res, {
-    statusCode: httpStatus.OK,
-    success: true,
-    message: 'Skill updated successfully',
-    data: skill,
-  });
+    const result = await SkillServices.updateSkill(id, req.body);
+
+    sendResponse<ISkill>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Skill updated successfully!',
+      data: result,
+    });
+  } catch (error) {
+    return next(error);
+  }
 });
 
-const deleteSkill = catchAsync(async (req: Request, res: Response) => {
-  await skillService.deleteSkill(req.params.id);
+const deleteSkill = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { id } = req.params;
 
-  sendResponse(res, {
-    statusCode: httpStatus.OK,
-    success: true,
-    message: 'Skill deleted successfully',
-    data: null,
-  });
+    const result = await SkillServices.deleteSkill(id);
+
+    sendResponse<ISkill>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Skill deleted successfully!',
+      data: result,
+    });
+  } catch (error) {
+    return next(error);
+  }
 });
 
-export const SkillController = {
+export const SkillControllers = {
   createSkill,
   getAllSkills,
   getSkillById,

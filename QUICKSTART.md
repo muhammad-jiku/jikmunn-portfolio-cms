@@ -47,14 +47,111 @@ npm run prisma:studio
 
 **Recent Code Quality Updates:**
 
-- ✅ All TypeScript errors resolved (55+ fixes applied)
+- ✅ All TypeScript errors resolved
+- ✅ Eliminated duplicate code (ApiError, pagination helpers, interfaces)
+- ✅ Consolidated all utilities into `utils/` directory
+- ✅ Removed unused `constants/`, `helpers/`, `interfaces/`, `errors/` directories
+- ✅ Updated all import paths to use centralized `utils/`
+- ✅ TypeScript compilation: 100% clean
+
+### 4. Seed Database with Test Data
+
+Populate your database with sample data:
+
+```bash
+npm run seed
+```
+
+This will populate your database with test data from `server/prisma/seed-data/`:
+
+- ✅ about.json
+- ✅ blogs.json
+- ✅ faq.json
+- ✅ projects.json
+- ✅ resume.json (summary, education, experience, achievements, references)
+- ✅ services.json
+- ✅ skills.json
+- ✅ testimonials.json
+
+The seed script (`server/prisma/seed.ts`) automatically:
+
+- Cleans existing data
+- Loads all JSON files
+- Creates database records with relationships
+- Provides detailed console output
 - ✅ Consistent error handling patterns
 - ✅ Type-safe middleware implementations
 - ✅ Production-ready code quality
 
 See `SCHEMA_UPDATES.md` for details.
 
-### 4. Start Development Server
+### 5. Start Development Server
+
+```bash
+npm run dev
+```
+
+Server runs on: `http://localhost:5000`
+
+Test it:
+
+```bash
+curl http://localhost:5000/api/v1/health
+```
+
+### 6. Test API Endpoints
+
+**Three Options:**
+
+**Option 1: Swagger UI (Recommended)** 🌟
+
+```bash
+# Server should be running
+# Open in browser: http://localhost:5000/api/docs
+```
+
+**Option 2: Postman**
+
+1. Import endpoints from Swagger documentation
+2. Set up environment with JWT token
+3. Test endpoints manually
+
+**Option 3: Automated Tests**
+
+```bash
+npm run test              # Run all tests
+npm run test:coverage     # With coverage report
+npm run test:watch        # Watch mode
+```
+
+📖 **For detailed testing guide, see [TESTING.md](./TESTING.md)**
+
+---
+
+## 🚀 Quick Testing Workflow
+
+1. **Seed database**: `npm run seed`
+2. **Start server**: `npm run dev`
+3. **Open Swagger**: http://localhost:5000/api/docs
+4. **Test public endpoints** (no auth needed):
+   - GET /api/v1/projects/public
+   - GET /api/v1/blogs/public
+   - GET /api/v1/about
+   - GET /api/v1/skills
+   - GET /api/v1/services
+5. **Get JWT token** from AWS Cognito
+6. **Authorize in Swagger** (click 🔒 button, enter: `Bearer YOUR_TOKEN`)
+7. **Test protected endpoints**:
+   - POST /api/v1/projects
+   - PUT /api/v1/projects/{id}
+   - DELETE /api/v1/projects/{id}
+8. **Test trash system**:
+   - GET /api/v1/trash
+   - POST /api/v1/trash/{id}/restore
+
+---
+
+## 🛠️ Development Commands
 
 ```bash
 npm run dev
@@ -120,11 +217,17 @@ See `server/.env.example` for complete list.
 ```bash
 # Development
 npm run dev              # Start dev server with hot reload
+npm run seed             # Seed database with test data
 
 # Database
 npm run prisma:migrate   # Run migrations
 npm run prisma:studio    # Open database GUI
 npm run prisma:generate  # Generate Prisma Client
+
+# Testing
+npm run test             # Run all tests
+npm run test:watch       # Run tests in watch mode
+npm run test:coverage    # Run tests with coverage
 
 # Code Quality
 npm run lint             # Run ESLint

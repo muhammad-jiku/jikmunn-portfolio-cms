@@ -1,254 +1,244 @@
 import { Prisma } from '@prisma/client';
+import httpStatus from 'http-status';
 import prisma from '../../../config/database.config';
 import { addDays } from '../../../utils/helpers.util';
+import { paginationHelpers } from '../../../utils/pagination.util';
+import { IGenericResponse, IPaginationOptions } from '../../../utils/types.util';
+import { ApiError } from '../../middleware/errorHandler.middleware';
+import { projectSearchableFields } from './projects.constants';
+import { ICreateProject, IProject, IProjectFilters, IUpdateProject } from './projects.interface';
 
-interface CreateProjectData {
-  title: string;
-  subtitle?: string;
-  description: string[];
-  category: 'WEB_APPLICATION' | 'MOBILE_APP_APPLICATION';
-  type: 'BEGINNER' | 'INTERMEDIATE' | 'ADVANCED' | 'SUPER_ADVANCED';
-  status: 'IN_PROGRESS' | 'DEVELOPMENT' | 'PRODUCTION' | 'UPDATED';
-  documentationUrl?: string;
-  liveLink?: string;
-  githubClientLink?: string;
-  githubServerLink?: string;
-  videoUrl?: string;
-  techStack?: Record<string, string>;
-  tools?: Record<string, string>;
-  authorId: string;
-}
-
-interface UpdateProjectData {
-  title?: string;
-  subtitle?: string;
-  description?: string[];
-  category?: 'WEB_APPLICATION' | 'MOBILE_APP_APPLICATION';
-  type?: 'BEGINNER' | 'INTERMEDIATE' | 'ADVANCED' | 'SUPER_ADVANCED';
-  status?: 'IN_PROGRESS' | 'DEVELOPMENT' | 'PRODUCTION' | 'UPDATED';
-  documentationUrl?: string;
-  liveLink?: string;
-  githubClientLink?: string;
-  githubServerLink?: string;
-  videoUrl?: string;
-  techStack?: Record<string, string>;
-  tools?: Record<string, string>;
-}
-
-interface IProjectFilterRequest {
-  searchTerm?: string;
-  category?: string;
-  type?: string;
-  status?: string;
-}
-
-interface IPaginationOptions {
-  page?: number;
-  limit?: number;
-  sortBy?: string;
-  sortOrder?: 'asc' | 'desc';
-}
-
-export class ProjectService {
-  /**
-   * Create a new project
-   */
-  async createProject(data: CreateProjectData) {
-    return await prisma.project.create({
-      data,
-      include: {
-        author: {
-          select: {
-            id: true,
-            name: true,
-            email: true,
-          },
+const createProject = async (data: ICreateProject): Promise<IProject> => {
+  const result = await prisma.project.create({
+    data,
+    include: {
+      author: {
+        select: {
+          id: true,
+          name: true,
+          email: true,
         },
-        images: true,
       },
+      images: true,
+    },
+  });
+
+  return result as any;
+};
+
+const getAllProjects = async (
+  filters: IProjectFilters,
+  paginationOptions: IPaginationOptions,
+  isAuthenticated: boolean = false
+): Promise<IGenericResponse<IProject[]>> => {
+  // Extract searchTerm to implement search query
+  const { searchTerm, ...filtersData } = filters;
+  const { page, limit, skip, sortBy, sortOrder } =
+    paginationHelpers.calculatePagination(paginationOptions);
+
+  const andConditions = [];
+
+  // Search needs OR for searching in specified fields
+  if (searchTerm) {
+    andConditions.push({
+      OR: projectSearchableFields.map(field => ({
+        [field]: {
+          contains: searchTerm,
+          mode: 'insensitive' as Prisma.QueryMode,
+        },
+      })),
     });
   }
 
-  /**
-   * Get all projects with pagination and filters
-   */
-  async getAllProjects(
-    filters: IProjectFilterRequest,
-    options: IPaginationOptions,
-    isAuthenticated: boolean = false
-  ) {
-    const { searchTerm: search, category, type, status } = filters;
-    const { page = 1, limit = 10 } = options;
-    const skip = (page - 1) * limit;
+  // Filters needs AND to fulfill all the conditions
+  if (Object.keys(filtersData).length) {
+    andConditions.push({
+      AND: Object.entries(filtersData).map(([field, value]) => ({
+        [field]: value,
+      })),
+    });
+  }
 
-    const where: Prisma.ProjectWhereInput = {
-      deletedAt: null, // Only active projects
-      // If not authenticated, only show PRODUCTION projects
-      ...(!isAuthenticated && { status: 'PRODUCTION' }),
-      ...(category && { category: category as any }),
-      ...(type && { type: type as any }),
-      // If authenticated, allow status filtering
-      ...(isAuthenticated && status && { status: status as any }),
-      ...(search && {
-        OR: [
-          { title: { contains: search, mode: 'insensitive' } },
-          { subtitle: { contains: search, mode: 'insensitive' } },
-        ],
-      }),
-    };
+  // Only active projects
+  andConditions.push({ deletedAt: null });
 
-    const [projects, total] = await Promise.all([
-      prisma.project.findMany({
-        where,
-        skip,
-        take: limit,
-        include: {
-          author: {
-            select: {
-              id: true,
-              name: true,
-              email: true,
-            },
-          },
-          images: {
-            orderBy: {
-              order: 'asc',
-            },
-          },
+  // If not authenticated, only show PRODUCTION projects
+  if (!isAuthenticated) {
+    andConditions.push({ status: 'PRODUCTION' as any });
+  }
+
+  const whereConditions: Prisma.ProjectWhereInput =
+    andConditions.length > 0 ? { AND: andConditions as any } : {};
+
+  // Dynamic Sort
+  const sortConditions: { [key: string]: 'asc' | 'desc' } = {};
+  if (sortBy && sortOrder) {
+    sortConditions[sortBy] = sortOrder;
+  } else {
+    sortConditions.createdAt = 'desc';
+  }
+
+  const result = await prisma.project.findMany({
+    where: whereConditions,
+    skip,
+    take: limit,
+    orderBy: sortConditions,
+    include: {
+      author: {
+        select: {
+          id: true,
+          name: true,
+          email: true,
         },
+      },
+      images: {
         orderBy: {
-          createdAt: 'desc',
-        },
-      }),
-      prisma.project.count({ where }),
-    ]);
-
-    return {
-      data: projects,
-      meta: {
-        total,
-        page,
-        limit,
-        totalPages: Math.ceil(total / limit),
-      },
-    };
-  }
-
-  /**
-   * Get project by ID
-   */
-  async getProjectById(id: string, isAuthenticated: boolean = false) {
-    const whereCondition: any = { id };
-
-    // If not authenticated, only show PRODUCTION projects
-    if (!isAuthenticated) {
-      whereCondition.status = 'PRODUCTION';
-      whereCondition.deletedAt = null;
-    }
-
-    return await prisma.project.findUnique({
-      where: whereCondition,
-      include: {
-        author: {
-          select: {
-            id: true,
-            name: true,
-            email: true,
-          },
-        },
-        images: {
-          orderBy: {
-            order: 'asc',
-          },
+          order: 'asc',
         },
       },
-    });
+    },
+  });
+
+  const total = await prisma.project.count({ where: whereConditions });
+
+  return {
+    meta: {
+      page,
+      limit,
+      total,
+    },
+    data: result as any,
+  };
+};
+
+const getProjectById = async (
+  id: string,
+  isAuthenticated: boolean = false
+): Promise<IProject | null> => {
+  const whereCondition: Prisma.ProjectWhereUniqueInput = { id };
+
+  const additionalConditions: Prisma.ProjectWhereInput = {};
+
+  // If not authenticated, only show PRODUCTION projects
+  if (!isAuthenticated) {
+    additionalConditions.status = 'PRODUCTION';
+    additionalConditions.deletedAt = null;
   }
 
-  /**
-   * Update project
-   */
-  async updateProject(id: string, data: UpdateProjectData) {
-    return await prisma.project.update({
-      where: { id },
-      data,
-      include: {
-        author: {
-          select: {
-            id: true,
-            name: true,
-            email: true,
-          },
+  const result = await prisma.project.findFirst({
+    where: {
+      ...whereCondition,
+      ...additionalConditions,
+    },
+    include: {
+      author: {
+        select: {
+          id: true,
+          name: true,
+          email: true,
         },
-        images: true,
       },
-    });
-  }
-
-  /**
-   * Soft delete project (move to trash)
-   */
-  async deleteProject(id: string) {
-    // Get project data before deletion
-    const project = await this.getProjectById(id);
-
-    if (!project) {
-      throw new Error('Project not found');
-    }
-
-    // Soft delete the project
-    const deletedProject = await prisma.project.update({
-      where: { id },
-      data: {
-        deletedAt: new Date(),
+      images: {
+        orderBy: {
+          order: 'asc',
+        },
       },
-    });
+    },
+  });
 
-    // Move to trash
-    await prisma.trash.create({
-      data: {
-        entityType: 'projects',
-        entityId: id,
-        entityData: project,
-        expiresAt: addDays(new Date(), 31), // Auto-delete after 31 days
+  if (!result) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Project not found!');
+  }
+
+  return result as any;
+};
+
+const updateProject = async (id: string, payload: IUpdateProject): Promise<IProject | null> => {
+  // Check if project exists
+  const existingProject = await prisma.project.findUnique({ where: { id } });
+  if (!existingProject) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Project not found!');
+  }
+
+  const result = await prisma.project.update({
+    where: { id },
+    data: payload,
+    include: {
+      author: {
+        select: {
+          id: true,
+          name: true,
+          email: true,
+        },
       },
-    });
+      images: true,
+    },
+  });
 
-    return deletedProject;
+  return result as any;
+};
+
+const deleteProject = async (id: string): Promise<IProject | null> => {
+  // Check if project exists
+  const existingProject = await prisma.project.findUnique({ where: { id } });
+  if (!existingProject) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Project not found!');
   }
 
-  /**
-   * Add images to project
-   */
-  async addProjectImages(projectId: string, images: { url: string; order: number }[]) {
-    const imageData = images.map(img => ({
-      ...img,
-      projectId,
-    }));
+  // Soft delete the project
+  const deletedProject = await prisma.project.update({
+    where: { id },
+    data: {
+      deletedAt: new Date(),
+    },
+  });
 
-    return await prisma.projectImage.createMany({
-      data: imageData,
-    });
-  }
+  // Move to trash
+  await prisma.trash.create({
+    data: {
+      entityType: 'projects',
+      entityId: id,
+      entityData: existingProject as any,
+      expiresAt: addDays(new Date(), 31), // Auto-delete after 31 days
+    },
+  });
 
-  /**
-   * Delete project image
-   */
-  async deleteProjectImage(imageId: string) {
-    return await prisma.projectImage.delete({
-      where: { id: imageId },
-    });
-  }
+  return deletedProject as any;
+};
 
-  /**
-   * Get project images
-   */
-  async getProjectImages(projectId: string) {
-    return await prisma.projectImage.findMany({
-      where: { projectId },
-      orderBy: {
-        order: 'asc',
-      },
-    });
-  }
-}
+const addProjectImages = async (projectId: string, images: { url: string; order: number }[]) => {
+  const imageData = images.map(img => ({
+    ...img,
+    projectId,
+  }));
+
+  return await prisma.projectImage.createMany({
+    data: imageData,
+  });
+};
+
+const deleteProjectImage = async (imageId: string) => {
+  return await prisma.projectImage.delete({
+    where: { id: imageId },
+  });
+};
+
+const getProjectImages = async (projectId: string) => {
+  return await prisma.projectImage.findMany({
+    where: { projectId },
+    orderBy: {
+      order: 'asc',
+    },
+  });
+};
+
+export const ProjectServices = {
+  createProject,
+  getAllProjects,
+  getProjectById,
+  updateProject,
+  deleteProject,
+  addProjectImages,
+  deleteProjectImage,
+  getProjectImages,
+};

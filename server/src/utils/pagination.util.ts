@@ -1,19 +1,6 @@
-interface IPaginationOptions {
-  page?: number;
-  limit?: number;
-  sortBy?: string;
-  sortOrder?: 'asc' | 'desc';
-}
+import { ICalculatePaginationResult, IPaginationOptions } from './types.util';
 
-interface ICalculatedPagination {
-  page: number;
-  limit: number;
-  skip: number;
-  sortBy: string;
-  sortOrder: 'asc' | 'desc';
-}
-
-const calculatePagination = (options: IPaginationOptions): ICalculatedPagination => {
+const calculatePagination = (options: IPaginationOptions): ICalculatePaginationResult => {
   const page = Number(options.page || 1);
   const limit = Number(options.limit || 10);
   const skip = (page - 1) * limit;

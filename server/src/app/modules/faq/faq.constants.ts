@@ -1,3 +1,3 @@
-export const faqFilterableFields: string[] = [];
+export const faqSearchableFields: string[] = ['question', 'answer'];
 
-export const faqSearchableFields = ['question', 'answer'];
+export const faqFilterableFields: string[] = ['searchTerm'];

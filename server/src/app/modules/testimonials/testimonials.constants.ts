@@ -1,3 +1,3 @@
-export const testimonialsFilterableFields = ['name', 'platform'];
+export const testimonialSearchableFields: string[] = ['name', 'position', 'testimonial'];
 
-export const testimonialsSearchableFields = ['name', 'jobPosition', 'testimonial'];
+export const testimonialFilterableFields: string[] = ['searchTerm', 'platform'];

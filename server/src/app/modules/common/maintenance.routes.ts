@@ -5,9 +5,11 @@ import { getMaintenanceStatus, updateMaintenanceMode } from '../common/maintenan
 const router = Router();
 
 // Public endpoint - Frontend checks this
-router.get('/status', getMaintenanceStatus);
+router.route('/status').get(getMaintenanceStatus);
 
 // Protected endpoint - Only SUPER_ADMIN can toggle maintenance mode
-router.put('/toggle', verifyToken, requireRole('SUPER_ADMIN', 'ADMIN'), updateMaintenanceMode);
+router
+  .route('/toggle')
+  .put(verifyToken, requireRole('SUPER_ADMIN', 'ADMIN'), updateMaintenanceMode);
 
 export default router;

@@ -1,65 +1,98 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import httpStatus from 'http-status';
-import { catchAsync } from '../../../utils/helpers.util';
+import { catchAsync, pick } from '../../../utils/helpers.util';
 import { sendResponse } from '../../../utils/response.util';
-import { testimonialService } from './testimonials.service';
+import { paginationFields } from '../../../utils/types.util';
+import { testimonialFilterableFields } from './testimonials.constants';
+import { ITestimonial } from './testimonials.interface';
+import { TestimonialServices } from './testimonials.service';
 
-const createTestimonial = catchAsync(async (req: Request, res: Response) => {
-  const testimonial = await testimonialService.createTestimonial(req.body);
+const createTestimonial = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const result = await TestimonialServices.createTestimonial(req.body);
 
-  sendResponse(res, {
-    statusCode: httpStatus.CREATED,
-    success: true,
-    message: 'Testimonial created successfully',
-    data: testimonial,
-  });
+    sendResponse<ITestimonial>(res, {
+      statusCode: httpStatus.CREATED,
+      success: true,
+      message: 'Testimonial created successfully!',
+      data: result,
+    });
+  } catch (error) {
+    return next(error);
+  }
 });
 
-const getAllTestimonials = catchAsync(async (_req: Request, res: Response) => {
-  const testimonials = await testimonialService.getAllTestimonials();
+const getAllTestimonials = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const filters = pick(req.query, testimonialFilterableFields);
+    const paginationOptions = pick(req.query, paginationFields);
 
-  sendResponse(res, {
-    statusCode: httpStatus.OK,
-    success: true,
-    message: 'Testimonials retrieved successfully',
-    data: testimonials,
-  });
+    const result = await TestimonialServices.getAllTestimonials(filters, paginationOptions);
+
+    sendResponse<ITestimonial[]>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Testimonials retrieved successfully!',
+      meta: result.meta,
+      data: result.data,
+    });
+  } catch (error) {
+    return next(error);
+  }
 });
 
-const getTestimonialById = catchAsync(async (req: Request, res: Response) => {
-  const testimonial = await testimonialService.getTestimonialById(req.params.id);
+const getTestimonialById = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { id } = req.params;
 
-  sendResponse(res, {
-    statusCode: httpStatus.OK,
-    success: true,
-    message: 'Testimonial retrieved successfully',
-    data: testimonial,
-  });
+    const result = await TestimonialServices.getTestimonialById(id);
+
+    sendResponse<ITestimonial>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Testimonial retrieved successfully!',
+      data: result,
+    });
+  } catch (error) {
+    return next(error);
+  }
 });
 
-const updateTestimonial = catchAsync(async (req: Request, res: Response) => {
-  const testimonial = await testimonialService.updateTestimonial(req.params.id, req.body);
+const updateTestimonial = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { id } = req.params;
 
-  sendResponse(res, {
-    statusCode: httpStatus.OK,
-    success: true,
-    message: 'Testimonial updated successfully',
-    data: testimonial,
-  });
+    const result = await TestimonialServices.updateTestimonial(id, req.body);
+
+    sendResponse<ITestimonial>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Testimonial updated successfully!',
+      data: result,
+    });
+  } catch (error) {
+    return next(error);
+  }
 });
 
-const deleteTestimonial = catchAsync(async (req: Request, res: Response) => {
-  await testimonialService.deleteTestimonial(req.params.id);
+const deleteTestimonial = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { id } = req.params;
 
-  sendResponse(res, {
-    statusCode: httpStatus.OK,
-    success: true,
-    message: 'Testimonial deleted successfully',
-    data: null,
-  });
+    const result = await TestimonialServices.deleteTestimonial(id);
+
+    sendResponse<ITestimonial>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Testimonial deleted successfully!',
+      data: result,
+    });
+  } catch (error) {
+    return next(error);
+  }
 });
 
-export const TestimonialController = {
+export const TestimonialControllers = {
   createTestimonial,
   getAllTestimonials,
   getTestimonialById,

@@ -1,3 +1,9 @@
-export const projectFilterableFields: string[] = ['searchTerm', 'category', 'type', 'status'];
+export const projectSearchableFields: string[] = [
+  'title',
+  'subtitle',
+  'description',
+  'documentationUrl',
+  'liveLink',
+];
 
-export const projectSearchableFields: string[] = ['title', 'subtitle'];
+export const projectFilterableFields: string[] = ['searchTerm', 'category', 'type', 'status'];

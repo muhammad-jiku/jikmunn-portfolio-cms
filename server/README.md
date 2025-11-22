@@ -117,6 +117,14 @@ npm run prisma:migrate
 npm run prisma:generate
 ```
 
+6. Seed database with test data:
+
+```bash
+npm run seed
+```
+
+This populates the database with sample data from `prisma/seed-data/` (about, blogs, faq, projects, resume, services, skills, testimonials).
+
 ### Development
 
 Run the development server:
@@ -175,14 +183,60 @@ See `SCHEMA_UPDATES.md` for detailed migration guide.
 
 ## Testing
 
-- `yarn dev` / `npm run dev` - Start development server with hot reload
-- `yarn build` / `npm run build` - Build TypeScript for production
-- `yarn start` / `npm start` - Start production server
-- `yarn prisma:generate` - Generate Prisma Client
-- `yarn prisma:migrate` - Run database migrations
-- `yarn prisma:studio` - Open Prisma Studio (database GUI)
-- `yarn lint` - Run ESLint
-- `yarn format` - Format code with Prettier
+### Seed Database
+
+Populate database with test data:
+
+```bash
+npm run seed
+```
+
+The seed script (`prisma/seed.ts`) loads all JSON files from `prisma/seed-data/` and creates database records with proper relationships.
+
+### Run Tests
+
+```bash
+npm run test              # Run all tests
+npm run test:watch        # Run tests in watch mode
+npm run test:coverage     # Run tests with coverage
+```
+
+### Development Commands
+
+```bash
+npm run dev               # Start dev server with hot reload
+npm run build             # Build TypeScript for production
+npm start                 # Start production server
+npm run seed              # Seed database with test data
+```
+
+### Database Commands
+
+```bash
+npm run prisma:generate   # Generate Prisma Client
+npm run prisma:migrate    # Run database migrations
+npm run prisma:studio     # Open Prisma Studio (database GUI)
+```
+
+### Code Quality
+
+```bash
+npm run lint              # Run ESLint
+npm run format            # Format code with Prettier
+```
+
+### API Testing
+
+**Swagger UI:** http://localhost:5000/api/docs (recommended)
+
+**Quick Test:**
+
+```bash
+curl http://localhost:5000/api/v1/health
+curl http://localhost:5000/api/v1/projects/public
+```
+
+For detailed testing guide, see [../TESTING.md](../TESTING.md) and [../API_TESTING_STEPS.md](../API_TESTING_STEPS.md).
 
 ## Database Schema
 

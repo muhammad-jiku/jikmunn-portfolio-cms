@@ -203,6 +203,36 @@ Sample data has been added to `TESTING.md` with examples for all new fields.
 
 ---
 
+## Seed Data
+
+The project includes a comprehensive seed script and test data:
+
+**Seed Script:** `server/prisma/seed.ts`
+
+- Clears existing data safely (respecting foreign keys)
+- Loads 8 JSON files from `server/prisma/seed-data/`
+- Creates all relationships automatically
+- Provides detailed console output with emojis
+
+**Test Data Files:**
+
+- `about.json` - Portfolio statistics
+- `blogs.json` - Sample blog posts with images
+- `faq.json` - Frequently asked questions
+- `projects.json` - Portfolio projects with tech stack
+- `resume.json` - Complete resume (summary, education, experience, achievements, references)
+- `services.json` - Service offerings
+- `skills.json` - Technical skills with progress
+- `testimonials.json` - Client testimonials
+
+**Usage:**
+
+```bash
+npm run seed
+```
+
+---
+
 ## Next Steps
 
 1. ✅ Schema updated
@@ -210,9 +240,11 @@ Sample data has been added to `TESTING.md` with examples for all new fields.
 3. ✅ Validation schemas updated
 4. ✅ Testing documentation updated
 5. ✅ Public endpoint filtering implemented
-6. ⏳ Run database migration: `npx prisma migrate dev`
-7. ⏳ Test endpoints with new fields
-8. ⏳ Update frontend to support new fields
+6. ✅ Seed script created with test data
+7. ⏳ Run database migration: `npx prisma migrate dev`
+8. ⏳ Seed database: `npm run seed`
+9. ⏳ Test endpoints with new fields
+10. ⏳ Update frontend to support new fields
 
 ---
 

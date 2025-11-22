@@ -1,37 +1,43 @@
 import express from 'express';
 import { requireRole, verifyToken } from '../../middleware/auth.middleware';
 import { validate } from '../../middleware/validation.middleware';
-import { SkillController } from './skills.controller';
-import { createSkillSchema, updateSkillSchema } from './skills.validation';
+import { SkillControllers } from './skills.controller';
+import {
+  createSkillSchema,
+  deleteSkillSchema,
+  getSkillByIdSchema,
+  updateSkillSchema,
+} from './skills.validation';
 
 const router = express.Router();
 
 // Public routes
-router.get('/', SkillController.getAllSkills);
-router.get('/:id', SkillController.getSkillById);
+router.route('/').get(SkillControllers.getAllSkills);
+
+router.route('/:id').get(validate(getSkillByIdSchema), SkillControllers.getSkillById);
 
 // Protected routes - Admin only
-router.post(
-  '/',
-  verifyToken,
-  requireRole('SUPER_ADMIN', 'ADMIN'),
-  validate(createSkillSchema),
-  SkillController.createSkill
-);
+router.use(verifyToken);
 
-router.put(
-  '/:id',
-  verifyToken,
-  requireRole('SUPER_ADMIN', 'ADMIN'),
-  validate(updateSkillSchema),
-  SkillController.updateSkill
-);
+router
+  .route('/')
+  .post(
+    requireRole('SUPER_ADMIN', 'ADMIN'),
+    validate(createSkillSchema),
+    SkillControllers.createSkill
+  );
 
-router.delete(
-  '/:id',
-  verifyToken,
-  requireRole('SUPER_ADMIN', 'ADMIN'),
-  SkillController.deleteSkill
-);
+router
+  .route('/:id')
+  .put(
+    requireRole('SUPER_ADMIN', 'ADMIN'),
+    validate(updateSkillSchema),
+    SkillControllers.updateSkill
+  )
+  .delete(
+    requireRole('SUPER_ADMIN', 'ADMIN'),
+    validate(deleteSkillSchema),
+    SkillControllers.deleteSkill
+  );
 
-export default router;
+export const SkillRoutes = router;

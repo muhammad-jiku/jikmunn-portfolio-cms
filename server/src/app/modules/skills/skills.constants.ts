@@ -1,3 +1,3 @@
-export const skillsFilterableFields = ['name'];
+export const skillSearchableFields: string[] = ['name'];
 
-export const skillsSearchableFields = ['name'];
+export const skillFilterableFields: string[] = ['searchTerm'];

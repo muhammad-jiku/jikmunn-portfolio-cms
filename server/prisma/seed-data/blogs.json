@@ -1,0 +1,66 @@
+[
+  {
+    "title": "Understanding React Server Components",
+    "subtitle": "A deep dive into the future of React",
+    "description": "React Server Components represent a paradigm shift in how we build React applications. This article explores the architecture, benefits, and practical implementation strategies for server components. We'll cover data fetching patterns, code splitting, and performance optimizations that make RSC a game-changer for modern web development.",
+    "topic": "React & Next.js",
+    "status": "PRODUCTION",
+    "tags": ["React", "Next.js", "Server Components", "Performance"]
+  },
+  {
+    "title": "Building Scalable APIs with Node.js",
+    "subtitle": "Best practices for enterprise-grade backends",
+    "description": "Learn how to design and implement scalable RESTful APIs using Node.js and Express. This comprehensive guide covers middleware patterns, error handling, authentication strategies, rate limiting, caching, database optimization, and deployment strategies. We'll build a production-ready API from scratch with TypeScript and Prisma ORM.",
+    "topic": "Backend Development",
+    "status": "PRODUCTION",
+    "tags": ["Node.js", "Express", "API", "Backend", "TypeScript"]
+  },
+  {
+    "title": "Mastering TypeScript Generics",
+    "subtitle": "Write reusable and type-safe code",
+    "description": "TypeScript generics enable you to write flexible, reusable components while maintaining type safety. This tutorial covers generic functions, interfaces, classes, constraints, and advanced patterns like conditional types and mapped types. Perfect for developers looking to level up their TypeScript skills.",
+    "topic": "TypeScript",
+    "status": "UPDATED",
+    "tags": ["TypeScript", "Generics", "Type Safety", "JavaScript"]
+  },
+  {
+    "title": "CSS Grid vs Flexbox: When to Use Each",
+    "subtitle": "Modern layout techniques explained",
+    "description": "Both CSS Grid and Flexbox are powerful layout systems, but knowing when to use each is crucial. This article breaks down the strengths and use cases for both, with practical examples and interactive demos. Learn how to combine them effectively for responsive, maintainable layouts.",
+    "topic": "CSS & Design",
+    "status": "PRODUCTION",
+    "tags": ["CSS", "Grid", "Flexbox", "Responsive Design"]
+  },
+  {
+    "title": "Introduction to Docker for Developers",
+    "subtitle": "Containerization made simple",
+    "description": "Docker has revolutionized how we develop and deploy applications. This beginner-friendly guide covers Docker basics, Dockerfile creation, docker-compose for multi-container apps, volume management, and best practices for development and production environments. Includes real-world examples and troubleshooting tips.",
+    "topic": "DevOps",
+    "status": "IN_PROGRESS",
+    "tags": ["Docker", "Containers", "DevOps", "Deployment"]
+  },
+  {
+    "title": "State Management in React: Redux vs Zustand",
+    "subtitle": "Choosing the right state solution",
+    "description": "State management is critical in React applications. This comparison explores Redux and Zustand, examining setup complexity, performance, developer experience, and use cases. We'll migrate a sample app from Redux to Zustand to highlight the differences and help you make informed decisions.",
+    "topic": "React & State Management",
+    "status": "DEVELOPMENT",
+    "tags": ["React", "Redux", "Zustand", "State Management"]
+  },
+  {
+    "title": "Securing Your Node.js Applications",
+    "subtitle": "Essential security practices",
+    "description": "Security should never be an afterthought. This guide covers essential security practices for Node.js applications: input validation, SQL injection prevention, XSS protection, CSRF tokens, secure authentication, rate limiting, and security headers. Learn how to implement helmet, CORS, and other middleware for production-ready security.",
+    "topic": "Security",
+    "status": "PRODUCTION",
+    "tags": ["Security", "Node.js", "Authentication", "Best Practices"]
+  },
+  {
+    "title": "Building Real-time Apps with WebSockets",
+    "subtitle": "Live updates and bidirectional communication",
+    "description": "WebSockets enable real-time, bidirectional communication between clients and servers. This tutorial demonstrates building a real-time chat application using Socket.io, covering connection management, room-based messaging, presence detection, and scaling considerations for production deployments.",
+    "topic": "Real-time Development",
+    "status": "PRODUCTION",
+    "tags": ["WebSockets", "Socket.io", "Real-time", "Node.js"]
+  }
+]

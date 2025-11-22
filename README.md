@@ -185,7 +185,15 @@ cp .env.example .env
 npm run prisma:migrate
 ```
 
-6. Start development server:
+6. Seed database with test data:
+
+```bash
+npm run seed
+```
+
+This populates your database with sample data from `server/prisma/seed-data/` (about, blogs, faq, projects, resume, services, skills, testimonials).
+
+7. Start development server:
 
 ```bash
 npm run dev
@@ -298,6 +306,22 @@ Authorization: Bearer <your-jwt-token>
 - `ADMIN` - Manage all content
 - `AUTHOR` - Create/edit own content
 - `EDITOR` - Edit content
+
+## 🧪 Testing
+
+Test the API with sample data:
+
+```bash
+npm run seed              # Populate database with test data
+npm run dev               # Start development server
+```
+
+Then visit:
+
+- **Swagger UI:** http://localhost:5000/api/docs
+- **Prisma Studio:** `npm run prisma:studio`
+
+For comprehensive testing guide, see [TESTING.md](./TESTING.md) and [API_TESTING_STEPS.md](./API_TESTING_STEPS.md).
 
 ## 🗄️ Database Schema
 

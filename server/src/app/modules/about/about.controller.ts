@@ -1,24 +1,60 @@
-import { Response } from 'express';
+import { NextFunction, Response } from 'express';
+import httpStatus from 'http-status';
 import { catchAsync } from '../../../utils/helpers.util';
-import { sendSuccess } from '../../../utils/response.util';
+import { sendResponse } from '../../../utils/response.util';
 import { AuthRequest } from '../../middleware/auth.middleware';
-import { AboutService } from './about.service';
+import { IAbout } from './about.interface';
+import { AboutServices } from './about.service';
 
-const aboutService = new AboutService();
+const getAbout = catchAsync(async (_req: AuthRequest, res: Response, next: NextFunction) => {
+  try {
+    const result = await AboutServices.getAbout();
 
-export const getAbout = catchAsync(async (_req: AuthRequest, res: Response) => {
-  const about = await aboutService.getAbout();
-  return sendSuccess(res, about);
+    sendResponse<IAbout>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'About stats retrieved successfully!',
+      data: result,
+    });
+  } catch (error) {
+    return next(error);
+  }
 });
 
-export const updateAbout = catchAsync(async (req: AuthRequest, res: Response) => {
-  const about = await aboutService.getAbout();
-  const updated = await aboutService.updateAbout(about.id, req.body);
-  return sendSuccess(res, updated, 'About stats updated');
+const updateAbout = catchAsync(async (req: AuthRequest, res: Response, next: NextFunction) => {
+  try {
+    const about = await AboutServices.getAbout();
+    const result = await AboutServices.updateAbout(about.id, req.body);
+
+    sendResponse<IAbout>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'About stats updated successfully!',
+      data: result,
+    });
+  } catch (error) {
+    return next(error);
+  }
 });
 
-export const resetAbout = catchAsync(async (_req: AuthRequest, res: Response) => {
-  const about = await aboutService.getAbout();
-  const reset = await aboutService.resetAbout(about.id);
-  return sendSuccess(res, reset, 'About stats reset');
+const resetAbout = catchAsync(async (_req: AuthRequest, res: Response, next: NextFunction) => {
+  try {
+    const about = await AboutServices.getAbout();
+    const result = await AboutServices.resetAbout(about.id);
+
+    sendResponse<IAbout>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'About stats reset successfully!',
+      data: result,
+    });
+  } catch (error) {
+    return next(error);
+  }
 });
+
+export const AboutControllers = {
+  getAbout,
+  updateAbout,
+  resetAbout,
+};

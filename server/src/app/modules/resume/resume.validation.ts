@@ -22,10 +22,25 @@ export const createEducationSchema = z.object({
 });
 
 export const updateEducationSchema = z.object({
+  params: z.object({
+    id: z.string().uuid(),
+  }),
   body: z.object({
     degree: z.string().min(1, 'Degree cannot be empty').optional(),
     years: z.string().min(1, 'Years cannot be empty').optional(),
     university: z.string().min(1, 'University cannot be empty').optional(),
+  }),
+});
+
+export const getEducationByIdSchema = z.object({
+  params: z.object({
+    id: z.string().uuid(),
+  }),
+});
+
+export const deleteEducationSchema = z.object({
+  params: z.object({
+    id: z.string().uuid(),
   }),
 });
 
@@ -47,6 +62,9 @@ export const createExperienceSchema = z.object({
 });
 
 export const updateExperienceSchema = z.object({
+  params: z.object({
+    id: z.string().uuid(),
+  }),
   body: z.object({
     jobTitle: z.string().min(1, 'Job title cannot be empty').optional(),
     companyName: z.string().min(1, 'Company name cannot be empty').optional(),
@@ -56,6 +74,18 @@ export const updateExperienceSchema = z.object({
       .min(1, 'At least one achievement is required')
       .max(10, 'Maximum 10 achievements')
       .optional(),
+  }),
+});
+
+export const getExperienceByIdSchema = z.object({
+  params: z.object({
+    id: z.string().uuid(),
+  }),
+});
+
+export const deleteExperienceSchema = z.object({
+  params: z.object({
+    id: z.string().uuid(),
   }),
 });
 
@@ -72,6 +102,9 @@ export const createAchievementSchema = z.object({
 });
 
 export const updateAchievementSchema = z.object({
+  params: z.object({
+    id: z.string().uuid(),
+  }),
   body: z.object({
     role: z.string().min(1, 'Role cannot be empty').optional(),
     years: z.string().min(1, 'Years cannot be empty').optional(),
@@ -80,6 +113,18 @@ export const updateAchievementSchema = z.object({
       .min(1, 'At least one description is required')
       .max(10, 'Maximum 10 descriptions')
       .optional(),
+  }),
+});
+
+export const getAchievementByIdSchema = z.object({
+  params: z.object({
+    id: z.string().uuid(),
+  }),
+});
+
+export const deleteAchievementSchema = z.object({
+  params: z.object({
+    id: z.string().uuid(),
   }),
 });
 
@@ -97,9 +142,24 @@ export const createReferenceSchema = z.object({
 });
 
 export const updateReferenceSchema = z.object({
+  params: z.object({
+    id: z.string().uuid(),
+  }),
   body: z.object({
     name: z.string().min(1, 'Name cannot be empty').optional(),
     jobTitle: z.string().min(1, 'Job title cannot be empty').optional(),
     companyName: z.string().min(1, 'Company name cannot be empty').optional(),
+  }),
+});
+
+export const getReferenceByIdSchema = z.object({
+  params: z.object({
+    id: z.string().uuid(),
+  }),
+});
+
+export const deleteReferenceSchema = z.object({
+  params: z.object({
+    id: z.string().uuid(),
   }),
 });

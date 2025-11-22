@@ -1,0 +1,99 @@
+{
+  "summary": {
+    "summary": "Passionate Full-Stack Developer with 5+ years of experience building scalable web and mobile applications. Specialized in modern JavaScript frameworks, cloud technologies, and agile development practices. Committed to writing clean, maintainable code and delivering exceptional user experiences.",
+    "address": "123 Tech Street, San Francisco, CA 94102",
+    "contactNumber": "+1 (555) 123-4567",
+    "email": "john.smith@example.com"
+  },
+  "education": [
+    {
+      "degree": "Bachelor of Science in Computer Science",
+      "years": "2015 - 2019",
+      "institution": "Stanford University"
+    },
+    {
+      "degree": "Full-Stack Web Development Bootcamp",
+      "years": "2019",
+      "institution": "Le Wagon"
+    },
+    {
+      "degree": "AWS Certified Solutions Architect",
+      "years": "2022",
+      "institution": "Amazon Web Services"
+    }
+  ],
+  "experience": [
+    {
+      "jobTitle": "Senior Full-Stack Developer",
+      "companyName": "TechCorp Solutions",
+      "years": "2022 - Present",
+      "achievements": [
+        "Led development of microservices architecture serving 1M+ users",
+        "Reduced API response time by 40% through optimization and caching",
+        "Mentored 5 junior developers and conducted code reviews",
+        "Implemented CI/CD pipeline reducing deployment time by 60%"
+      ]
+    },
+    {
+      "jobTitle": "Full-Stack Developer",
+      "companyName": "StartupHub Inc",
+      "years": "2020 - 2022",
+      "achievements": [
+        "Built real-time collaboration features using WebSockets",
+        "Developed RESTful APIs handling 10K+ requests per minute",
+        "Integrated payment processing with Stripe and PayPal",
+        "Improved test coverage from 45% to 85%"
+      ]
+    },
+    {
+      "jobTitle": "Frontend Developer",
+      "companyName": "Digital Agency Pro",
+      "years": "2019 - 2020",
+      "achievements": [
+        "Created responsive websites for 20+ clients",
+        "Implemented accessibility standards (WCAG 2.1)",
+        "Optimized page load times achieving 95+ Lighthouse scores",
+        "Collaborated with designers using Figma and Adobe XD"
+      ]
+    }
+  ],
+  "achievements": [
+    {
+      "role": "Open Source Contributor",
+      "years": "2020 - Present",
+      "description": [
+        "Contributed to popular libraries like React, Next.js, and Prisma",
+        "Maintained personal open-source project with 2K+ GitHub stars",
+        "Reviewed and merged 100+ pull requests from community",
+        "Presented at local tech meetups and conferences"
+      ]
+    },
+    {
+      "role": "Hackathon Winner",
+      "years": "2021",
+      "description": [
+        "1st Place - TechCrunch Disrupt Hackathon",
+        "Built AI-powered code review tool in 48 hours",
+        "Pitched solution to panel of venture capitalists",
+        "Featured in TechCrunch and Product Hunt"
+      ]
+    }
+  ],
+  "references": [
+    {
+      "name": "Sarah Johnson",
+      "jobTitle": "Engineering Manager",
+      "companyName": "TechCorp Solutions"
+    },
+    {
+      "name": "Michael Chen",
+      "jobTitle": "CTO",
+      "companyName": "StartupHub Inc"
+    },
+    {
+      "name": "Emily Rodriguez",
+      "jobTitle": "Lead Designer",
+      "companyName": "Digital Agency Pro"
+    }
+  ]
+}

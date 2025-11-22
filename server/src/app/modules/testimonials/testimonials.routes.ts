@@ -1,37 +1,45 @@
 import express from 'express';
 import { requireRole, verifyToken } from '../../middleware/auth.middleware';
 import { validate } from '../../middleware/validation.middleware';
-import { TestimonialController } from './testimonials.controller';
-import { createTestimonialSchema, updateTestimonialSchema } from './testimonials.validation';
+import { TestimonialControllers } from './testimonials.controller';
+import {
+  createTestimonialSchema,
+  deleteTestimonialSchema,
+  getTestimonialByIdSchema,
+  updateTestimonialSchema,
+} from './testimonials.validation';
 
 const router = express.Router();
 
 // Public routes
-router.get('/', TestimonialController.getAllTestimonials);
-router.get('/:id', TestimonialController.getTestimonialById);
+router.route('/').get(TestimonialControllers.getAllTestimonials);
+
+router
+  .route('/:id')
+  .get(validate(getTestimonialByIdSchema), TestimonialControllers.getTestimonialById);
 
 // Protected routes - Admin only
-router.post(
-  '/',
-  verifyToken,
-  requireRole('SUPER_ADMIN', 'ADMIN'),
-  validate(createTestimonialSchema),
-  TestimonialController.createTestimonial
-);
+router.use(verifyToken);
 
-router.put(
-  '/:id',
-  verifyToken,
-  requireRole('SUPER_ADMIN', 'ADMIN'),
-  validate(updateTestimonialSchema),
-  TestimonialController.updateTestimonial
-);
+router
+  .route('/')
+  .post(
+    requireRole('SUPER_ADMIN', 'ADMIN'),
+    validate(createTestimonialSchema),
+    TestimonialControllers.createTestimonial
+  );
 
-router.delete(
-  '/:id',
-  verifyToken,
-  requireRole('SUPER_ADMIN', 'ADMIN'),
-  TestimonialController.deleteTestimonial
-);
+router
+  .route('/:id')
+  .put(
+    requireRole('SUPER_ADMIN', 'ADMIN'),
+    validate(updateTestimonialSchema),
+    TestimonialControllers.updateTestimonial
+  )
+  .delete(
+    requireRole('SUPER_ADMIN', 'ADMIN'),
+    validate(deleteTestimonialSchema),
+    TestimonialControllers.deleteTestimonial
+  );
 
-export default router;
+export const TestimonialRoutes = router;

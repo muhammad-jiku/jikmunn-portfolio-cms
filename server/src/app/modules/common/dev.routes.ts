@@ -10,10 +10,8 @@ const router = Router();
  * These routes will return 404 in production
  */
 
-// List all users with their roles
-router.get('/users', devOnly, devWarning, verifyToken, listUsersDev);
+router.route('/users').get(devOnly, devWarning, verifyToken, listUsersDev);
 
-// Update user role (for testing)
-router.put('/users/role', devOnly, devWarning, verifyToken, updateUserRoleDev);
+router.route('/users/role').put(devOnly, devWarning, verifyToken, updateUserRoleDev);
 
 export default router;

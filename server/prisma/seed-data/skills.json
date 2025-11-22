@@ -1,0 +1,77 @@
+[
+  {
+    "name": "JavaScript",
+    "progress": 95,
+    "icon": "javascript"
+  },
+  {
+    "name": "TypeScript",
+    "progress": 90,
+    "icon": "typescript"
+  },
+  {
+    "name": "React",
+    "progress": 92,
+    "icon": "react"
+  },
+  {
+    "name": "Next.js",
+    "progress": 88,
+    "icon": "nextjs"
+  },
+  {
+    "name": "Node.js",
+    "progress": 90,
+    "icon": "nodejs"
+  },
+  {
+    "name": "Express.js",
+    "progress": 87,
+    "icon": "express"
+  },
+  {
+    "name": "PostgreSQL",
+    "progress": 85,
+    "icon": "postgresql"
+  },
+  {
+    "name": "MongoDB",
+    "progress": 82,
+    "icon": "mongodb"
+  },
+  {
+    "name": "Prisma ORM",
+    "progress": 88,
+    "icon": "prisma"
+  },
+  {
+    "name": "AWS",
+    "progress": 80,
+    "icon": "aws"
+  },
+  {
+    "name": "Docker",
+    "progress": 78,
+    "icon": "docker"
+  },
+  {
+    "name": "Git & GitHub",
+    "progress": 93,
+    "icon": "git"
+  },
+  {
+    "name": "Tailwind CSS",
+    "progress": 90,
+    "icon": "tailwindcss"
+  },
+  {
+    "name": "React Native",
+    "progress": 75,
+    "icon": "react-native"
+  },
+  {
+    "name": "GraphQL",
+    "progress": 73,
+    "icon": "graphql"
+  }
+]

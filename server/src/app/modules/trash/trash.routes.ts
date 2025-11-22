@@ -1,33 +1,37 @@
 import express from 'express';
 import { requireRole, verifyToken } from '../../middleware/auth.middleware';
-import { TrashController } from './trash.controller';
+import { validate } from '../../middleware/validation.middleware';
+import { TrashControllers } from './trash.controller';
+import { deleteTrashSchema, getTrashByIdSchema, restoreTrashSchema } from './trash.validation';
 
 const router = express.Router();
 
 // All routes are protected - Admin only
-router.get('/', verifyToken, requireRole('SUPER_ADMIN', 'ADMIN'), TrashController.getAllTrash);
+router.use(verifyToken);
 
-router.get('/:id', verifyToken, requireRole('SUPER_ADMIN', 'ADMIN'), TrashController.getTrashById);
+router.route('/').get(requireRole('SUPER_ADMIN', 'ADMIN'), TrashControllers.getAllTrash);
 
-router.post(
-  '/:id/restore',
-  verifyToken,
-  requireRole('SUPER_ADMIN', 'ADMIN'),
-  TrashController.restoreTrash
-);
+router
+  .route('/:id')
+  .get(
+    requireRole('SUPER_ADMIN', 'ADMIN'),
+    validate(getTrashByIdSchema),
+    TrashControllers.getTrashById
+  )
+  .delete(
+    requireRole('SUPER_ADMIN', 'ADMIN'),
+    validate(deleteTrashSchema),
+    TrashControllers.permanentlyDeleteTrash
+  );
 
-router.delete(
-  '/:id',
-  verifyToken,
-  requireRole('SUPER_ADMIN', 'ADMIN'),
-  TrashController.permanentlyDeleteTrash
-);
+router
+  .route('/:id/restore')
+  .post(
+    requireRole('SUPER_ADMIN', 'ADMIN'),
+    validate(restoreTrashSchema),
+    TrashControllers.restoreTrash
+  );
 
-router.post(
-  '/cleanup',
-  verifyToken,
-  requireRole('SUPER_ADMIN'),
-  TrashController.cleanupExpiredTrash
-);
+router.route('/cleanup').post(requireRole('SUPER_ADMIN'), TrashControllers.cleanupExpiredTrash);
 
-export default router;
+export const TrashRoutes = router;
