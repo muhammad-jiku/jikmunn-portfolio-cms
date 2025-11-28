@@ -1,8 +1,10 @@
 # **Project Requirements Document: Portfolio CMS (Frontend)**
 
-The following table outlines the detailed functional requirements of the **Device-Responsive Portfolio CMS** frontend, built using **Next.js**, **Tailwind CSS**, and **Redux Toolkit**.
+**Last Updated:** November 28, 2025
 
-This CMS provides a modern, responsive interface for managing and showcasing projects, blogs, skills, services, resumes, testimonials, FAQs, and more — with **role-based access** via **AWS Cognito** (Super Admin, Admin, Author, Editor).
+The following document outlines the detailed functional requirements of the **Device-Responsive Portfolio CMS** frontend, built using **Next.js**, **Tailwind CSS**, and **Redux Toolkit**.
+
+This CMS provides a modern, responsive interface for managing and showcasing projects, blogs, skills, services, resumes, testimonials, FAQs, and more — with **role-based access** via **AWS Cognito** (Super Admin, Admin, Author, Editor) and **real-time notifications** via **Socket.IO**.
 
 ---
 
@@ -89,8 +91,10 @@ This CMS provides a modern, responsive interface for managing and showcasing pro
 store/
 ├── index.ts
 ├── api.ts
+├── socket.ts          // Socket.IO client setup and event handlers
 ├── slices/
 │   ├── authSlice.ts
+│   ├── notificationSlice.ts  // Toast notifications for Socket.IO events
 │   ├── projectSlice.ts
 │   ├── blogSlice.ts
 │   ├── aboutSlice.ts
@@ -100,6 +104,87 @@ store/
 │   ├── testimonialSlice.ts
 │   ├── faqSlice.ts
 │   └── trashSlice.ts
+```
+
+### **Socket.IO Client Implementation**
+
+```typescript
+// store/socket.ts
+import { io, Socket } from 'socket.io-client';
+
+let socket: Socket | null = null;
+
+export const initializeSocket = (token: string) => {
+  socket = io('http://localhost:5000', {
+    auth: { token },
+    reconnection: true,
+    reconnectionAttempts: 5,
+    reconnectionDelay: 1000,
+  });
+
+  socket.on('connect', () => {
+    console.log('Socket.IO connected');
+    socket?.emit('join:admin'); // Join admin room
+  });
+
+  // Register event listeners
+  socket.on('project:created', (data) => {
+    store.dispatch(addProject(data));
+    showToast('New project created');
+  });
+
+  socket.on('project:updated', (data) => {
+    store.dispatch(updateProject(data));
+    showToast('Project updated');
+  });
+
+  // ... more event listeners for all modules
+};
+
+export const disconnectSocket = () => {
+  if (socket) {
+    socket.disconnect();
+    socket = null;
+  }
+};
+```
+
+### **AWS Cognito Authentication Setup**
+
+```typescript
+// lib/cognito.ts
+import {
+  CognitoUserPool,
+  CognitoUser,
+  AuthenticationDetails,
+} from 'amazon-cognito-identity-js';
+
+const poolData = {
+  UserPoolId: process.env.NEXT_PUBLIC_COGNITO_USER_POOL_ID!,
+  ClientId: process.env.NEXT_PUBLIC_COGNITO_CLIENT_ID!,
+};
+
+const userPool = new CognitoUserPool(poolData);
+
+export const signUp = (email: string, password: string) => {
+  // Sign up implementation
+};
+
+export const signIn = (email: string, password: string) => {
+  // Sign in implementation, returns JWT token
+};
+
+export const forgotPassword = (email: string) => {
+  // Forgot password implementation
+};
+
+export const resetPassword = (
+  email: string,
+  code: string,
+  newPassword: string
+) => {
+  // Reset password implementation
+};
 ```
 
 ### **API Service Layer**

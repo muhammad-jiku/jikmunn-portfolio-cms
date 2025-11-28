@@ -3,6 +3,11 @@ import httpStatus from 'http-status';
 import { catchAsync, pick } from '../../../utils/helpers.util';
 import { sendResponse } from '../../../utils/response.util';
 import { deleteFromS3, uploadMultipleToS3 } from '../../../utils/s3.util';
+import {
+  notifyProjectCreated,
+  notifyProjectDeleted,
+  notifyProjectUpdated,
+} from '../../../utils/socket.util';
 import { paginationFields } from '../../../utils/types.util';
 import { AuthRequest } from '../../middleware/auth.middleware';
 import { projectFilterableFields } from './projects.constants';
@@ -19,6 +24,9 @@ const createProject = catchAsync(async (req: AuthRequest, res: Response, next: N
     };
 
     const result = await ProjectServices.createProject(projectData);
+
+    // Emit real-time notification
+    notifyProjectCreated(result);
 
     sendResponse<IProject>(res, {
       statusCode: httpStatus.CREATED,
@@ -83,6 +91,9 @@ const updateProject = catchAsync(async (req: AuthRequest, res: Response, next: N
 
     const result = await ProjectServices.updateProject(id, req.body);
 
+    // Emit real-time notification
+    notifyProjectUpdated(result);
+
     sendResponse<IProject>(res, {
       statusCode: httpStatus.OK,
       success: true,
@@ -99,6 +110,9 @@ const deleteProject = catchAsync(async (req: AuthRequest, res: Response, next: N
     const { id } = req.params;
 
     const result = await ProjectServices.deleteProject(id);
+
+    // Emit real-time notification
+    notifyProjectDeleted(id);
 
     sendResponse<IProject>(res, {
       statusCode: httpStatus.OK,

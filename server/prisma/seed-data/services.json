@@ -3,42 +3,42 @@
     "title": "Web Development",
     "subtitle": "Full-stack web applications",
     "description": "Custom web applications built with modern technologies like React, Next.js, Node.js, and PostgreSQL. From concept to deployment, I create responsive, scalable solutions tailored to your business needs.",
-    "icon": "code",
+    "iconUrl": "code",
     "color": "#3B82F6"
   },
   {
     "title": "Mobile App Development",
     "subtitle": "iOS and Android applications",
     "description": "Cross-platform mobile apps using React Native and Expo. Deliver seamless user experiences on both iOS and Android with a single codebase, reducing development time and costs.",
-    "icon": "smartphone",
+    "iconUrl": "smartphone",
     "color": "#10B981"
   },
   {
     "title": "API Development",
     "subtitle": "RESTful and GraphQL APIs",
     "description": "Robust, scalable backend APIs with comprehensive documentation. Expertise in Node.js, Express, GraphQL, authentication, rate limiting, and integration with third-party services.",
-    "icon": "server",
+    "iconUrl": "server",
     "color": "#8B5CF6"
   },
   {
     "title": "Database Design",
     "subtitle": "Efficient data architecture",
     "description": "Design and optimize database schemas for performance and scalability. Experience with PostgreSQL, MongoDB, and Prisma ORM. Includes migration strategies and query optimization.",
-    "icon": "database",
+    "iconUrl": "database",
     "color": "#F59E0B"
   },
   {
     "title": "Cloud Deployment",
     "subtitle": "AWS, Azure, and more",
     "description": "Deploy and manage applications on cloud platforms like AWS, Azure, and Vercel. Set up CI/CD pipelines, monitoring, and automated backups for reliable production environments.",
-    "icon": "cloud",
+    "iconUrl": "cloud",
     "color": "#EC4899"
   },
   {
     "title": "UI/UX Consulting",
     "subtitle": "User-centered design",
     "description": "Create intuitive, accessible user interfaces that delight users. Conduct user research, design wireframes and prototypes, and implement responsive designs with modern CSS frameworks.",
-    "icon": "palette",
+    "iconUrl": "palette",
     "color": "#06B6D4"
   }
 ]

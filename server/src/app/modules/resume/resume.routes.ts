@@ -24,25 +24,50 @@ import {
 
 const router = express.Router();
 
-// ============ RESUME SUMMARY ROUTES ============
-// Public route
+// ============ PUBLIC ROUTES (No Authentication Required) ============
+
+// Resume Summary
 router.route('/summary').get(ResumeControllers.getResumeSummary);
 
+// Education
+router.route('/education').get(ResumeControllers.getAllEducation);
+router
+  .route('/education/:id')
+  .get(validate(getEducationByIdSchema), ResumeControllers.getEducationById);
+
+// Experience
+router.route('/experience').get(ResumeControllers.getAllExperience);
+router
+  .route('/experience/:id')
+  .get(validate(getExperienceByIdSchema), ResumeControllers.getExperienceById);
+
+// Achievements
+router.route('/achievements').get(ResumeControllers.getAllAchievements);
+router
+  .route('/achievements/:id')
+  .get(validate(getAchievementByIdSchema), ResumeControllers.getAchievementById);
+
+// References
+router.route('/references').get(ResumeControllers.getAllReferences);
+router
+  .route('/references/:id')
+  .get(validate(getReferenceByIdSchema), ResumeControllers.getReferenceById);
+
+// ============ PROTECTED ROUTES (Authentication Required) ============
+router.use(verifyToken);
+
+// Resume Summary - Update
 router
   .route('/summary/:id')
   .put(
-    verifyToken,
     requireRole('SUPER_ADMIN', 'ADMIN'),
     validate(updateResumeSummarySchema),
     ResumeControllers.updateResumeSummary
   );
 
-// ============ EDUCATION ROUTES ============
-router.use(verifyToken);
-
+// Education - Create/Update/Delete
 router
   .route('/education')
-  .get(ResumeControllers.getAllEducation)
   .post(
     requireRole('SUPER_ADMIN', 'ADMIN'),
     validate(createEducationSchema),
@@ -51,7 +76,6 @@ router
 
 router
   .route('/education/:id')
-  .get(validate(getEducationByIdSchema), ResumeControllers.getEducationById)
   .put(
     requireRole('SUPER_ADMIN', 'ADMIN'),
     validate(updateEducationSchema),
@@ -63,10 +87,9 @@ router
     ResumeControllers.deleteEducation
   );
 
-// ============ EXPERIENCE ROUTES ============
+// Experience - Create/Update/Delete
 router
   .route('/experience')
-  .get(ResumeControllers.getAllExperience)
   .post(
     requireRole('SUPER_ADMIN', 'ADMIN'),
     validate(createExperienceSchema),
@@ -75,7 +98,6 @@ router
 
 router
   .route('/experience/:id')
-  .get(validate(getExperienceByIdSchema), ResumeControllers.getExperienceById)
   .put(
     requireRole('SUPER_ADMIN', 'ADMIN'),
     validate(updateExperienceSchema),
@@ -87,10 +109,9 @@ router
     ResumeControllers.deleteExperience
   );
 
-// ============ ACHIEVEMENTS ROUTES ============
+// Achievements - Create/Update/Delete
 router
   .route('/achievements')
-  .get(ResumeControllers.getAllAchievements)
   .post(
     requireRole('SUPER_ADMIN', 'ADMIN'),
     validate(createAchievementSchema),
@@ -99,7 +120,6 @@ router
 
 router
   .route('/achievements/:id')
-  .get(validate(getAchievementByIdSchema), ResumeControllers.getAchievementById)
   .put(
     requireRole('SUPER_ADMIN', 'ADMIN'),
     validate(updateAchievementSchema),
@@ -111,10 +131,9 @@ router
     ResumeControllers.deleteAchievement
   );
 
-// ============ REFERENCES ROUTES ============
+// References - Create/Update/Delete
 router
   .route('/references')
-  .get(ResumeControllers.getAllReferences)
   .post(
     requireRole('SUPER_ADMIN', 'ADMIN'),
     validate(createReferenceSchema),
@@ -123,7 +142,6 @@ router
 
 router
   .route('/references/:id')
-  .get(validate(getReferenceByIdSchema), ResumeControllers.getReferenceById)
   .put(
     requireRole('SUPER_ADMIN', 'ADMIN'),
     validate(updateReferenceSchema),

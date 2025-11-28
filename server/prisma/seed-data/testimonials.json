@@ -1,42 +1,42 @@
 [
   {
     "name": "Jennifer Martinez",
-    "position": "Product Manager at Amazon",
+    "jobPosition": "Product Manager at Amazon",
     "testimonial": "Working with John was an absolute pleasure. He delivered a complex e-commerce platform ahead of schedule and exceeded all our expectations. His attention to detail and communication skills are outstanding. Highly recommended for any full-stack project!",
     "platform": "UPWORK",
     "imageUrl": "https://randomuser.me/api/portraits/women/1.jpg"
   },
   {
     "name": "David Thompson",
-    "position": "CEO at StartupHub Inc",
+    "jobPosition": "CEO at StartupHub Inc",
     "testimonial": "John is an exceptional developer who brings both technical expertise and business acumen to every project. He helped us scale our platform from 0 to 100K users with minimal downtime. His code quality and architectural decisions were spot-on.",
     "platform": "LINKEDIN",
     "imageUrl": "https://randomuser.me/api/portraits/men/2.jpg"
   },
   {
     "name": "Lisa Wang",
-    "position": "Marketing Director at TechFlow",
+    "jobPosition": "Marketing Director at TechFlow",
     "testimonial": "I've worked with many developers, but John stands out for his ability to understand business requirements and translate them into elegant technical solutions. He's reliable, professional, and a great communicator. Would definitely hire again!",
     "platform": "UPWORK",
     "imageUrl": "https://randomuser.me/api/portraits/women/3.jpg"
   },
   {
     "name": "Robert Anderson",
-    "position": "Founder at FitTrack",
+    "jobPosition": "Founder at FitTrack",
     "testimonial": "John built our mobile app from scratch and the results were phenomenal. The app is fast, beautiful, and our users love it. He also provided excellent documentation and training for our team. A true professional in every sense!",
     "platform": "LINKEDIN",
     "imageUrl": "https://randomuser.me/api/portraits/men/4.jpg"
   },
   {
     "name": "Amanda Foster",
-    "position": "CTO at DataSync Solutions",
+    "jobPosition": "CTO at DataSync Solutions",
     "testimonial": "Outstanding work on our real-time data visualization platform. John demonstrated deep knowledge of WebSockets, React, and Node.js. He's proactive, suggests improvements, and goes above and beyond to ensure project success. Highly skilled developer!",
     "platform": "UPWORK",
     "imageUrl": "https://randomuser.me/api/portraits/women/5.jpg"
   },
   {
     "name": "James Wilson",
-    "position": "VP Engineering at CloudTech",
+    "jobPosition": "VP Engineering at CloudTech",
     "testimonial": "John's expertise in AWS and DevOps helped us reduce our infrastructure costs by 30% while improving performance. He's not just a developer but a problem solver who thinks strategically about scalability and security. Exceptional talent!",
     "platform": "LINKEDIN",
     "imageUrl": "https://randomuser.me/api/portraits/men/6.jpg"

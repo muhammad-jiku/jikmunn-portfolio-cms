@@ -3,6 +3,7 @@ import { Server } from 'http';
 
 import app from './app';
 import { config } from './config/index.config';
+import { initializeSocket } from './config/socket.config';
 import { startCronJobs } from './utils/cron.util';
 import { logger } from './utils/logger.util';
 
@@ -26,6 +27,10 @@ async function bootstrap() {
       logger.info(`🚀 Server running on port ${PORT} in ${config.env} mode`);
       logger.info(`📡 API endpoint: http://localhost:${PORT}/api/${config.apiVersion}`);
       logger.info(`🏥 Health check: http://localhost:${PORT}/api/${config.apiVersion}/health`);
+
+      // Initialize Socket.IO
+      initializeSocket(server);
+      logger.info(`🔌 Socket.IO initialized on port ${PORT}`);
 
       // Start cron jobs
       startCronJobs();

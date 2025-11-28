@@ -4,7 +4,8 @@ Backend API for Portfolio CMS built with Node.js, Express.js, Prisma, and Postgr
 
 ## Features
 
-- ✅ Role-based authentication with AWS Cognito
+- ✅ Role-based authentication with AWS Cognito (JWT verification)
+- ✅ Real-time notifications with Socket.IO
 - ✅ RESTful API architecture
 - ✅ PostgreSQL database with Prisma ORM
 - ✅ AWS S3 for media storage
@@ -30,7 +31,8 @@ Backend API for Portfolio CMS built with Node.js, Express.js, Prisma, and Postgr
 - **Framework:** Express.js
 - **Database:** PostgreSQL
 - **ORM:** Prisma
-- **Authentication:** AWS Cognito
+- **Authentication:** AWS Cognito (JWT)
+- **Real-time:** Socket.IO
 - **Storage:** AWS S3
 - **Validation:** Zod
 - **Logging:** Winston & Morgan
@@ -48,12 +50,14 @@ server/
 │   │   ├── aws.config.ts
 │   │   ├── cognito.config.ts
 │   │   ├── database.config.ts
+│   │   ├── socket.config.ts
 │   │   └── index.config.ts
 │   ├── utils/               # Utility functions
 │   │   ├── helpers.util.ts
 │   │   ├── logger.util.ts
 │   │   ├── pagination.util.ts
 │   │   ├── response.util.ts
+│   │   ├── socket.util.ts
 │   │   └── s3.util.ts
     └── app/                 # Application modules
         ├── middleware/      # Express middleware
@@ -165,8 +169,8 @@ The server will start on `http://localhost:5000`
 ## Documentation
 
 - **API Docs:** `http://localhost:5000/api/docs` (Swagger UI)
-- **Testing Guide:** See `../TESTING.md` for detailed testing instructions
-- **Schema Updates:** See `../SCHEMA_UPDATES.md` for recent database changes
+- **Socket.IO Guide:** See `SOCKET_IO_GUIDE.md` for real-time notifications
+- **Testing Guide:** See `../TESTING.md` for API testing instructions
 - **Quick Start:** See `../QUICKSTART.md` for setup instructions
 
 ## Database Schema Updates
@@ -179,7 +183,118 @@ The server will start on `http://localhost:5000`
 - **BlogStatus Enum:** New enum with IN_PROGRESS, UPDATED, DEVELOPMENT, PRODUCTION
 - **Maintenance Model:** Added for system maintenance mode
 
-See `SCHEMA_UPDATES.md` for detailed migration guide.
+## Authentication with AWS Cognito
+
+This project uses **AWS Cognito** for authentication. There are **no sign-up/sign-in routes** in the backend because AWS Cognito handles all user management operations:
+
+### What Cognito Handles:
+
+- ✅ User registration (sign-up)
+- ✅ User login (sign-in)
+- ✅ Password reset & forgot password
+- ✅ Email verification
+- ✅ Token generation and refresh
+- ✅ MFA (Multi-factor authentication)
+- ✅ Social login (Google, Facebook, etc.)
+
+### Backend Role:
+
+- ✅ Verifies JWT tokens issued by Cognito
+- ✅ Checks user roles (SUPER_ADMIN, ADMIN, AUTHOR, EDITOR)
+- ✅ Protects routes based on authentication and roles
+
+### Environment Variables:
+
+```env
+AWS_COGNITO_USER_POOL_ID=your-pool-id
+AWS_COGNITO_CLIENT_ID=your-client-id
+AWS_REGION=ap-southeast-1
+AWS_COGNITO_ISSUER=https://cognito-idp.{region}.amazonaws.com/{userPoolId}
+```
+
+### Using JWT Tokens:
+
+All protected endpoints require JWT token in Authorization header:
+
+```
+Authorization: Bearer <jwt-token-from-cognito>
+```
+
+### Frontend Implementation:
+
+Frontend should use `amazon-cognito-identity-js` or `aws-amplify` to:
+
+1. Sign up users → Cognito User Pool
+2. Sign in users → Get JWT token
+3. Make API calls with JWT token in header
+4. Refresh tokens when expired
+
+Example:
+
+```typescript
+// Frontend authentication
+import { CognitoUserPool } from 'amazon-cognito-identity-js';
+
+const poolData = {
+  UserPoolId: 'your-pool-id',
+  ClientId: 'your-client-id',
+};
+
+const userPool = new CognitoUserPool(poolData);
+// ... sign up, sign in, etc.
+```
+
+### Dev-Only Routes:
+
+For managing user roles in development:
+
+- `GET /api/v1/dev/users` - List all Cognito users
+- `PUT /api/v1/dev/users/role` - Update user role
+
+## Real-time Notifications with Socket.IO
+
+Socket.IO is integrated for real-time updates when content is created, updated, or deleted.
+
+### Features:
+
+- ✅ Real-time notifications for all CRUD operations
+- ✅ Admin-only room for authenticated users
+- ✅ 30+ event types (projects, blogs, services, skills, etc.)
+- ✅ Auto-reconnection handling
+- ✅ CORS configured for frontend
+
+### Event Types:
+
+**Projects:** `project:created`, `project:updated`, `project:deleted`  
+**Blogs:** `blog:created`, `blog:updated`, `blog:deleted`  
+**Services:** `service:created`, `service:updated`, `service:deleted`  
+**Skills:** `skill:created`, `skill:updated`, `skill:deleted`  
+**And more...**
+
+### Frontend Connection:
+
+```typescript
+import { io } from 'socket.io-client';
+
+const socket = io('http://localhost:5000');
+
+socket.on('connect', () => {
+  socket.emit('join:admin'); // Join admin room
+});
+
+socket.on('project:created', data => {
+  console.log('New project:', data);
+  // Update UI, show notification, etc.
+});
+```
+
+### Environment Variables:
+
+```env
+CLIENT_URL=http://localhost:3000
+```
+
+**For complete Socket.IO documentation, see `SOCKET_IO_GUIDE.md`**
 
 ## Testing
 
@@ -236,7 +351,7 @@ curl http://localhost:5000/api/v1/health
 curl http://localhost:5000/api/v1/projects/public
 ```
 
-For detailed testing guide, see [../TESTING.md](../TESTING.md) and [../API_TESTING_STEPS.md](../API_TESTING_STEPS.md).
+For detailed testing guide, see [../TESTING.md](../TESTING.md).
 
 ## Database Schema
 
@@ -269,13 +384,17 @@ The database includes the following main entities:
 
 ## Authentication
 
-This API uses AWS Cognito for authentication. Protected endpoints require a valid JWT token in the Authorization header:
+This API uses **AWS Cognito** for authentication. All user management (sign-up, sign-in, password reset) is handled by Cognito.
+
+Protected endpoints require a valid JWT token from Cognito:
 
 ```
-Authorization: Bearer <your-token>
+Authorization: Bearer <your-jwt-token>
 ```
 
-Roles: SUPER_ADMIN, ADMIN, AUTHOR, EDITOR
+**Roles:** SUPER_ADMIN, ADMIN, AUTHOR, EDITOR
+
+**No backend authentication routes needed** - Frontend authenticates directly with AWS Cognito and passes JWT token to API.
 
 ## Deployment
 

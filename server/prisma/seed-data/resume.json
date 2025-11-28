@@ -2,24 +2,24 @@
   "summary": {
     "summary": "Passionate Full-Stack Developer with 5+ years of experience building scalable web and mobile applications. Specialized in modern JavaScript frameworks, cloud technologies, and agile development practices. Committed to writing clean, maintainable code and delivering exceptional user experiences.",
     "address": "123 Tech Street, San Francisco, CA 94102",
-    "contactNumber": "+1 (555) 123-4567",
+    "phone": "+1 (555) 123-4567",
     "email": "john.smith@example.com"
   },
   "education": [
     {
       "degree": "Bachelor of Science in Computer Science",
       "years": "2015 - 2019",
-      "institution": "Stanford University"
+      "university": "Stanford University"
     },
     {
       "degree": "Full-Stack Web Development Bootcamp",
       "years": "2019",
-      "institution": "Le Wagon"
+      "university": "Le Wagon"
     },
     {
       "degree": "AWS Certified Solutions Architect",
       "years": "2022",
-      "institution": "Amazon Web Services"
+      "university": "Amazon Web Services"
     }
   ],
   "experience": [

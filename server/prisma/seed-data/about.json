@@ -1,6 +1,6 @@
 {
-  "totalClients": 45,
-  "totalProjects": 78,
+  "numberOfClients": 45,
+  "numberOfProjects": 78,
   "hoursOfSupport": 15420,
   "yearsOfExperience": 5
 }

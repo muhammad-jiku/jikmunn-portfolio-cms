@@ -2,7 +2,7 @@
 
 **Status:** ✅ **100% Complete** - All phases implemented and production-ready
 
-**Last Updated:** November 20, 2025
+**Last Updated:** November 28, 2025
 
 **Tech Stack:**
 
@@ -10,6 +10,7 @@
 - Prisma ORM
 - PostgreSQL
 - AWS Cognito (Authentication & Authorization)
+- Socket.IO (Real-time Notifications)
 - AWS S3 (Media Storage)
 - AWS RDS (Database Hosting)
 - AWS EC2 (Backend Server Hosting)
@@ -17,26 +18,40 @@
 
 **Recent Updates:**
 
-- ✅ All 12 development phases completed
+- ✅ All development phases completed
+- ✅ Socket.IO real-time notification system integrated
+- ✅ Authentication architecture finalized (AWS Cognito, no backend auth routes)
 - ✅ Schema enhancements: Tech stack tracking, blog status, and topic categorization
 - ✅ Maintenance mode API for system status messages
 - ✅ Development-only endpoints for testing (NODE_ENV isolated)
 - ✅ Comprehensive API documentation via Swagger/OpenAPI
 - ✅ Jest testing framework with unit tests
-- ✅ See `../SCHEMA_UPDATES.md` for detailed schema changes
 
 ---
 
 # **Functional Requirements**
 
-| Requirement ID                     | Description                      | User Story                                               | Expected Behavior                                                          |
-| ---------------------------------- | -------------------------------- | -------------------------------------------------------- | -------------------------------------------------------------------------- |
-| **AUTHENTICATION & AUTHORIZATION** |                                  |                                                          |                                                                            |
-| BR001                              | Cognito User Pool Authentication | As a user, I want secure signup/login using Cognito.     | Backend validates Cognito access tokens using JWKS keys.                   |
-| BR002                              | Role-Based Authorization         | As an admin, I want restricted endpoints based on roles. | Middleware checks Cognito role claims: super-admin, admin, author, editor. |
-| BR003                              | Token Validation Middleware      | As a system, I must verify JWT tokens.                   | Verifier checks signature, expiration, issuer, and audience.               |
-| BR004                              | Secure Refresh Flow              | As a user, I want persistent authentication.             | Relies on Cognito refresh tokens—backend does not store them.              |
-| BR005                              | Protected Resource Access        | As a developer, I want clear protected APIs.             | All CRUD routes gated except public GET endpoints.                         |
+| Requirement ID                     | Description                      | User Story                                               | Expected Behavior                                                               |
+| ---------------------------------- | -------------------------------- | -------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| **AUTHENTICATION & AUTHORIZATION** |                                  |                                                          |                                                                                 |
+| BR001                              | Cognito User Pool Authentication | As a user, I want secure signup/login using Cognito.     | Backend validates Cognito access tokens using JWKS keys.                        |
+| BR002                              | Role-Based Authorization         | As an admin, I want restricted endpoints based on roles. | Middleware checks Cognito role claims: super-admin, admin, author, editor.      |
+| BR003                              | Token Validation Middleware      | As a system, I must verify JWT tokens.                   | Verifier checks signature, expiration, issuer, and audience.                    |
+| BR004                              | Secure Refresh Flow              | As a user, I want persistent authentication.             | Relies on Cognito refresh tokens—backend does not store them.                   |
+| BR005                              | Protected Resource Access        | As a developer, I want clear protected APIs.             | All CRUD routes gated except public GET endpoints.                              |
+| BR005a                             | No Backend Auth Routes           | As a developer, I understand Cognito handles auth.       | Sign-up, sign-in, password reset handled by Cognito. Backend only verifies JWT. |
+
+---
+
+## **REAL-TIME NOTIFICATIONS (SOCKET.IO)**
+
+| Requirement ID | Description                     | User Story                                        | Expected Behavior                                                           |
+| -------------- | ------------------------------- | ------------------------------------------------- | --------------------------------------------------------------------------- |
+| BR005b         | Socket.IO Server Initialization | As a system, I need real-time communication.      | Socket.IO server configured with CORS, runs on same port as Express.        |
+| BR005c         | Admin Room Management           | As an admin, I want to receive admin-only events. | Authenticated users join 'admin' room via token verification.               |
+| BR005d         | CRUD Event Notifications        | As an admin, I want instant content updates.      | All create/update/delete operations emit Socket.IO events.                  |
+| BR005e         | Event Type Coverage             | As a developer, I need comprehensive events.      | 30+ event types: projects, blogs, services, skills, testimonials, FAQ, etc. |
+| BR005f         | Frontend Integration Support    | As a frontend dev, I need connection guide.       | Documentation provides React examples and event listener patterns.          |
 
 ---
 
@@ -330,9 +345,79 @@ export const verifyToken = async (req, res, next) => {
 | ORM             | Prisma           |
 | Database        | PostgreSQL (RDS) |
 | Auth            | AWS Cognito      |
+| Real-time       | Socket.IO        |
 | Storage         | AWS S3           |
 | Deployment      | AWS EC2          |
 | Monitoring      | CloudWatch       |
 | Process Manager | PM2              |
+
+---
+
+## **Authentication Architecture**
+
+**AWS Cognito handles all user management:**
+
+- Sign-up (user registration)
+- Sign-in (user login)
+- Password reset & forgot password
+- Email verification
+- Token generation and refresh
+- MFA (Multi-factor authentication)
+- Social login (Google, Facebook, etc.)
+
+**Backend only:**
+
+- Verifies JWT tokens issued by Cognito
+- Checks user roles (SUPER_ADMIN, ADMIN, AUTHOR, EDITOR)
+- Protects routes based on authentication and roles
+
+**Frontend implementation:**
+
+- Uses `amazon-cognito-identity-js` or `aws-amplify`
+- Authenticates directly with AWS Cognito
+- Passes JWT token to backend API in Authorization header
+- No backend authentication routes needed (by design)
+
+---
+
+## **Real-time Notifications with Socket.IO**
+
+**Implementation:**
+
+- Socket.IO server initialized on same port as Express
+- CORS configured for frontend connection
+- Admin room for authenticated users
+- 30+ event types for all CRUD operations
+
+**Event Types:**
+
+- Projects: `project:created`, `project:updated`, `project:deleted`
+- Blogs: `blog:created`, `blog:updated`, `blog:deleted`
+- Services: `service:created`, `service:updated`, `service:deleted`
+- Skills: `skill:created`, `skill:updated`, `skill:deleted`
+- Testimonials, FAQ, Resume, Trash, Maintenance events...
+
+**Usage Pattern:**
+
+```typescript
+// In controller after successful operation
+import { notifyProjectCreated } from '@/utils/socket.util';
+
+// Create project...
+notifyProjectCreated(newProject);
+```
+
+**Frontend Connection:**
+
+```typescript
+import { io } from 'socket.io-client';
+
+const socket = io('http://localhost:5000');
+socket.on('project:created', (data) => {
+  // Update UI, show notification, etc.
+});
+```
+
+**For complete documentation, see `server/SOCKET_IO_GUIDE.md`**
 
 ---

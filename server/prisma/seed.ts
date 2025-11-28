@@ -26,8 +26,22 @@ async function main() {
       prisma.blog.deleteMany(),
       prisma.project.deleteMany(),
       prisma.about.deleteMany(),
+      prisma.user.deleteMany(),
     ]);
     console.log('✅ Existing data cleaned\n');
+
+    // Create a test user for projects and blogs
+    console.log('👤 Creating test user...');
+    const testUser = await prisma.user.create({
+      data: {
+        cognitoId: 'test-cognito-id-12345',
+        email: 'test@example.com',
+        name: 'Test User',
+        role: 'SUPER_ADMIN',
+        isActive: true,
+      },
+    });
+    console.log('✅ Test user created\n');
 
     // Load seed data path
     const seedDataPath = path.join(__dirname, 'seed-data');
@@ -72,7 +86,12 @@ async function main() {
       fs.readFileSync(path.join(seedDataPath, 'projects.json'), 'utf-8')
     );
     for (const project of projectsData) {
-      await prisma.project.create({ data: project });
+      await prisma.project.create({
+        data: {
+          ...project,
+          authorId: testUser.id,
+        },
+      });
     }
     console.log(`✅ ${projectsData.length} projects seeded`);
 
@@ -80,7 +99,12 @@ async function main() {
     console.log('📝 Seeding Blogs data...');
     const blogsData = JSON.parse(fs.readFileSync(path.join(seedDataPath, 'blogs.json'), 'utf-8'));
     for (const blog of blogsData) {
-      await prisma.blog.create({ data: blog });
+      await prisma.blog.create({
+        data: {
+          ...blog,
+          authorId: testUser.id,
+        },
+      });
     }
     console.log(`✅ ${blogsData.length} blogs seeded`);
 
@@ -120,6 +144,7 @@ async function main() {
 
     console.log('\n🎉 Database seeding completed successfully!\n');
     console.log('📊 Summary:');
+    console.log(`   - Users: 1 test user`);
     console.log(`   - About: 1 entry`);
     console.log(`   - Skills: ${skillsData.length} entries`);
     console.log(`   - Services: ${servicesData.length} entries`);

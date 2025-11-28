@@ -2,76 +2,76 @@
   {
     "name": "JavaScript",
     "progress": 95,
-    "icon": "javascript"
+    "iconUrl": "javascript"
   },
   {
     "name": "TypeScript",
     "progress": 90,
-    "icon": "typescript"
+    "iconUrl": "typescript"
   },
   {
     "name": "React",
     "progress": 92,
-    "icon": "react"
+    "iconUrl": "react"
   },
   {
     "name": "Next.js",
     "progress": 88,
-    "icon": "nextjs"
+    "iconUrl": "nextjs"
   },
   {
     "name": "Node.js",
     "progress": 90,
-    "icon": "nodejs"
+    "iconUrl": "nodejs"
   },
   {
     "name": "Express.js",
     "progress": 87,
-    "icon": "express"
+    "iconUrl": "express"
   },
   {
     "name": "PostgreSQL",
     "progress": 85,
-    "icon": "postgresql"
+    "iconUrl": "postgresql"
   },
   {
     "name": "MongoDB",
     "progress": 82,
-    "icon": "mongodb"
+    "iconUrl": "mongodb"
   },
   {
     "name": "Prisma ORM",
     "progress": 88,
-    "icon": "prisma"
+    "iconUrl": "prisma"
   },
   {
     "name": "AWS",
     "progress": 80,
-    "icon": "aws"
+    "iconUrl": "aws"
   },
   {
     "name": "Docker",
     "progress": 78,
-    "icon": "docker"
+    "iconUrl": "docker"
   },
   {
     "name": "Git & GitHub",
     "progress": 93,
-    "icon": "git"
+    "iconUrl": "git"
   },
   {
     "name": "Tailwind CSS",
     "progress": 90,
-    "icon": "tailwindcss"
+    "iconUrl": "tailwindcss"
   },
   {
     "name": "React Native",
     "progress": 75,
-    "icon": "react-native"
+    "iconUrl": "react-native"
   },
   {
     "name": "GraphQL",
     "progress": 73,
-    "icon": "graphql"
+    "iconUrl": "graphql"
   }
 ]
