@@ -1,12 +1,33 @@
 import { z } from 'zod';
 
 // Resume Summary validation
+export const createSummarySchema = z.object({
+  body: z.object({
+    summary: z.string().min(1, 'Summary cannot be empty'),
+    address: z.string().min(1, 'Address cannot be empty'),
+    phone: z.string().min(1, 'Phone cannot be empty'),
+    email: z.string().email('Invalid email format'),
+  }),
+});
+
 export const updateResumeSummarySchema = z.object({
   body: z.object({
     summary: z.string().min(1, 'Summary cannot be empty').optional(),
     address: z.string().min(1, 'Address cannot be empty').optional(),
     phone: z.string().min(1, 'Phone cannot be empty').optional(),
     email: z.string().email('Invalid email format').optional(),
+  }),
+});
+
+export const getSummaryByIdSchema = z.object({
+  params: z.object({
+    id: z.string().uuid(),
+  }),
+});
+
+export const deleteSummarySchema = z.object({
+  params: z.object({
+    id: z.string().uuid(),
   }),
 });
 

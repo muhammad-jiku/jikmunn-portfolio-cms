@@ -8,6 +8,7 @@ import {
   educationFilterableFields,
   experienceFilterableFields,
   referenceFilterableFields,
+  summaryFilterableFields,
 } from './resume.constants';
 import {
   IAchievement,
@@ -25,14 +26,14 @@ import {
 } from './resume.service';
 
 // RESUME SUMMARY CONTROLLERS
-const getResumeSummary = catchAsync(async (_req: Request, res: Response, next: NextFunction) => {
+const createSummary = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const result = await ResumeSummaryServices.getSummary();
+    const result = await ResumeSummaryServices.createSummary(req.body);
 
     sendResponse<IResumeSummary>(res, {
-      statusCode: httpStatus.OK,
+      statusCode: httpStatus.CREATED,
       success: true,
-      message: 'Resume summary retrieved successfully!',
+      message: 'Summary created successfully!',
       data: result,
     });
   } catch (error) {
@@ -40,7 +41,43 @@ const getResumeSummary = catchAsync(async (_req: Request, res: Response, next: N
   }
 });
 
-const updateResumeSummary = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+const getAllSummary = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const filters = pick(req.query, summaryFilterableFields);
+    const paginationOptions = pick(req.query, paginationFields);
+
+    const result = await ResumeSummaryServices.getAllSummary(filters, paginationOptions);
+
+    sendResponse<IResumeSummary[]>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Summary retrieved successfully!',
+      meta: result.meta,
+      data: result.data,
+    });
+  } catch (error) {
+    return next(error);
+  }
+});
+
+const getSummaryById = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { id } = req.params;
+
+    const result = await ResumeSummaryServices.getSummaryById(id);
+
+    sendResponse<IResumeSummary>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Summary retrieved successfully!',
+      data: result,
+    });
+  } catch (error) {
+    return next(error);
+  }
+});
+
+const updateSummary = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { id } = req.params;
 
@@ -49,7 +86,24 @@ const updateResumeSummary = catchAsync(async (req: Request, res: Response, next:
     sendResponse<IResumeSummary>(res, {
       statusCode: httpStatus.OK,
       success: true,
-      message: 'Resume summary updated successfully!',
+      message: 'Summary updated successfully!',
+      data: result,
+    });
+  } catch (error) {
+    return next(error);
+  }
+});
+
+const deleteSummary = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { id } = req.params;
+
+    const result = await ResumeSummaryServices.deleteSummary(id);
+
+    sendResponse<IResumeSummary>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Summary deleted successfully!',
       data: result,
     });
   } catch (error) {
@@ -403,8 +457,11 @@ const deleteReference = catchAsync(async (req: Request, res: Response, next: Nex
 
 export const ResumeControllers = {
   // Summary
-  getResumeSummary,
-  updateResumeSummary,
+  createSummary,
+  getAllSummary,
+  getSummaryById,
+  updateSummary,
+  deleteSummary,
   // Education
   createEducation,
   getAllEducation,

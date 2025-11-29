@@ -113,7 +113,7 @@ curl http://localhost:5000/api/v1/health
 **Option 2: Postman**
 
 1. Import endpoints from Swagger documentation
-2. Set up environment with JWT token
+2. Set up environment with ID token (from Cognito)
 3. Test endpoints manually
 
 **Option 3: Automated Tests**
@@ -139,7 +139,7 @@ npm run test:watch        # Watch mode
    - GET /api/v1/about
    - GET /api/v1/skills
    - GET /api/v1/services
-5. **Get JWT token** from AWS Cognito
+5. **Get ID token** from AWS Cognito (use IdToken, not AccessToken)
 6. **Authorize in Swagger** (click 🔒 button, enter: `Bearer YOUR_TOKEN`)
 7. **Test protected endpoints**:
    - POST /api/v1/projects

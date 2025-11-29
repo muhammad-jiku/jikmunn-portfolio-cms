@@ -4,6 +4,7 @@ export interface IResumeSummary {
   address: string;
   phone: string;
   email: string;
+  deletedAt?: Date | null;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -47,6 +48,13 @@ export interface IReference {
   deletedAt?: Date | null;
   createdAt: Date;
   updatedAt: Date;
+}
+
+export interface ICreateResumeSummary {
+  summary: string;
+  address: string;
+  phone: string;
+  email: string;
 }
 
 export interface IUpdateResumeSummary {

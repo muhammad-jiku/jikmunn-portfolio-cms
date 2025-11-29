@@ -1,4 +1,7 @@
 // Resume module constants
+export const summaryFilterableFields = ['address', 'phone', 'email'];
+export const summarySearchableFields = ['address', 'phone', 'email'];
+
 export const educationFilterableFields = ['degree', 'university'];
 export const educationSearchableFields = ['degree', 'university'];
 

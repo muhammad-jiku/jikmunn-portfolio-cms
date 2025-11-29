@@ -171,7 +171,7 @@ export const signUp = (email: string, password: string) => {
 };
 
 export const signIn = (email: string, password: string) => {
-  // Sign in implementation, returns JWT token
+  // Sign in implementation, returns ID token (use IdToken from response)
 };
 
 export const forgotPassword = (email: string) => {

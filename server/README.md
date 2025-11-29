@@ -146,25 +146,134 @@ The server will start on `http://localhost:5000`
 - **Health Check:** `GET /api/v1/health`
 - **Public Projects:** `GET /api/v1/projects/public` (PRODUCTION status only)
 - **Public Blogs:** `GET /api/v1/blogs/public` (PRODUCTION status only)
+- **Maintenance Status:** `GET /api/v1/maintenance/status`
 
 #### Implemented Modules
 
-- **Projects:** `/api/v1/projects` (Full CRUD + image/video upload + public routes)
-- **Blogs:** `/api/v1/blogs` (Full CRUD + pagination + public routes)
-- **About:** `/api/v1/about` (Stats management)
-- **Services:** `/api/v1/services` (Full CRUD)
-- **Skills:** `/api/v1/skills` (Full CRUD)
-- **Resume:** `/api/v1/resume` (All 5 sub-modules: Summary, Education, Experience, Achievements, References)
-- **Testimonials:** `/api/v1/testimonials` (Full CRUD with platform support)
-- **FAQ:** `/api/v1/faq` (Ordered Q&A pairs)
-- **Trash:** `/api/v1/trash` (Restore/permanent delete with cleanup)
+**Projects** - `/api/v1/projects`
+
+- `GET /public` - Get all public projects (PRODUCTION status)
+- `GET /public/:id` - Get single public project
+- `GET /` - Get all projects (authenticated)
+- `POST /` - Create project (ADMIN, SUPER_ADMIN, AUTHOR)
+- `GET /:id` - Get project by ID
+- `PUT /:id` - Update project (ADMIN, SUPER_ADMIN, AUTHOR)
+- `DELETE /:id` - Delete project (ADMIN, SUPER_ADMIN)
+- `POST /:id/images` - Upload project images (ADMIN, SUPER_ADMIN, AUTHOR)
+- `DELETE /:projectId/images/:imageId` - Delete project image (ADMIN, SUPER_ADMIN, AUTHOR)
+
+**Blogs** - `/api/v1/blogs`
+
+- `GET /public` - Get all public blogs (PRODUCTION status)
+- `GET /public/:id` - Get single public blog
+- `GET /` - Get all blogs (authenticated)
+- `POST /` - Create blog (ADMIN, SUPER_ADMIN, AUTHOR)
+- `GET /:id` - Get blog by ID
+- `PUT /:id` - Update blog (ADMIN, SUPER_ADMIN, AUTHOR)
+- `DELETE /:id` - Delete blog (ADMIN, SUPER_ADMIN)
+
+**About** - `/api/v1/about`
+
+- `GET /` - Get about stats (public)
+- `PUT /` - Update about stats (ADMIN, SUPER_ADMIN)
+- `POST /reset` - Reset about stats to default (ADMIN, SUPER_ADMIN)
+
+**Services** - `/api/v1/services`
+
+- `GET /public` - Get all services (public)
+- `GET /` - Get all services (authenticated)
+- `POST /` - Create service (ADMIN, SUPER_ADMIN)
+- `GET /:id` - Get service by ID
+- `PUT /:id` - Update service (ADMIN, SUPER_ADMIN)
+- `DELETE /:id` - Delete service (ADMIN, SUPER_ADMIN)
+
+**Skills** - `/api/v1/skills`
+
+- `GET /public` - Get all skills (public)
+- `GET /` - Get all skills (authenticated)
+- `POST /` - Create skill (ADMIN, SUPER_ADMIN)
+- `GET /:id` - Get skill by ID
+- `PUT /:id` - Update skill (ADMIN, SUPER_ADMIN)
+- `DELETE /:id` - Delete skill (ADMIN, SUPER_ADMIN)
+
+**Resume** - `/api/v1/resume`
+
+_Summary:_
+
+- `GET /summary` - Get all summaries (public)
+- `GET /summary/:id` - Get summary by ID (public)
+- `POST /summary` - Create summary (ADMIN, SUPER_ADMIN)
+- `PUT /summary/:id` - Update summary (ADMIN, SUPER_ADMIN)
+- `DELETE /summary/:id` - Delete summary (ADMIN, SUPER_ADMIN)
+
+_Education:_
+
+- `GET /education` - Get all education (public)
+- `GET /education/:id` - Get education by ID (public)
+- `POST /education` - Create education (ADMIN, SUPER_ADMIN)
+- `PUT /education/:id` - Update education (ADMIN, SUPER_ADMIN)
+- `DELETE /education/:id` - Delete education (ADMIN, SUPER_ADMIN)
+
+_Experience:_
+
+- `GET /experience` - Get all experience (public)
+- `GET /experience/:id` - Get experience by ID (public)
+- `POST /experience` - Create experience (ADMIN, SUPER_ADMIN)
+- `PUT /experience/:id` - Update experience (ADMIN, SUPER_ADMIN)
+- `DELETE /experience/:id` - Delete experience (ADMIN, SUPER_ADMIN)
+
+_Achievements:_
+
+- `GET /achievements` - Get all achievements (public)
+- `GET /achievements/:id` - Get achievement by ID (public)
+- `POST /achievements` - Create achievement (ADMIN, SUPER_ADMIN)
+- `PUT /achievements/:id` - Update achievement (ADMIN, SUPER_ADMIN)
+- `DELETE /achievements/:id` - Delete achievement (ADMIN, SUPER_ADMIN)
+
+_References:_
+
+- `GET /references` - Get all references (public)
+- `GET /references/:id` - Get reference by ID (public)
+- `POST /references` - Create reference (ADMIN, SUPER_ADMIN)
+- `PUT /references/:id` - Update reference (ADMIN, SUPER_ADMIN)
+- `DELETE /references/:id` - Delete reference (ADMIN, SUPER_ADMIN)
+
+**Testimonials** - `/api/v1/testimonials`
+
+- `GET /public` - Get all testimonials (public)
+- `GET /` - Get all testimonials (authenticated)
+- `POST /` - Create testimonial (ADMIN, SUPER_ADMIN)
+- `GET /:id` - Get testimonial by ID
+- `PUT /:id` - Update testimonial (ADMIN, SUPER_ADMIN)
+- `DELETE /:id` - Delete testimonial (ADMIN, SUPER_ADMIN)
+
+**FAQ** - `/api/v1/faq`
+
+- `GET /public` - Get all FAQs (public)
+- `GET /` - Get all FAQs (authenticated)
+- `POST /` - Create FAQ (ADMIN, SUPER_ADMIN)
+- `GET /:id` - Get FAQ by ID
+- `PUT /:id` - Update FAQ (ADMIN, SUPER_ADMIN)
+- `DELETE /:id` - Delete FAQ (ADMIN, SUPER_ADMIN)
+
+**Trash** - `/api/v1/trash`
+
+- `GET /` - Get all trash items (ADMIN, SUPER_ADMIN)
+- `GET /:id` - Get trash item by ID (ADMIN, SUPER_ADMIN)
+- `POST /:id/restore` - Restore item from trash (ADMIN, SUPER_ADMIN)
+- `DELETE /:id` - Permanently delete item (ADMIN, SUPER_ADMIN)
 
 #### Maintenance & Development
 
-- **Maintenance Status:** `GET /api/v1/maintenance/status` (public)
-- **Toggle Maintenance:** `PUT /api/v1/maintenance/toggle` (super admin/admin)
-- **List Dev Users:** `GET /api/v1/dev/users` (development mode only)
-- **Update User Role:** `PUT /api/v1/dev/users/role` (development mode only)
+**Maintenance** - `/api/v1/maintenance`
+
+- `GET /status` - Get maintenance status (public)
+- `PUT /toggle` - Toggle maintenance mode (SUPER_ADMIN, ADMIN)
+
+**Dev Routes** - `/api/v1/dev` (Development mode only)
+
+- `GET /users` - List all Cognito users
+- `PUT /users/role` - Update user role
 
 ## Documentation
 
@@ -199,7 +308,7 @@ This project uses **AWS Cognito** for authentication. There are **no sign-up/sig
 
 ### Backend Role:
 
-- ✅ Verifies JWT tokens issued by Cognito
+- ✅ Verifies ID tokens (containing custom:role) issued by Cognito
 - ✅ Checks user roles (SUPER_ADMIN, ADMIN, AUTHOR, EDITOR)
 - ✅ Protects routes based on authentication and roles
 
@@ -214,19 +323,21 @@ AWS_COGNITO_ISSUER=https://cognito-idp.{region}.amazonaws.com/{userPoolId}
 
 ### Using JWT Tokens:
 
-All protected endpoints require JWT token in Authorization header:
+All protected endpoints require **ID Token** (not Access Token) in Authorization header:
 
 ```
-Authorization: Bearer <jwt-token-from-cognito>
+Authorization: Bearer <id-token-from-cognito>
 ```
+
+**Important:** Use the **IdToken** from Cognito response, not AccessToken, because only ID tokens contain the `custom:role` attribute needed for role-based authorization.
 
 ### Frontend Implementation:
 
 Frontend should use `amazon-cognito-identity-js` or `aws-amplify` to:
 
 1. Sign up users → Cognito User Pool
-2. Sign in users → Get JWT token
-3. Make API calls with JWT token in header
+2. Sign in users → Get ID token (IdToken from response)
+3. Make API calls with ID token in header
 4. Refresh tokens when expired
 
 Example:
@@ -386,7 +497,7 @@ The database includes the following main entities:
 
 This API uses **AWS Cognito** for authentication. All user management (sign-up, sign-in, password reset) is handled by Cognito.
 
-Protected endpoints require a valid JWT token from Cognito:
+Protected endpoints require a valid ID token (not Access token) from Cognito:
 
 ```
 Authorization: Bearer <your-jwt-token>
@@ -394,7 +505,7 @@ Authorization: Bearer <your-jwt-token>
 
 **Roles:** SUPER_ADMIN, ADMIN, AUTHOR, EDITOR
 
-**No backend authentication routes needed** - Frontend authenticates directly with AWS Cognito and passes JWT token to API.
+**No backend authentication routes needed** - Frontend authenticates directly with AWS Cognito and passes ID token (IdToken) to API.
 
 ## Deployment
 

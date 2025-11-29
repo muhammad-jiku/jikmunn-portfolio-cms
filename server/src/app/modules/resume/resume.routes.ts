@@ -7,14 +7,17 @@ import {
   createEducationSchema,
   createExperienceSchema,
   createReferenceSchema,
+  createSummarySchema,
   deleteAchievementSchema,
   deleteEducationSchema,
   deleteExperienceSchema,
   deleteReferenceSchema,
+  deleteSummarySchema,
   getAchievementByIdSchema,
   getEducationByIdSchema,
   getExperienceByIdSchema,
   getReferenceByIdSchema,
+  getSummaryByIdSchema,
   updateAchievementSchema,
   updateEducationSchema,
   updateExperienceSchema,
@@ -27,7 +30,8 @@ const router = express.Router();
 // ============ PUBLIC ROUTES (No Authentication Required) ============
 
 // Resume Summary
-router.route('/summary').get(ResumeControllers.getResumeSummary);
+router.route('/summary').get(ResumeControllers.getAllSummary);
+router.route('/summary/:id').get(validate(getSummaryByIdSchema), ResumeControllers.getSummaryById);
 
 // Education
 router.route('/education').get(ResumeControllers.getAllEducation);
@@ -56,13 +60,26 @@ router
 // ============ PROTECTED ROUTES (Authentication Required) ============
 router.use(verifyToken);
 
-// Resume Summary - Update
+// Resume Summary - Create/Update/Delete
+router
+  .route('/summary')
+  .post(
+    requireRole('SUPER_ADMIN', 'ADMIN'),
+    validate(createSummarySchema),
+    ResumeControllers.createSummary
+  );
+
 router
   .route('/summary/:id')
   .put(
     requireRole('SUPER_ADMIN', 'ADMIN'),
     validate(updateResumeSummarySchema),
-    ResumeControllers.updateResumeSummary
+    ResumeControllers.updateSummary
+  )
+  .delete(
+    requireRole('SUPER_ADMIN', 'ADMIN'),
+    validate(deleteSummarySchema),
+    ResumeControllers.deleteSummary
   );
 
 // Education - Create/Update/Delete

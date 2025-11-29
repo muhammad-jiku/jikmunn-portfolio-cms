@@ -10,6 +10,7 @@ import {
   educationSearchableFields,
   experienceSearchableFields,
   referenceSearchableFields,
+  summarySearchableFields,
 } from './resume.constants';
 import {
   IAchievement,
@@ -17,6 +18,7 @@ import {
   ICreateEducation,
   ICreateExperience,
   ICreateReference,
+  ICreateResumeSummary,
   IEducation,
   IExperience,
   IReference,
@@ -29,33 +31,123 @@ import {
 } from './resume.interface';
 
 // RESUME SUMMARY SERVICES
-const getSummary = async (): Promise<IResumeSummary> => {
-  const summary = await prisma.resumeSummary.findFirst();
+const createSummary = async (data: ICreateResumeSummary): Promise<IResumeSummary> => {
+  const result = await prisma.resumeSummary.create({ data });
+  return result as IResumeSummary;
+};
 
-  if (!summary) {
-    const newSummary = await prisma.resumeSummary.create({
-      data: { summary: '', address: '', phone: '', email: '' },
+const getAllSummary = async (
+  filters: { searchTerm?: string },
+  paginationOptions: IPaginationOptions
+): Promise<IGenericResponse<IResumeSummary[]>> => {
+  const { searchTerm } = filters;
+  const { page, limit, skip, sortBy, sortOrder } =
+    paginationHelpers.calculatePagination(paginationOptions);
+
+  const andConditions = [];
+
+  andConditions.push({
+    deletedAt: null,
+  });
+
+  if (searchTerm) {
+    andConditions.push({
+      OR: summarySearchableFields.map(field => ({
+        [field]: {
+          contains: searchTerm,
+          mode: 'insensitive' as Prisma.QueryMode,
+        },
+      })),
     });
-    return newSummary as IResumeSummary;
   }
 
-  return summary as IResumeSummary;
+  const whereConditions: Prisma.ResumeSummaryWhereInput =
+    andConditions.length > 0 ? { AND: andConditions as any } : {};
+
+  const sortConditions: { [key: string]: 'asc' | 'desc' } = {};
+  if (sortBy && sortOrder) {
+    sortConditions[sortBy] = sortOrder;
+  }
+
+  const result = await prisma.resumeSummary.findMany({
+    where: whereConditions,
+    skip,
+    take: limit,
+    orderBy: sortConditions.length ? sortConditions : { createdAt: 'desc' },
+  });
+
+  const total = await prisma.resumeSummary.count({
+    where: whereConditions,
+  });
+
+  return {
+    meta: {
+      page,
+      limit,
+      total,
+    },
+    data: result as any,
+  };
+};
+
+const getSummaryById = async (id: string): Promise<IResumeSummary> => {
+  const result = await prisma.resumeSummary.findUnique({
+    where: { id },
+  });
+
+  if (!result) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Summary not found');
+  }
+
+  return result as IResumeSummary;
 };
 
 const updateSummary = async (id: string, data: IUpdateResumeSummary): Promise<IResumeSummary> => {
-  const existingSummary = await prisma.resumeSummary.findUnique({ where: { id } });
+  const existingSummary = await prisma.resumeSummary.findUnique({
+    where: { id },
+  });
 
   if (!existingSummary) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'Resume summary not found');
+    throw new ApiError(httpStatus.NOT_FOUND, 'Summary not found');
   }
 
   const result = await prisma.resumeSummary.update({ where: { id }, data });
   return result as IResumeSummary;
 };
 
+const deleteSummary = async (id: string): Promise<IResumeSummary> => {
+  const existingSummary = await prisma.resumeSummary.findUnique({
+    where: { id },
+  });
+
+  if (!existingSummary) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Summary not found');
+  }
+
+  // Move to trash before deleting
+  await prisma.trash.create({
+    data: {
+      entityType: 'resumeSummary',
+      entityId: id,
+      entityData: existingSummary as any,
+      expiresAt: addDays(new Date(), 31),
+    },
+  });
+
+  // Hard delete (resume models don't have soft delete)
+  const deleted = await prisma.resumeSummary.delete({
+    where: { id },
+  });
+
+  return deleted as IResumeSummary;
+};
+
 export const ResumeSummaryServices = {
-  getSummary,
+  createSummary,
+  getAllSummary,
+  getSummaryById,
   updateSummary,
+  deleteSummary,
 };
 
 // EDUCATION SERVICES

@@ -229,7 +229,7 @@ API documentation available at `http://localhost:5000/api/docs`
 - `GET /faq` - Get all FAQs (ordered)
 - `GET /faq/:id` - Get FAQ by ID
 
-#### Authenticated Endpoints (Requires JWT Token)
+#### Authenticated Endpoints (Requires ID Token)
 
 - `GET /projects` - Get all projects (all statuses, requires authentication)
 - `GET /projects/:id` - Get project by ID (all statuses, requires authentication)
@@ -294,7 +294,7 @@ Detailed documentation available:
 
 ## 🔐 Authentication
 
-Uses AWS Cognito JWT tokens. Include in request headers:
+Uses AWS Cognito ID tokens (contains custom:role). Include in request headers:
 
 ```
 Authorization: Bearer <your-jwt-token>

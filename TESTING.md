@@ -248,14 +248,14 @@ Repeat the above process for:
 
 ## 🔐 Step 6: Setup Authentication for Protected Endpoints
 
-### 6.1 Get JWT Token from AWS Cognito
+### 6.1 Get ID Token from AWS Cognito
 
 **Option A: Using AWS Cognito UI**
 
 1. Go to AWS Cognito Console
 2. Select your User Pool
 3. Create a test user or use existing
-4. Sign in and get the JWT token
+4. Sign in and get the ID token (IdToken field in response)
 
 **Option B: Using AWS CLI**
 
@@ -387,7 +387,7 @@ Now all protected endpoints will use this token automatically!
 1. Create new Collection: "Portfolio CMS"
 2. Add environment variables:
    - `base_url`: `http://localhost:5000`
-   - `jwt_token`: Your JWT token
+   - `id_token`: Your ID token from Cognito (IdToken field)
 
 ### 10.2 Add Authorization
 
@@ -530,14 +530,14 @@ curl http://localhost:5000/api/v1/health
 
 ## Authentication
 
-### Get JWT Token
+### Get ID Token
 
-You need a JWT token from AWS Cognito for protected endpoints.
+You need an ID token (not Access token) from AWS Cognito for protected endpoints. ID tokens contain the custom:role attribute.
 
 **Steps:**
 
 1. Sign up/Sign in via AWS Cognito
-2. Copy the JWT token
+2. Copy the ID token (IdToken field, NOT AccessToken)
 3. Add to Postman:
    - Go to Authorization tab
    - Select "Bearer Token"
@@ -682,7 +682,7 @@ Content-Type: application/json
 
 ### Issue 1: "401 Unauthorized"
 
-**Solution:** Add valid JWT token to Authorization header
+**Solution:** Add valid ID token (not Access token) to Authorization header
 
 ### Issue 2: "404 Not Found"
 
@@ -705,7 +705,7 @@ Content-Type: application/json
 1. Start server
 2. Go to `http://localhost:5000/api/docs`
 3. Test public endpoints first (no auth)
-4. Get JWT token for protected endpoints
+4. Get ID token (IdToken) for protected endpoints
 5. Click "Authorize" and add token
 6. Test create/update/delete operations
 

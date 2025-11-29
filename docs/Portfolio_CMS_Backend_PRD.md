@@ -31,15 +31,15 @@
 
 # **Functional Requirements**
 
-| Requirement ID                     | Description                      | User Story                                               | Expected Behavior                                                               |
-| ---------------------------------- | -------------------------------- | -------------------------------------------------------- | ------------------------------------------------------------------------------- |
-| **AUTHENTICATION & AUTHORIZATION** |                                  |                                                          |                                                                                 |
-| BR001                              | Cognito User Pool Authentication | As a user, I want secure signup/login using Cognito.     | Backend validates Cognito access tokens using JWKS keys.                        |
-| BR002                              | Role-Based Authorization         | As an admin, I want restricted endpoints based on roles. | Middleware checks Cognito role claims: super-admin, admin, author, editor.      |
-| BR003                              | Token Validation Middleware      | As a system, I must verify JWT tokens.                   | Verifier checks signature, expiration, issuer, and audience.                    |
-| BR004                              | Secure Refresh Flow              | As a user, I want persistent authentication.             | Relies on Cognito refresh tokens—backend does not store them.                   |
-| BR005                              | Protected Resource Access        | As a developer, I want clear protected APIs.             | All CRUD routes gated except public GET endpoints.                              |
-| BR005a                             | No Backend Auth Routes           | As a developer, I understand Cognito handles auth.       | Sign-up, sign-in, password reset handled by Cognito. Backend only verifies JWT. |
+| Requirement ID                     | Description                      | User Story                                               | Expected Behavior                                                                           |
+| ---------------------------------- | -------------------------------- | -------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| **AUTHENTICATION & AUTHORIZATION** |                                  |                                                          |                                                                                             |
+| BR001                              | Cognito User Pool Authentication | As a user, I want secure signup/login using Cognito.     | Backend validates Cognito ID tokens (containing custom:role) using JWKS keys.               |
+| BR002                              | Role-Based Authorization         | As an admin, I want restricted endpoints based on roles. | Middleware checks Cognito role claims: super-admin, admin, author, editor.                  |
+| BR003                              | Token Validation Middleware      | As a system, I must verify ID tokens.                    | Verifier checks ID token signature, expiration, issuer, audience, and extracts custom:role. |
+| BR004                              | Secure Refresh Flow              | As a user, I want persistent authentication.             | Relies on Cognito refresh tokens—backend does not store them.                               |
+| BR005                              | Protected Resource Access        | As a developer, I want clear protected APIs.             | All CRUD routes gated except public GET endpoints.                                          |
+| BR005a                             | No Backend Auth Routes           | As a developer, I understand Cognito handles auth.       | Sign-up, sign-in, password reset handled by Cognito. Backend only verifies JWT.             |
 
 ---
 
@@ -301,13 +301,24 @@ model ProjectImage {
 ```ts
 import { CognitoJwtVerifier } from 'aws-jwt-verify';
 
+// Use ID Token verifier to access custom:role attribute
+const idTokenVerifier = CognitoJwtVerifier.create({
+  userPoolId: cognitoConfig.userPoolId,
+  tokenUse: 'id', // ID tokens contain email and custom:role
+  clientId: cognitoConfig.clientId,
+});
+
 export const verifyToken = async (req, res, next) => {
   const token = req.headers.authorization?.split(' ')[1];
   if (!token) return res.status(401).json({ message: 'Unauthorized' });
 
   try {
-    const payload = await verifier.verify(token);
-    req.user = payload;
+    const payload = await idTokenVerifier.verify(token);
+    req.user = {
+      sub: payload.sub,
+      email: payload.email,
+      role: payload['custom:role'] || 'AUTHOR',
+    };
     next();
   } catch {
     res.status(403).json({ message: 'Forbidden' });

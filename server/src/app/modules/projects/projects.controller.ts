@@ -1,6 +1,8 @@
 import { NextFunction, Response } from 'express';
 import httpStatus from 'http-status';
+import prisma from '../../../config/database.config';
 import { catchAsync, pick } from '../../../utils/helpers.util';
+import { logger } from '../../../utils/logger.util';
 import { sendResponse } from '../../../utils/response.util';
 import { deleteFromS3, uploadMultipleToS3 } from '../../../utils/s3.util';
 import {
@@ -16,11 +18,33 @@ import { ProjectServices } from './projects.service';
 
 const createProject = catchAsync(async (req: AuthRequest, res: Response, next: NextFunction) => {
   try {
-    const userId = req.user?.sub;
+    const cognitoId = req.user?.sub;
+
+    if (!cognitoId) {
+      return res.status(401).json({
+        success: false,
+        message: 'Unauthorized: User ID not found in token',
+      });
+    }
+
+    // Find the user in database by cognitoId
+    const user = await prisma.user.findUnique({
+      where: { cognitoId },
+    });
+
+    if (!user) {
+      logger.error('User not found in database with cognitoId:', cognitoId);
+      return res.status(404).json({
+        success: false,
+        message: 'User not found. Please ensure your account is properly set up.',
+      });
+    }
+
+    logger.info('Found user in database:', { id: user.id, email: user.email });
 
     const projectData = {
       ...req.body,
-      authorId: userId,
+      authorId: user.id, // Use database User ID, not Cognito sub
     };
 
     const result = await ProjectServices.createProject(projectData);
