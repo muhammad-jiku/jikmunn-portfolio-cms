@@ -241,9 +241,12 @@ API documentation available at `http://localhost:5000/api/docs`
 - `POST /projects` - Create project
 - `PUT /projects/:id` - Update project
 - `DELETE /projects/:id` - Delete project (soft delete)
+- `POST /projects/:id/images` - Upload project images
+- `DELETE /projects/:projectId/images/:imageId` - Delete project image
 - `POST /blogs` - Create blog
 - `PUT /blogs/:id` - Update blog
 - `DELETE /blogs/:id` - Delete blog (soft delete)
+- `POST /blogs/:id/images` - Upload blog images
 - `POST /services` - Create service
 - `PUT /services/:id` - Update service
 - `DELETE /services/:id` - Delete service (soft delete)
@@ -251,7 +254,10 @@ API documentation available at `http://localhost:5000/api/docs`
 - `PUT /skills/:id` - Update skill
 - `DELETE /skills/:id` - Delete skill (soft delete)
 - `PUT /about` - Update about statistics
+- `POST /about/reset` - Reset about statistics to default
+- `POST /resume/summary` - Create resume summary
 - `PUT /resume/summary/:id` - Update resume summary
+- `DELETE /resume/summary/:id` - Delete resume summary
 - `POST /resume/education` - Create education
 - `PUT /resume/education/:id` - Update education
 - `DELETE /resume/education/:id` - Delete education (soft delete)

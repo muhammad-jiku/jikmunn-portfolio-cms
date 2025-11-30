@@ -59,24 +59,24 @@ server/
 │   │   ├── response.util.ts
 │   │   ├── socket.util.ts
 │   │   └── s3.util.ts
-    └── app/                 # Application modules
-        ├── middleware/      # Express middleware
-        │   ├── auth.middleware.ts
-        │   ├── dev.middleware.ts        # Dev-only middleware
-        │   ├── errorHandler.middleware.ts
-        │   └── validation.middleware.ts
-        ├── modules/         # Feature modules
-        │   ├── projects/
-        │   ├── blogs/
-        │   ├── about/
-        │   ├── services/
-        │   ├── skills/
-        │   ├── resume/
-        │   ├── testimonials/
-        │   ├── faq/
-        │   ├── trash/
-        │   └── common/      # Shared services, dev & maintenance controllers
-        └── routes/          # API routes
+│   └── app/                 # Application modules
+│       ├── middleware/      # Express middleware
+│       │   ├── auth.middleware.ts
+│       │   ├── dev.middleware.ts        # Dev-only middleware
+│       │   ├── errorHandler.middleware.ts
+│       │   └── validation.middleware.ts
+│       ├── modules/         # Feature modules
+│       │   ├── projects/
+│       │   ├── blogs/
+│       │   ├── about/
+│       │   ├── services/
+│       │   ├── skills/
+│       │   ├── resume/
+│       │   ├── testimonials/
+│       │   ├── faq/
+│       │   ├── trash/
+│       │   └── common/      # Shared services, dev & maintenance controllers
+│       └── routes/          # API routes
 ├── prisma/
 │   └── schema.prisma        # Database schema
 └── package.json
@@ -171,6 +171,7 @@ The server will start on `http://localhost:5000`
 - `GET /:id` - Get blog by ID
 - `PUT /:id` - Update blog (ADMIN, SUPER_ADMIN, AUTHOR)
 - `DELETE /:id` - Delete blog (ADMIN, SUPER_ADMIN)
+- `POST /:id/images` - Upload blog images (ADMIN, SUPER_ADMIN, AUTHOR)
 
 **About** - `/api/v1/about`
 
@@ -180,8 +181,7 @@ The server will start on `http://localhost:5000`
 
 **Services** - `/api/v1/services`
 
-- `GET /public` - Get all services (public)
-- `GET /` - Get all services (authenticated)
+- `GET /` - Get all services (public)
 - `POST /` - Create service (ADMIN, SUPER_ADMIN)
 - `GET /:id` - Get service by ID
 - `PUT /:id` - Update service (ADMIN, SUPER_ADMIN)
@@ -189,8 +189,7 @@ The server will start on `http://localhost:5000`
 
 **Skills** - `/api/v1/skills`
 
-- `GET /public` - Get all skills (public)
-- `GET /` - Get all skills (authenticated)
+- `GET /` - Get all skills (public)
 - `POST /` - Create skill (ADMIN, SUPER_ADMIN)
 - `GET /:id` - Get skill by ID
 - `PUT /:id` - Update skill (ADMIN, SUPER_ADMIN)
@@ -240,8 +239,7 @@ _References:_
 
 **Testimonials** - `/api/v1/testimonials`
 
-- `GET /public` - Get all testimonials (public)
-- `GET /` - Get all testimonials (authenticated)
+- `GET /` - Get all testimonials (public)
 - `POST /` - Create testimonial (ADMIN, SUPER_ADMIN)
 - `GET /:id` - Get testimonial by ID
 - `PUT /:id` - Update testimonial (ADMIN, SUPER_ADMIN)
@@ -249,8 +247,7 @@ _References:_
 
 **FAQ** - `/api/v1/faq`
 
-- `GET /public` - Get all FAQs (public)
-- `GET /` - Get all FAQs (authenticated)
+- `GET /` - Get all FAQs (public)
 - `POST /` - Create FAQ (ADMIN, SUPER_ADMIN)
 - `GET /:id` - Get FAQ by ID
 - `PUT /:id` - Update FAQ (ADMIN, SUPER_ADMIN)
@@ -262,6 +259,7 @@ _References:_
 - `GET /:id` - Get trash item by ID (ADMIN, SUPER_ADMIN)
 - `POST /:id/restore` - Restore item from trash (ADMIN, SUPER_ADMIN)
 - `DELETE /:id` - Permanently delete item (ADMIN, SUPER_ADMIN)
+- `POST /cleanup` - Cleanup expired trash (SUPER_ADMIN)
 
 #### Maintenance & Development
 
