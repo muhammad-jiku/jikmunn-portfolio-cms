@@ -52,7 +52,7 @@ export const verifyToken = async (
     try {
       payload = await idTokenVerifier.verify(token);
       console.log('✅ ID Token verified (has custom:role)');
-    } catch (idError) {
+    } catch {
       // If ID token verification fails, try access token
       try {
         payload = await accessTokenVerifier.verify(token);

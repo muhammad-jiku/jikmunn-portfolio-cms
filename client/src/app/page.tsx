@@ -1,8 +1,7 @@
 import Image from 'next/image';
 
-// Test Husky: Unused variables and bad formatting
-const testVar = 'bad formatting';
-const unusedReactVar = 'multiple   spaces';
+// // TEST: Unused variable should block commit
+// const unusedTestVariable = 'block commit';
 
 export default function Home() {
   return (

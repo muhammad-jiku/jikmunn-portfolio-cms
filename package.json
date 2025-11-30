@@ -43,9 +43,11 @@
   },
   "lint-staged": {
     "server/**/*.ts": [
+      "bash -c 'cd server && npm run lint'",
       "prettier --write"
     ],
     "client/**/*.{ts,tsx}": [
+      "bash -c 'cd client && npm run lint'",
       "prettier --write"
     ],
     "*.{json,md}": [

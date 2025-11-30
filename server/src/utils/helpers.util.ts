@@ -40,7 +40,7 @@ export const extractS3KeyFromUrl = (url: string): string => {
   try {
     const urlObj = new URL(url);
     return urlObj.pathname.substring(1); // Remove leading slash
-  } catch (error) {
+  } catch {
     return url;
   }
 };

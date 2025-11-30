@@ -14,7 +14,7 @@
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
     "prisma:studio": "prisma studio",
-    "lint": "eslint . --ext .ts",
+    "lint": "eslint .",
     "format": "prettier --write \"**/*.{ts,json,md}\""
   },
   "keywords": [
