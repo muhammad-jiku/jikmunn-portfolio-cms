@@ -6,6 +6,7 @@ A full-stack, device-responsive Content Management System for managing portfolio
 
 ```
 jikmunn-portfolio-cms/
+├── .husky/                        # Git hooks (Husky)
 ├── docs/                          # Documentation
 │   ├── Portfolio_CMS_Backend_PRD.md
 │   ├── Backend_Implementation_Phases.md   # 🔥 12-phase backend guide
@@ -60,6 +61,31 @@ jikmunn-portfolio-cms/
 - **[Backend API Documentation](server/README.md)** - All 76 API endpoints with examples
 - **[Quick Start Guide](QUICKSTART.md)** - Get up and running in 5 minutes
 - **[Testing Guide](TESTING.md)** - Comprehensive API testing workflow
+- **[Husky Setup Guide](HUSKY_SETUP.md)** - Git hooks for code quality enforcement
+
+## 🛠️ Development Workflow
+
+**Git Hooks (Husky)** - Automated code quality checks enabled!
+
+> 📖 See [Husky Setup Guide](HUSKY_SETUP.md) for complete configuration details.
+
+- ✅ **Pre-commit:** Auto-lint and format code (ESLint + Prettier)
+- ✅ **Pre-push:** TypeScript type checking (server + client)
+- ✅ **Monorepo Scripts:** Run dev/build/test for both projects
+
+```bash
+# Run both server and client concurrently
+npm run dev
+
+# Build entire project
+npm run build
+
+# Lint everything
+npm run lint
+
+# Type check both projects
+npm run type-check
+```
 
 ## 🎉 Project Status
 
@@ -193,7 +219,6 @@ cp .env.example .env
 ```
 
 4. Configure `.env` with your credentials:
-
    - Database URL
    - AWS Cognito (User Pool ID, Client ID, Region)
    - AWS S3 (Bucket, Access Key, Secret Key)

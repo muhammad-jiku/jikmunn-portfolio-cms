@@ -1,0 +1,55 @@
+{
+  "name": "jikmunn-portfolio-cms",
+  "version": "1.0.0",
+  "description": "Full-stack Portfolio CMS with Next.js and Express",
+  "private": true,
+  "workspaces": [
+    "server",
+    "client"
+  ],
+  "scripts": {
+    "prepare": "husky",
+    "dev:server": "cd server && npm run dev",
+    "dev:client": "cd client && npm run dev",
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
+    "build:server": "cd server && npm run build",
+    "build:client": "cd client && npm run build",
+    "build": "npm run build:server && npm run build:client",
+    "test:server": "cd server && npm test",
+    "test:client": "cd client && npm test",
+    "test": "npm run test:server && npm run test:client",
+    "lint:server": "cd server && npm run lint",
+    "lint:client": "cd client && npm run lint",
+    "lint": "npm run lint:server && npm run lint:client",
+    "type-check:server": "cd server && npx tsc --noEmit",
+    "type-check:client": "cd client && npx tsc --noEmit",
+    "type-check": "npm run type-check:server && npm run type-check:client"
+  },
+  "keywords": [
+    "portfolio",
+    "cms",
+    "nextjs",
+    "express",
+    "typescript"
+  ],
+  "author": "Jikmunn",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "eslint": "^9.39.1",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.0",
+    "prettier": "^3.7.3"
+  },
+  "lint-staged": {
+    "server/**/*.ts": [
+      "prettier --write"
+    ],
+    "client/**/*.{ts,tsx}": [
+      "prettier --write"
+    ],
+    "*.{json,md}": [
+      "prettier --write"
+    ]
+  }
+}

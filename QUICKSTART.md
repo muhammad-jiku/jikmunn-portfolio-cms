@@ -59,6 +59,35 @@ npm run prisma:studio
 - ✅ Updated all import paths to use centralized `utils/`
 - ✅ TypeScript compilation: 100% clean
 
+### 4. Git Hooks Setup (Optional but Recommended)
+
+⚡ **Husky + Lint-staged** for automatic code quality checks.
+
+```bash
+# Install dependencies (from root directory)
+cd ..
+npm install
+
+# Husky hooks are now active!
+```
+
+> 📖 See [Husky Setup Guide](HUSKY_SETUP.md) for details.
+
+**What you get:**
+
+- **Pre-commit:** Auto-lint and format staged files
+- **Pre-push:** TypeScript type checking before push
+- **Prevents:** Committing code with errors or bad formatting
+
+**Test it:**
+
+```bash
+# Make a change and commit
+git add .
+git commit -m "test: husky hooks"
+# Pre-commit hook runs automatically!
+```
+
 ### 4. Seed Database with Test Data
 
 Populate your database with sample data:
