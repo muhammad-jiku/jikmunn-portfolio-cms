@@ -1,14 +1,53 @@
 # **Project Requirements Document: Portfolio CMS (Frontend)**
 
-**Last Updated:** November 28, 2025
+**Last Updated:** November 30, 2025
 
-The following document outlines the detailed functional requirements of the **Device-Responsive Portfolio CMS** frontend, built using **Next.js**, **Tailwind CSS**, and **Redux Toolkit**.
+> **📋 Quick Reference:** For a concise phase-by-phase implementation guide with all 77 requirements (65 Functional + 12 Non-Functional), see [Frontend_Implementation_Phases.md](./Frontend_Implementation_Phases.md)
 
-This CMS provides a modern, responsive interface for managing and showcasing projects, blogs, skills, services, resumes, testimonials, FAQs, and more — with **role-based access** via **AWS Cognito** (Super Admin, Admin, Author, Editor) and **real-time notifications** via **Socket.IO**.
+The following document outlines the detailed functional requirements of the **Device-Responsive Portfolio CMS** frontend, built using **Next.js 15+**, **Tailwind CSS v4**, **Shadcn/ui**, and **Redux Toolkit**.
+
+This CMS provides a modern, responsive, **dark/light mode integrated** interface for managing and showcasing projects, blogs, skills, services, resumes, testimonials, FAQs, and more — with **role-based access** via **AWS Cognito** (Super Admin, Admin, Author, Editor) and **real-time notifications** via **Socket.IO**.
+
+**Design Inspiration:** Phoenix Admin Dashboard ([Demo](https://prium.github.io/phoenix/v1.24.0/index.html?theme-control=true&color-scheme=dark))
+
+**Implementation Status:** ✅ Backend 100% Complete | 🚧 Frontend Ready to Build (Client directory created with Next.js 15)
 
 ---
 
-## **Functional Requirements**
+## **Technology Stack & Documentation**
+
+### **Core Technologies**
+
+| Technology       | Version | Documentation                                | Purpose                             |
+| ---------------- | ------- | -------------------------------------------- | ----------------------------------- |
+| Next.js          | 15+     | https://nextjs.org/docs                      | React framework with App Router     |
+| Tailwind CSS     | 4.x     | https://tailwindcss.com/docs                 | Utility-first CSS framework         |
+| Shadcn/ui        | Latest  | https://ui.shadcn.com/docs/installation/next | Accessible component library        |
+| AWS Amplify      | Gen 2   | https://docs.amplify.aws/nextjs/             | Deployment, authentication, hosting |
+| Redux Toolkit    | Latest  | https://redux-toolkit.js.org/                | State management with RTK Query     |
+| Socket.IO Client | Latest  | https://socket.io/docs/v4/client-api/        | Real-time notifications             |
+| AWS Cognito      | Latest  | amazon-cognito-identity-js                   | Authentication & authorization      |
+| Framer Motion    | Latest  | https://www.framer.com/motion/               | Animations and transitions          |
+| React Hook Form  | Latest  | https://react-hook-form.com/                 | Form validation and management      |
+| Zod              | Latest  | https://zod.dev/                             | Schema validation                   |
+| Recharts         | Latest  | https://recharts.org/                        | Dashboard charts and analytics      |
+| React Dropzone   | Latest  | https://react-dropzone.js.org/               | File upload component               |
+| Next Themes      | Latest  | https://github.com/pacocoursey/next-themes   | Dark/Light mode implementation      |
+
+### **Development Tools**
+
+- TypeScript 5+
+- ESLint with Next.js config
+- Prettier for code formatting
+- Husky for Git hooks
+- Jest & React Testing Library
+- Playwright for E2E testing
+
+---
+
+## **Functional Requirements (Organized by Phases)**
+
+### **PHASE 1: AUTHENTICATION & AUTHORIZATION** (FR001 - FR005)
 
 | Requirement ID                     | Description                     | User Story                                                                                           | Expected Behavior/Outcome                                                                                                                                                                                                                                                                             |
 | ---------------------------------- | ------------------------------- | ---------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

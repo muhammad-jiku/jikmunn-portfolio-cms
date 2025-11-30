@@ -1,5 +1,7 @@
 # Testing Guide for Portfolio CMS API
 
+> 📖 **For complete backend architecture, see [Backend Implementation Phases](docs/Backend_Implementation_Phases.md)** - All 76 routes documented with implementation details.
+
 ## 🚀 Complete Testing Workflow (Step-by-Step)
 
 Follow this guide to test all API endpoints systematically using seed data and Swagger UI.

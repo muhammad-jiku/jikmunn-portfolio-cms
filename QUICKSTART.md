@@ -1,5 +1,10 @@
 # Quick Start Guide
 
+> 📖 **For detailed implementation guides:**
+>
+> - [Backend Implementation Phases](docs/Backend_Implementation_Phases.md) - 12 phases, 76 API routes
+> - [Frontend Implementation Phases](docs/Frontend_Implementation_Phases.md) - 13 phases, 77 requirements
+
 ## Backend Setup (5 minutes)
 
 ### 1. Install Dependencies

@@ -8,7 +8,9 @@ A full-stack, device-responsive Content Management System for managing portfolio
 jikmunn-portfolio-cms/
 ├── docs/                          # Documentation
 │   ├── Portfolio_CMS_Backend_PRD.md
+│   ├── Backend_Implementation_Phases.md   # 🔥 12-phase backend guide
 │   ├── Portfolio_CMS_Frontend_PRD.md
+│   ├── Frontend_Implementation_Phases.md  # 🔥 13-phase frontend guide
 │   └── Project requirements.txt
 ├── server/                        # Backend (Node.js + Express + Prisma)
 │   ├── src/
@@ -47,9 +49,23 @@ jikmunn-portfolio-cms/
 └── client/                        # Frontend (Next.js - Coming soon)
 ```
 
+## 📚 Documentation
+
+### Quick Reference
+
+- **[Backend Implementation Phases](docs/Backend_Implementation_Phases.md)** - Complete 12-phase backend architecture guide (76 API routes)
+- **[Frontend Implementation Phases](docs/Frontend_Implementation_Phases.md)** - Comprehensive 13-phase frontend roadmap (77 requirements)
+- **[Backend PRD](docs/Portfolio_CMS_Backend_PRD.md)** - Detailed backend requirements
+- **[Frontend PRD](docs/Portfolio_CMS_Frontend_PRD.md)** - Detailed frontend requirements
+- **[Backend API Documentation](server/README.md)** - All 76 API endpoints with examples
+- **[Quick Start Guide](QUICKSTART.md)** - Get up and running in 5 minutes
+- **[Testing Guide](TESTING.md)** - Comprehensive API testing workflow
+
 ## 🎉 Project Status
 
 **Backend: 100% Complete** - All 12 phases implemented and production-ready!
+
+> 📖 See [Backend Implementation Phases](docs/Backend_Implementation_Phases.md) for detailed breakdown of all completed features.
 
 - ✅ **10 Content Modules:** Projects, Blogs, About, Services, Skills, Resume (5 sub-modules), Testimonials, FAQ, Trash
 - ✅ **Authentication:** AWS Cognito with role-based access control
@@ -72,13 +88,16 @@ jikmunn-portfolio-cms/
 - **Logging:** Winston & Morgan
 - **Security:** Helmet, CORS, Rate Limiting
 
-### Frontend (Coming Soon)
+### Frontend (In Progress)
 
-- **Framework:** Next.js 14+ (App Router)
-- **Styling:** Tailwind CSS
-- **State Management:** Redux Toolkit
+- **Framework:** Next.js 16+ (App Router)
+- **Styling:** Tailwind CSS v4
+- **State Management:** Redux Toolkit with RTK Query
 - **UI Components:** Shadcn/ui
-- **Deployment:** AWS Amplify
+- **Theme:** Dark/Light mode with Next Themes
+- **Deployment:** AWS Amplify Gen 2
+
+> 📖 See [Frontend Implementation Phases](docs/Frontend_Implementation_Phases.md) for complete 13-phase development roadmap.
 
 ## 📋 Features
 

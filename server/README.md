@@ -2,6 +2,8 @@
 
 Backend API for Portfolio CMS built with Node.js, Express.js, Prisma, and PostgreSQL.
 
+> 📖 **For complete implementation details, see [Backend Implementation Phases](../docs/Backend_Implementation_Phases.md)** - 12 phases, 76 routes, production-ready architecture.
+
 ## Features
 
 - ✅ Role-based authentication with AWS Cognito (JWT verification)
