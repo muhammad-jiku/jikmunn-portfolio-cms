@@ -10,9 +10,6 @@ import { logger } from './utils/logger.util';
 // Load environment variables
 dotenv.config();
 
-// // TEST: This unused variable should block the commit
-// const testHuskyBlockCommit = 'This will trigger ESLint error';
-
 process.on('uncaughtException', error => {
   logger.error('UNCAUGHT EXCEPTION! 💥 Shutting down...');
   logger.error(error);
