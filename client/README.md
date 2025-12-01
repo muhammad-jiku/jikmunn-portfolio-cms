@@ -32,14 +32,27 @@ Based on **Phoenix Admin Dashboard** - modern, dark/light integrated, responsive
 ```
 client/
 ├── src/
-│   ├── app/              # Next.js App Router pages
-│   ├── components/       # Reusable UI components
-│   ├── store/           # Redux store and slices
-│   ├── lib/             # Utility functions
-│   ├── hooks/           # Custom React hooks
-│   ├── types/           # TypeScript definitions
-│   └── config/          # Configuration files
-├── public/              # Static assets
+│   ├── app/
+│   │   ├── (auth)/          # Auth pages: login, register, forgot-password
+│   │   ├── dashboard/       # Protected dashboard
+│   │   ├── layout.tsx       # Root layout with providers
+│   │   └── page.tsx         # Home page
+│   ├── components/
+│   │   ├── auth/            # LoginForm, RegisterForm, ForgotPasswordForm, ProtectedRoute
+│   │   └── providers/       # ReduxProvider, ThemeProvider
+│   ├── store/
+│   │   ├── slices/          # authSlice (login, register, logout, etc.)
+│   │   ├── index.ts         # Store configuration
+│   │   └── hooks.ts         # Typed Redux hooks
+│   ├── lib/
+│   │   ├── cognito.ts       # AWS Cognito integration
+│   │   ├── permissions.ts   # RBAC helpers
+│   │   └── utils.ts         # Utility functions
+│   ├── types/
+│   │   └── auth.ts          # Auth types and interfaces
+│   └── middleware.ts        # Route protection
+├── public/                  # Static assets
+├── .env.local.example       # Environment template
 ├── package.json
 ├── next.config.ts
 ├── tailwind.config.ts
@@ -57,35 +70,35 @@ npm install
 
 ### 2. Set Up Environment Variables
 
-Create `.env.local`:
+Create `.env.local` (use `.env.local.example` as template):
 
 ```env
+# AWS Cognito Configuration
+NEXT_PUBLIC_AWS_REGION=us-east-1
+NEXT_PUBLIC_COGNITO_USER_POOL_ID=your_user_pool_id_here
+NEXT_PUBLIC_COGNITO_CLIENT_ID=your_client_id_here
+
+# API Configuration
 NEXT_PUBLIC_API_URL=http://localhost:5000
-NEXT_PUBLIC_COGNITO_USER_POOL_ID=your_pool_id
-NEXT_PUBLIC_COGNITO_CLIENT_ID=your_client_id
-NEXT_PUBLIC_COGNITO_REGION=us-east-1
-NEXT_PUBLIC_SOCKET_URL=http://localhost:5000
 ```
 
-### 3. Initialize Shadcn/ui
+> **Note:** Get your Cognito credentials from AWS Console or from the backend `.env` file.
 
-```bash
-npx shadcn@latest init
-```
-
-Choose:
-
-- Style: **New York**
-- Base color: **Slate**
-- CSS variables: **Yes**
-
-### 4. Run Development Server
+### 3. Run Development Server
 
 ```bash
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000)
+Open [http://localhost:3000](http://localhost:3000) to see the app.
+
+### 4. Test Authentication
+
+1. Navigate to `/register` to create an account
+2. Choose a role (AUTHOR, EDITOR, ADMIN, SUPER_ADMIN)
+3. Check email for verification code
+4. Login at `/login` with your credentials
+5. Access protected `/dashboard` after successful login
 
 ## 📦 Available Scripts
 
@@ -94,35 +107,41 @@ npm run dev          # Start development server
 npm run build        # Build for production
 npm start            # Start production server
 npm run lint         # Run ESLint
-npm test             # Run Jest tests
-npm run test:e2e     # Run Playwright E2E tests
+npm run type-check   # TypeScript type checking
 ```
 
-## 🎯 Implementation Roadmap
+## 🎯 Implementation Status
 
-### Phase 1: Authentication & Authorization ⏳
+### Phase 1: Authentication & Authorization ✅ COMPLETE
 
-- [ ] AWS Cognito integration
-- [ ] Login/Signup pages
-- [ ] Role-based access control
-- [ ] Password recovery
+- [x] AWS Cognito integration (login, register, logout, password recovery)
+- [x] Redux Toolkit store with auth slice
+- [x] Role-based access control (SUPER_ADMIN, ADMIN, EDITOR, AUTHOR)
+- [x] Protected routes with ProtectedRoute component
+- [x] Permission helpers (hasRole, isAdmin, canEdit, etc.)
+- [x] Authentication forms (Login, Register, ForgotPassword)
+- [x] Auth pages: /login, /register, /forgot-password, /dashboard
+- [x] TypeScript types and interfaces
+- [x] Environment configuration template
 
-### Phase 2: Dashboard & Navigation ⏳
+### Phase 2: Dashboard & Navigation 🔜 NEXT
 
 - [ ] Interactive dashboard with charts
-- [ ] Collapsible sidebar
-- [ ] Topbar with notifications
+- [ ] Collapsible sidebar navigation
+- [ ] Topbar with notifications and theme toggle
+- [ ] User profile dropdown
 
 ### Phase 3-13: Content Modules & Features ⏳
 
-- [ ] Projects, Blogs, Services, Skills
-- [ ] Resume (5 sub-modules)
-- [ ] Testimonials, FAQ
-- [ ] Trash management
-- [ ] Real-time features
+- [ ] Projects, Blogs, Services, Skills modules
+- [ ] Resume (5 sub-modules: Summary, Education, Experience, Achievements, References)
+- [ ] Testimonials, FAQ management
+- [ ] Trash system with restore
+- [ ] Real-time features with Socket.IO
 - [ ] Performance optimization
-- [ ] SEO & Testing
-- [ ] Deployment
+- [ ] SEO & metadata
+- [ ] Testing (Jest, Playwright)
+- [ ] AWS Amplify deployment
 
 > 📖 **See [Frontend Implementation Phases](../docs/Frontend_Implementation_Phases.md) for complete breakdown**
 
