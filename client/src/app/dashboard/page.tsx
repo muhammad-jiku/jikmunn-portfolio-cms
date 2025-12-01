@@ -1,12 +1,14 @@
 'use client';
 
-import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { logout } from '@/store/slices/authSlice';
+import { BlogsChart, ProjectsChart } from '@/components/dashboard/Charts';
+import DashboardLayout from '@/components/dashboard/DashboardLayout';
+import StatCard from '@/components/dashboard/StatCard';
+import { useAppSelector } from '@/store/hooks';
+import { Briefcase, Code, FileText, FolderKanban } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
 export default function DashboardPage() {
-  const dispatch = useAppDispatch();
   const router = useRouter();
   const { user, isAuthenticated } = useAppSelector((state) => state.auth);
 
@@ -15,11 +17,6 @@ export default function DashboardPage() {
       router.push('/login');
     }
   }, [isAuthenticated, router]);
-
-  const handleLogout = async () => {
-    await dispatch(logout());
-    router.push('/login');
-  };
 
   if (!user) {
     return (
@@ -30,42 +27,103 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <nav className="bg-white shadow-sm border-b">
-        <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-          <h1 className="text-xl font-bold">Portfolio CMS</h1>
-          <button
-            onClick={handleLogout}
-            className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700"
-          >
-            Logout
-          </button>
-        </div>
-      </nav>
+    <DashboardLayout>
+      {/* Welcome Section */}
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+          Welcome back, {user.name || user.email}!
+        </h1>
+        <p className="text-gray-600 dark:text-gray-400">
+          Here&apos;s what&apos;s happening with your portfolio today.
+        </p>
+      </div>
 
-      <div className="max-w-7xl mx-auto px-4 py-8">
-        <div className="bg-white rounded-lg shadow-md p-6 mb-6">
-          <h2 className="text-2xl font-bold mb-4">Welcome, {user.name || user.email}!</h2>
-          <div className="space-y-2 text-gray-600">
-            <p>
-              <strong>Email:</strong> {user.email}
-            </p>
-            <p>
-              <strong>Role:</strong> <span className="uppercase font-semibold">{user.role}</span>
-            </p>
-            <p>
-              <strong>User ID:</strong> {user.id}
-            </p>
-          </div>
-        </div>
+      {/* Stats Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <StatCard
+          title="Total Projects"
+          value={24}
+          icon={FolderKanban}
+          trend={{ value: 12, isPositive: true }}
+          color="blue"
+        />
+        <StatCard
+          title="Blog Posts"
+          value={48}
+          icon={FileText}
+          trend={{ value: 8, isPositive: true }}
+          color="green"
+        />
+        <StatCard
+          title="Services"
+          value={12}
+          icon={Briefcase}
+          trend={{ value: 4, isPositive: true }}
+          color="purple"
+        />
+        <StatCard
+          title="Skills"
+          value={32}
+          icon={Code}
+          trend={{ value: 6, isPositive: true }}
+          color="orange"
+        />
+      </div>
 
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
-          <h3 className="text-lg font-semibold text-blue-900 mb-2">Authentication Successful!</h3>
-          <p className="text-blue-700">
-            You are now logged in with role-based access. Dashboard features coming soon...
-          </p>
+      {/* Charts Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+        <ProjectsChart />
+        <BlogsChart />
+      </div>
+
+      {/* Recent Activity */}
+      <div className="bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800 p-6">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+          Recent Activity
+        </h3>
+        <div className="space-y-4">
+          {[
+            {
+              action: 'Created new project',
+              item: 'E-commerce Platform',
+              time: '2 hours ago',
+              icon: FolderKanban,
+            },
+            {
+              action: 'Published blog post',
+              item: 'React Best Practices',
+              time: '5 hours ago',
+              icon: FileText,
+            },
+            {
+              action: 'Updated service',
+              item: 'Web Development',
+              time: '1 day ago',
+              icon: Briefcase,
+            },
+            { action: 'Added new skill', item: 'TypeScript', time: '2 days ago', icon: Code },
+          ].map((activity, index) => {
+            const Icon = activity.icon;
+            return (
+              <div
+                key={index}
+                className="flex items-center gap-4 p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+              >
+                <div className="p-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+                  <Icon className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                </div>
+                <div className="flex-1">
+                  <p className="text-sm font-medium text-gray-900 dark:text-white">
+                    {activity.action}
+                  </p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">{activity.item}</p>
+                </div>
+                <p className="text-sm text-gray-500 dark:text-gray-500">{activity.time}</p>
+              </div>
+            );
+          })}
         </div>
       </div>
-    </div>
+    </DashboardLayout>
   );
 }
