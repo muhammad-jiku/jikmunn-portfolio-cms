@@ -45,6 +45,7 @@
 - ✅ Project details page (/dashboard/projects/[id]) with media gallery
 - ✅ API integration with backend endpoints
 - ✅ Search and filtering functionality
+- ✅ Public project details page (/projects/[id]) for portfolio visitors
 
 ### Phase 4: Blogs Module (FR015-FR019)
 

@@ -139,7 +139,8 @@ npm run type-check   # TypeScript type checking
 - ✅ Create/Edit/Delete projects with modal form
 - ✅ MediaUpload component with drag-drop
 - ✅ Tech stack, features, challenges, learnings management
-- ✅ Project details page with media gallery
+- ✅ Project details page with media gallery (dashboard)
+- ✅ Public project details page for visitors (/projects/[id])
 - ✅ API integration with backend
 
 ### Phase 4-13: Content Modules & Features ⏳

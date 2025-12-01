@@ -233,6 +233,12 @@ npm run type-check
   - Tech stack categorized display
   - Features, challenges, learnings sections
   - Project timeline and dates
+- [x] Public project details page (/projects/[id]) for portfolio visitors:
+  - Clean, visitor-friendly design without dashboard UI
+  - Full project information display with enhanced styling
+  - Media gallery with carousel navigation
+  - Tech stack, features, challenges, learnings sections
+  - No authentication required
 - [x] API integration with backend endpoints (GET, POST, PUT, DELETE)
 - [x] Search functionality for filtering projects
 - [x] Status badges with color coding
