@@ -1,3 +1,4 @@
+import { WebVitals } from '@/components/performance/WebVitals';
 import ReduxProvider from '@/components/providers/ReduxProvider';
 import { SocketProvider } from '@/components/providers/SocketProvider';
 import { ThemeProvider } from '@/components/providers/ThemeProvider';
@@ -38,6 +39,7 @@ export default function RootLayout({
         >
           <ReduxProvider>
             <SocketProvider>
+              <WebVitals />
               {children}
               <Toaster />
               <CommandPalette />
