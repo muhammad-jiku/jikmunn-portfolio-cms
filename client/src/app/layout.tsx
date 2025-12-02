@@ -1,5 +1,7 @@
 import ReduxProvider from '@/components/providers/ReduxProvider';
 import { ThemeProvider } from '@/components/providers/ThemeProvider';
+import { CommandPalette } from '@/components/ui/CommandPalette';
+import { Toaster } from '@/components/ui/Toaster';
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
@@ -33,7 +35,11 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <ReduxProvider>{children}</ReduxProvider>
+          <ReduxProvider>
+            {children}
+            <Toaster />
+            <CommandPalette />
+          </ReduxProvider>
         </ThemeProvider>
       </body>
     </html>
