@@ -281,7 +281,7 @@ export default function PublicProjectPage() {
                     key={index}
                     className="flex items-start gap-3 text-gray-600 dark:text-gray-400"
                   >
-                    <span className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 flex items-center justify-center text-sm font-semibold mt-0.5">
+                    <span className="shrink-0 w-6 h-6 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 flex items-center justify-center text-sm font-semibold mt-0.5">
                       {index + 1}
                     </span>
                     <span className="flex-1">{feature}</span>
@@ -303,7 +303,7 @@ export default function PublicProjectPage() {
                     key={index}
                     className="flex items-start gap-3 text-gray-600 dark:text-gray-400"
                   >
-                    <span className="flex-shrink-0 w-2 h-2 rounded-full bg-orange-500 mt-2"></span>
+                    <span className="shrink-0 w-2 h-2 rounded-full bg-orange-500 mt-2"></span>
                     <span className="flex-1">{challenge}</span>
                   </li>
                 ))}
@@ -323,7 +323,7 @@ export default function PublicProjectPage() {
                     key={index}
                     className="flex items-start gap-3 text-gray-600 dark:text-gray-400"
                   >
-                    <span className="flex-shrink-0 w-2 h-2 rounded-full bg-green-500 mt-2"></span>
+                    <span className="shrink-0 w-2 h-2 rounded-full bg-green-500 mt-2"></span>
                     <span className="flex-1">{learning}</span>
                   </li>
                 ))}

@@ -76,7 +76,7 @@ export default function Sidebar({ isCollapsed, onToggle }: SidebarProps) {
                   : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
               )}
             >
-              <Icon className="w-5 h-5 flex-shrink-0" />
+              <Icon className="w-5 h-5 shrink-0" />
               {!isCollapsed && <span>{item.label}</span>}
             </Link>
           );
