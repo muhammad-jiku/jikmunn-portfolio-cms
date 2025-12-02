@@ -34,9 +34,10 @@ Based on **Phoenix Admin Dashboard** - modern, dark/light integrated, responsive
 - ✅ **Phase 3:** Projects (6 FR) - Full CRUD, Tech Stack, Media Upload, Public Pages
 - ✅ **Phase 4:** Blogs (5 FR) - Full CRUD, Tags, Rich Text, Status Filtering
 - ✅ **Phase 5:** Content Modules (14 FR) - About, Services, Skills, Resume (5 sub-modules), Testimonials, FAQ
-- ⏳ **Phase 6-13:** Upcoming features (42 FR)
+- ✅ **Phase 6:** Trash Management (5 FR) - Restore, Permanent Delete, Auto-delete Warnings, Cleanup
+- ⏳ **Phase 7-13:** Upcoming features (37 FR)
 
-**Progress:** 33/65 functional requirements (51% complete)
+**Progress:** 38/65 functional requirements (58% complete)
 
 ## 🏗️ Project Structure
 
