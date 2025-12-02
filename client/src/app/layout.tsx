@@ -1,4 +1,5 @@
 import ReduxProvider from '@/components/providers/ReduxProvider';
+import { SocketProvider } from '@/components/providers/SocketProvider';
 import { ThemeProvider } from '@/components/providers/ThemeProvider';
 import { CommandPalette } from '@/components/ui/CommandPalette';
 import { Toaster } from '@/components/ui/Toaster';
@@ -36,9 +37,11 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <ReduxProvider>
-            {children}
-            <Toaster />
-            <CommandPalette />
+            <SocketProvider>
+              {children}
+              <Toaster />
+              <CommandPalette />
+            </SocketProvider>
           </ReduxProvider>
         </ThemeProvider>
       </body>

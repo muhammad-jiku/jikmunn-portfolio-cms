@@ -1,8 +1,10 @@
 'use client';
 
+import NotificationBell from '@/components/notifications/NotificationBell';
+import { useSocket } from '@/components/providers/SocketProvider';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { logout } from '@/store/slices/authSlice';
-import { Bell, LogOut, Moon, Sun, User } from 'lucide-react';
+import { LogOut, Moon, Sun, User } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -10,6 +12,7 @@ import { useEffect, useState } from 'react';
 export default function Topbar() {
   const { theme, setTheme } = useTheme();
   const { user } = useAppSelector((state) => state.auth);
+  const { notifications, clearNotifications } = useSocket();
   const dispatch = useAppDispatch();
   const router = useRouter();
   const [mounted, setMounted] = useState(false);
@@ -55,13 +58,7 @@ export default function Topbar() {
           )}
 
           {/* Notifications */}
-          <button
-            className="relative p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-            aria-label="Notifications"
-          >
-            <Bell className="w-5 h-5 text-gray-600 dark:text-gray-400" />
-            <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
-          </button>
+          <NotificationBell notifications={notifications} onClear={clearNotifications} />
 
           {/* User Menu */}
           <div className="flex items-center gap-3">
