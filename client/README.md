@@ -54,7 +54,8 @@ client/
 │   │   │   ├── resume/      # Resume management (5 sub-modules)
 │   │   │   ├── services/    # Services management
 │   │   │   ├── skills/      # Skills management
-│   │   │   └── testimonials/ # Testimonials management
+│   │   │   ├── testimonials/ # Testimonials management
+│   │   │   └── trash/       # Trash management
 │   │   ├── blogs/[id]/      # Public blog pages
 │   │   ├── projects/[id]/   # Public project pages
 │   │   ├── layout.tsx       # Root layout with providers
@@ -70,13 +71,14 @@ client/
 │   │   ├── resume/          # 5 resume forms (Summary, Education, Experience, Achievements, References)
 │   │   ├── services/        # ServiceForm, ServicesTable
 │   │   ├── skills/          # SkillForm, SkillsTable
-│   │   └── testimonials/    # TestimonialForm, TestimonialsTable
+│   │   ├── testimonials/    # TestimonialForm, TestimonialsTable
+│   │   └── trash/           # TrashTable
 │   ├── store/
 │   │   ├── slices/          # authSlice (login, register, logout, etc.)
 │   │   ├── index.ts         # Store configuration
 │   │   └── hooks.ts         # Typed Redux hooks
 │   ├── lib/
-│   │   ├── api/             # API integration (about, services, skills, resume, testimonials, faq, projects, blogs)
+│   │   ├── api/             # API integration (about, services, skills, resume, testimonials, faq, projects, blogs, trash)
 │   │   ├── cognito.ts       # AWS Cognito integration
 │   │   ├── permissions.ts   # RBAC helpers
 │   │   └── utils.ts         # Utility functions
@@ -89,7 +91,8 @@ client/
 │   │   ├── resume.ts        # Resume types (5 sub-modules)
 │   │   ├── service.ts       # Service types
 │   │   ├── skill.ts         # Skill types
-│   │   └── testimonial.ts   # Testimonial types
+│   │   ├── testimonial.ts   # Testimonial types
+│   │   └── trash.ts         # Trash types
 │   └── middleware.ts        # Route protection
 ├── public/                  # Static assets
 ├── .env.local.example       # Environment template
@@ -208,7 +211,19 @@ npm run type-check   # TypeScript type checking
 - ✅ FAQ management with accordion interface
 - ✅ All API integrations complete
 
-### Phase 6-13: Advanced Features ⏳
+### Phase 6: Trash & System Management ✅ COMPLETE
+
+- ✅ Trash page with deleted items table
+- ✅ Restore functionality with confirmation
+- ✅ Permanent delete with double-confirmation
+- ✅ Auto-delete warnings (31-day policy)
+- ✅ Days remaining counter with color coding
+- ✅ Cleanup expired items (admin function)
+- ✅ Trash API integration (getAll, restore, permanentlyDelete, cleanup)
+- ✅ TrashTable component with pagination
+- ✅ Trash types and interfaces
+
+### Phase 7-13: Advanced Features ⏳
 
 - [ ] Trash system with restore functionality
 - [ ] Real-time features with Socket.IO

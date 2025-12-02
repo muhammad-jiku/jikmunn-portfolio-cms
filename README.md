@@ -21,33 +21,228 @@ jikmunn-portfolio-cms/
 │   │   │   ├── aws.config.ts
 │   │   │   ├── cognito.config.ts
 │   │   │   ├── database.config.ts
+│   │   │   ├── socket.config.ts
+│   │   │   ├── swagger.config.ts
 │   │   │   └── index.config.ts
 │   │   ├── utils/                    # Utilities (S3, logger, helpers)
+│   │   │   ├── cron.util.ts
 │   │   │   ├── helpers.util.ts
 │   │   │   ├── logger.util.ts
 │   │   │   ├── pagination.util.ts
 │   │   │   ├── response.util.ts
-│   │   │   └── s3.util.ts
+│   │   │   ├── s3.util.ts
+│   │   │   ├── socket.util.ts
+│   │   │   └── types.util.ts
 │   │   └── app/
 │   │       ├── middleware/           # Auth, validation, error handling
+│   │       │   ├── auth.middleware.ts
+│   │       │   ├── errorHandler.middleware.ts
+│   │       │   ├── rateLimiter.middleware.ts
+│   │       │   └── validate.middleware.ts
 │   │       ├── modules/              # Feature modules
 │   │       │   ├── projects/
+│   │       │   │   ├── projects.controller.ts
+│   │       │   │   ├── projects.service.ts
+│   │       │   │   ├── projects.routes.ts
+│   │       │   │   ├── projects.validation.ts
+│   │       │   │   ├── projects.interface.ts
+│   │       │   │   └── projects.constants.ts
 │   │       │   ├── blogs/
+│   │       │   │   ├── blogs.controller.ts
+│   │       │   │   ├── blogs.service.ts
+│   │       │   │   ├── blogs.routes.ts
+│   │       │   │   ├── blogs.validation.ts
+│   │       │   │   ├── blogs.interface.ts
+│   │       │   │   └── blogs.constants.ts
 │   │       │   ├── about/
+│   │       │   │   ├── about.controller.ts
+│   │       │   │   ├── about.service.ts
+│   │       │   │   ├── about.routes.ts
+│   │       │   │   ├── about.validation.ts
+│   │       │   │   └── about.interface.ts
 │   │       │   ├── services/
+│   │       │   │   ├── services.controller.ts
+│   │       │   │   ├── services.service.ts
+│   │       │   │   ├── services.routes.ts
+│   │       │   │   ├── services.validation.ts
+│   │       │   │   └── services.interface.ts
 │   │       │   ├── skills/
+│   │       │   │   ├── skills.controller.ts
+│   │       │   │   ├── skills.service.ts
+│   │       │   │   ├── skills.routes.ts
+│   │       │   │   ├── skills.validation.ts
+│   │       │   │   └── skills.interface.ts
 │   │       │   ├── resume/
+│   │       │   │   ├── summary/
+│   │       │   │   │   ├── summary.controller.ts
+│   │       │   │   │   ├── summary.service.ts
+│   │       │   │   │   ├── summary.routes.ts
+│   │       │   │   │   ├── summary.validation.ts
+│   │       │   │   │   └── summary.interface.ts
+│   │       │   │   ├── education/
+│   │       │   │   │   ├── education.controller.ts
+│   │       │   │   │   ├── education.service.ts
+│   │       │   │   │   ├── education.routes.ts
+│   │       │   │   │   ├── education.validation.ts
+│   │       │   │   │   └── education.interface.ts
+│   │       │   │   ├── experience/
+│   │       │   │   │   ├── experience.controller.ts
+│   │       │   │   │   ├── experience.service.ts
+│   │       │   │   │   ├── experience.routes.ts
+│   │       │   │   │   ├── experience.validation.ts
+│   │       │   │   │   └── experience.interface.ts
+│   │       │   │   ├── achievements/
+│   │       │   │   │   ├── achievements.controller.ts
+│   │       │   │   │   ├── achievements.service.ts
+│   │       │   │   │   ├── achievements.routes.ts
+│   │       │   │   │   ├── achievements.validation.ts
+│   │       │   │   │   └── achievements.interface.ts
+│   │       │   │   └── references/
+│   │       │   │       ├── references.controller.ts
+│   │       │   │       ├── references.service.ts
+│   │       │   │       ├── references.routes.ts
+│   │       │   │       ├── references.validation.ts
+│   │       │   │       └── references.interface.ts
 │   │       │   ├── testimonials/
+│   │       │   │   ├── testimonials.controller.ts
+│   │       │   │   ├── testimonials.service.ts
+│   │       │   │   ├── testimonials.routes.ts
+│   │       │   │   ├── testimonials.validation.ts
+│   │       │   │   └── testimonials.interface.ts
 │   │       │   ├── faq/
+│   │       │   │   ├── faq.controller.ts
+│   │       │   │   ├── faq.service.ts
+│   │       │   │   ├── faq.routes.ts
+│   │       │   │   ├── faq.validation.ts
+│   │       │   │   └── faq.interface.ts
 │   │       │   ├── trash/
+│   │       │   │   ├── trash.controller.ts
+│   │       │   │   ├── trash.service.ts
+│   │       │   │   ├── trash.routes.ts
+│   │       │   │   ├── trash.validation.ts
+│   │       │   │   ├── trash.interface.ts
+│   │       │   │   └── trash.constants.ts
 │   │       │   └── common/           # Shared services
+│   │       │       └── maintenance.service.ts
 │   │       └── routes/               # API routes
+│   │           └── index.routes.ts
 │   ├── prisma/
-│   │   └── schema.prisma             # Database schema
+│   │   ├── schema.prisma             # Database schema
+│   │   ├── seed.ts                   # Database seeding
+│   │   ├── migrations/               # Migration history
+│   │   └── seed-data/                # JSON seed files
+│   ├── logs/                         # Winston logs (gitignored)
+│   ├── .env.example
 │   ├── package.json
 │   ├── tsconfig.json
+│   ├── jest.config.js
+│   ├── eslint.config.mjs
 │   └── README.md
-└── client/                        # Frontend (Next.js - Coming soon)
+└── client/                        # Frontend (Next.js)
+    ├── src/
+    │   ├── app/
+    │   │   ├── (auth)/               # Auth pages
+    │   │   │   ├── login/page.tsx
+    │   │   │   ├── register/page.tsx
+    │   │   │   └── forgot-password/page.tsx
+    │   │   ├── dashboard/            # Protected dashboard
+    │   │   │   ├── page.tsx          # Main dashboard
+    │   │   │   ├── about/page.tsx
+    │   │   │   ├── blogs/page.tsx
+    │   │   │   ├── faq/page.tsx
+    │   │   │   ├── projects/page.tsx
+    │   │   │   ├── resume/page.tsx
+    │   │   │   ├── services/page.tsx
+    │   │   │   ├── skills/page.tsx
+    │   │   │   ├── testimonials/page.tsx
+    │   │   │   └── trash/page.tsx
+    │   │   ├── blogs/[id]/page.tsx   # Public blog pages
+    │   │   ├── projects/[id]/page.tsx # Public project pages
+    │   │   ├── globals.css
+    │   │   ├── layout.tsx            # Root layout
+    │   │   └── page.tsx              # Home page
+    │   ├── components/
+    │   │   ├── about/AboutForm.tsx
+    │   │   ├── auth/
+    │   │   │   ├── LoginForm.tsx
+    │   │   │   ├── RegisterForm.tsx
+    │   │   │   ├── ForgotPasswordForm.tsx
+    │   │   │   └── ProtectedRoute.tsx
+    │   │   ├── blogs/
+    │   │   │   ├── BlogForm.tsx
+    │   │   │   └── BlogsTable.tsx
+    │   │   ├── dashboard/
+    │   │   │   ├── Charts.tsx
+    │   │   │   ├── DashboardLayout.tsx
+    │   │   │   ├── Sidebar.tsx
+    │   │   │   ├── StatCard.tsx
+    │   │   │   └── Topbar.tsx
+    │   │   ├── faq/
+    │   │   │   ├── FAQForm.tsx
+    │   │   │   └── FAQTable.tsx
+    │   │   ├── projects/
+    │   │   │   ├── ProjectForm.tsx
+    │   │   │   ├── ProjectsTable.tsx
+    │   │   │   └── MediaUpload.tsx
+    │   │   ├── providers/
+    │   │   │   ├── ReduxProvider.tsx
+    │   │   │   └── ThemeProvider.tsx
+    │   │   ├── resume/
+    │   │   │   ├── ResumeSummaryForm.tsx
+    │   │   │   ├── EducationForm.tsx
+    │   │   │   ├── ExperienceForm.tsx
+    │   │   │   ├── AchievementsForm.tsx
+    │   │   │   └── ReferencesForm.tsx
+    │   │   ├── services/
+    │   │   │   ├── ServiceForm.tsx
+    │   │   │   └── ServicesTable.tsx
+    │   │   ├── skills/
+    │   │   │   ├── SkillForm.tsx
+    │   │   │   └── SkillsTable.tsx
+    │   │   ├── testimonials/
+    │   │   │   ├── TestimonialForm.tsx
+    │   │   │   └── TestimonialsTable.tsx
+    │   │   └── trash/TrashTable.tsx
+    │   ├── store/
+    │   │   ├── index.ts              # Store configuration
+    │   │   ├── hooks.ts              # Typed Redux hooks
+    │   │   └── slices/
+    │   │       └── authSlice.ts
+    │   ├── lib/
+    │   │   ├── api/                  # API integration
+    │   │   │   ├── about.ts
+    │   │   │   ├── blogs.ts
+    │   │   │   ├── faq.ts
+    │   │   │   ├── projects.ts
+    │   │   │   ├── resume.ts
+    │   │   │   ├── services.ts
+    │   │   │   ├── skills.ts
+    │   │   │   ├── testimonials.ts
+    │   │   │   └── trash.ts
+    │   │   ├── cognito.ts            # AWS Cognito integration
+    │   │   ├── permissions.ts        # RBAC helpers
+    │   │   └── utils.ts              # Utility functions
+    │   ├── types/
+    │   │   ├── about.ts
+    │   │   ├── auth.ts
+    │   │   ├── blog.ts
+    │   │   ├── faq.ts
+    │   │   ├── project.ts
+    │   │   ├── resume.ts
+    │   │   ├── service.ts
+    │   │   ├── skill.ts
+    │   │   ├── testimonial.ts
+    │   │   └── trash.ts
+    │   └── middleware.ts             # Route protection
+    ├── public/                       # Static assets
+    ├── .env.local.example
+    ├── next.config.ts
+    ├── tailwind.config.ts
+    ├── postcss.config.mjs
+    ├── tsconfig.json
+    ├── eslint.config.mjs
+    ├── package.json
+    └── README.md
 ```
 
 ## 📚 Documentation
@@ -134,7 +329,7 @@ npm run type-check
 - **Logging:** Winston & Morgan
 - **Security:** Helmet, CORS, Rate Limiting
 
-### Frontend (Phase 1-3 ✅ Complete)
+### Frontend (Phase 1-6 ✅ Complete)
 
 - **Framework:** Next.js 16+ (App Router)
 - **Styling:** Tailwind CSS v4
@@ -200,7 +395,7 @@ npm run type-check
 - [x] **Code Quality:**
   - All TypeScript errors resolved across codebase
 
-**Frontend (Phase 1-3 Complete):**
+**Frontend (Phase 1-6 Complete):**
 
 **Phase 1: Authentication & Authorization ✅**
 
@@ -318,6 +513,43 @@ npm run type-check
   - All sections with add/edit/delete modals
 - [x] Testimonials management (/dashboard/testimonials):
   - Client testimonials with name, job position, image
+  - Platform selection (Upwork, LinkedIn, Facebook, Twitter, Instagram, Other)
+  - Star ratings (1-5)
+  - Featured testimonial toggle
+- [x] FAQ management (/dashboard/faq):
+  - Question and answer pairs
+  - Order management for display sequence
+  - Accordion interface for better UX
+
+**Phase 6: Trash & System Management ✅**
+
+- [x] Trash page (/dashboard/trash):
+  - View all deleted items with entity type and ID
+  - Days remaining counter (31-day auto-delete policy)
+  - Color-coded expiry status (green >7 days, orange ≤7 days, red expired)
+  - Pagination support for large trash lists
+- [x] Restore functionality:
+  - Restore deleted items back to their original modules
+  - Confirmation dialog before restore
+  - Success/error message feedback
+- [x] Permanent delete:
+  - Double-confirmation for irreversible deletions
+  - Warning message about data loss
+- [x] Auto-delete warnings:
+  - Visual banner warning about 31-day auto-delete policy
+  - Days remaining calculation and display
+  - Expired item indicators
+- [x] Cleanup expired items:
+  - Admin function to remove all items older than 31 days
+  - Batch deletion with count feedback
+  - Confirmation before cleanup execution
+- [x] Trash API integration:
+  - getAll() with pagination
+  - restore() for item recovery
+  - permanentlyDelete() for final deletion
+  - cleanup() for expired items removal
+- [x] TrashTable component with full functionality
+- [x] Trash types (Trash, RestoreResult, CleanupResult)
   - Platform selection (Upwork/LinkedIn)
   - Card-based display with quote icon
   - Image fallback with initial letter
@@ -330,7 +562,7 @@ npm run type-check
 
 ### 🚧 In Progress
 
-- [ ] Frontend Phase 6-13: Trash system, Real-time features, Performance optimization
+- [ ] Frontend Phase 7-13: UI/UX Enhancements, Real-time features, Performance optimization
 - [ ] Testing (Jest, Playwright)
 
 ### 📹 Upcoming
