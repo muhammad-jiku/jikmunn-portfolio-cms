@@ -11,34 +11,52 @@ const roleHierarchy = {
 /**
  * Check if user has required role
  */
-export function hasRole(userRole: UserRole, requiredRole: UserRole): boolean {
+export function hasRole(userRole: UserRole | undefined | null, requiredRole: UserRole): boolean {
+  if (!userRole) return false;
   return roleHierarchy[userRole] >= roleHierarchy[requiredRole];
 }
 
 /**
  * Check if user is admin or super admin
  */
-export function isAdmin(userRole: UserRole): boolean {
+export function isAdmin(userRole: UserRole | undefined | null): boolean {
   return hasRole(userRole, UserRole.ADMIN);
 }
 
 /**
  * Check if user is super admin
  */
-export function isSuperAdmin(userRole: UserRole): boolean {
+export function isSuperAdmin(userRole: UserRole | undefined | null): boolean {
+  if (!userRole) return false;
   return userRole === UserRole.SUPER_ADMIN;
 }
 
 /**
  * Check if user can edit content
  */
-export function canEdit(userRole: UserRole): boolean {
+export function canEdit(userRole: UserRole | undefined | null): boolean {
   return hasRole(userRole, UserRole.EDITOR);
 }
 
 /**
  * Check if user can create content
  */
-export function canCreate(userRole: UserRole): boolean {
+export function canCreate(userRole: UserRole | undefined | null): boolean {
   return hasRole(userRole, UserRole.AUTHOR);
+}
+
+/**
+ * Check if user can delete content
+ */
+export function canDelete(userRole?: UserRole): boolean {
+  if (!userRole) return false;
+  return hasRole(userRole, UserRole.ADMIN);
+}
+
+/**
+ * Check if user can manage trash
+ */
+export function canManageTrash(userRole?: UserRole): boolean {
+  if (!userRole) return false;
+  return userRole === UserRole.SUPER_ADMIN;
 }
