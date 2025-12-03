@@ -1,4 +1,13 @@
+import { generateMetadata as createMetadata } from '@/lib/seo';
+import type { Metadata } from 'next';
 import Image from 'next/image';
+
+export const metadata: Metadata = createMetadata({
+  title: 'Home - Portfolio CMS',
+  description:
+    'Welcome to Portfolio CMS - A comprehensive content management system for your professional portfolio.',
+  path: '/',
+});
 
 export default function Home() {
   return (

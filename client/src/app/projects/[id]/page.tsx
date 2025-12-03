@@ -1,6 +1,7 @@
 'use client';
 
 import { projectsApi } from '@/lib/api/projects';
+import { generateOGImageUrl, updatePageMetadata } from '@/lib/client-metadata';
 import { MediaType, Project, ProjectStatus } from '@/types/project';
 import { ArrowLeft, Calendar, Clock, ExternalLink, Eye, Github, Star, Users } from 'lucide-react';
 import Link from 'next/link';
@@ -19,6 +20,29 @@ export default function PublicProjectPage() {
       fetchProject(params.id as string);
     }
   }, [params.id]);
+
+  // Update metadata when project loads
+  useEffect(() => {
+    if (project) {
+      const ogImage = generateOGImageUrl({
+        title: project.title,
+        type: 'project',
+        category: project.category,
+        status: project.status,
+      });
+
+      updatePageMetadata({
+        title: `${project.title} | Jikmunn Portfolio`,
+        description: project.description,
+        image: ogImage,
+        keywords: [
+          project.category,
+          ...(project.techStack?.frontend || []),
+          ...(project.techStack?.backend || []),
+        ].join(', '),
+      });
+    }
+  }, [project]);
 
   const fetchProject = async (id: string) => {
     try {

@@ -1,6 +1,12 @@
 'use client';
 
 import { blogsApi } from '@/lib/api/blogs';
+import {
+  generateArticleStructuredData,
+  generateOGImageUrl,
+  injectStructuredData,
+  updatePageMetadata,
+} from '@/lib/client-metadata';
 import { Blog } from '@/types/blog';
 import { ArrowLeft, Calendar, Tag, Video } from 'lucide-react';
 import { useParams, useRouter } from 'next/navigation';
@@ -17,6 +23,40 @@ export default function PublicBlogPage() {
       fetchBlog(params.id as string);
     }
   }, [params.id]);
+
+  // Update metadata when blog loads
+  useEffect(() => {
+    if (blog) {
+      const blogUrl = `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/blogs/${blog.id}`;
+      const ogImage = generateOGImageUrl({
+        title: blog.title,
+        type: 'blog',
+        category: blog.topic || 'Blog',
+        status: blog.status,
+      });
+
+      // Update page metadata
+      updatePageMetadata({
+        title: `${blog.title} | Jikmunn Portfolio`,
+        description: blog.subtitle || blog.description.substring(0, 160),
+        image: ogImage,
+        keywords: blog.tags.join(', '),
+      });
+
+      // Add structured data for SEO
+      const structuredData = generateArticleStructuredData({
+        title: blog.title,
+        description: blog.subtitle || blog.description.substring(0, 200),
+        publishedTime: blog.publishedAt,
+        modifiedTime: blog.updatedAt,
+        author: 'Muhammad Jiku',
+        image: ogImage,
+        url: blogUrl,
+      });
+
+      injectStructuredData(structuredData);
+    }
+  }, [blog]);
 
   const fetchBlog = async (id: string) => {
     try {

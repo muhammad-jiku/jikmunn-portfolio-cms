@@ -1,4 +1,13 @@
 import RegisterForm from '@/components/auth/RegisterForm';
+import { generateMetadata as createMetadata } from '@/lib/seo';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = createMetadata({
+  title: 'Register - Portfolio CMS',
+  description: 'Create a new Portfolio CMS account to start managing your content.',
+  path: '/register',
+  noindex: true,
+});
 
 export default function RegisterPage() {
   return (

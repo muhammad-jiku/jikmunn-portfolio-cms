@@ -1,4 +1,13 @@
 import LoginForm from '@/components/auth/LoginForm';
+import { generateMetadata as createMetadata } from '@/lib/seo';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = createMetadata({
+  title: 'Login - Portfolio CMS',
+  description: 'Sign in to your Portfolio CMS account to manage your content.',
+  path: '/login',
+  noindex: true,
+});
 
 export default function LoginPage() {
   return (

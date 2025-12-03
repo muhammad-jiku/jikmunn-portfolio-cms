@@ -4,6 +4,7 @@ import { SocketProvider } from '@/components/providers/SocketProvider';
 import { ThemeProvider } from '@/components/providers/ThemeProvider';
 import { CommandPalette } from '@/components/ui/CommandPalette';
 import { Toaster } from '@/components/ui/Toaster';
+import { generateMetadata as createMetadata } from '@/lib/seo';
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
@@ -18,10 +19,11 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
 });
 
-export const metadata: Metadata = {
-  title: 'Portfolio CMS',
-  description: 'Portfolio Content Management System',
-};
+export const metadata: Metadata = createMetadata({
+  title: 'Portfolio CMS - Content Management System',
+  description:
+    'Professional portfolio content management system for managing projects, blogs, services, skills, resume, testimonials, and FAQs.',
+});
 
 export default function RootLayout({
   children,

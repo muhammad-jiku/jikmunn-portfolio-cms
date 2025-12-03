@@ -1,4 +1,13 @@
 import ForgotPasswordForm from '@/components/auth/ForgotPasswordForm';
+import { generateMetadata as createMetadata } from '@/lib/seo';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = createMetadata({
+  title: 'Reset Password - Portfolio CMS',
+  description: 'Reset your Portfolio CMS account password.',
+  path: '/forgot-password',
+  noindex: true,
+});
 
 export default function ForgotPasswordPage() {
   return (
