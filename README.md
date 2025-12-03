@@ -6,12 +6,16 @@ A full-stack, device-responsive Content Management System for managing portfolio
 
 ```
 jikmunn-portfolio-cms/
+├── .github/                       # GitHub Actions workflows
+│   └── workflows/
+│       └── frontend-ci.yml           # Frontend CI/CD pipeline (6 jobs)
 ├── .husky/                        # Git hooks (Husky)
 ├── docs/                          # Documentation
 │   ├── Portfolio_CMS_Backend_PRD.md
 │   ├── Backend_Implementation_Phases.md   # 🔥 12-phase backend guide
 │   ├── Portfolio_CMS_Frontend_PRD.md
-│   ├── Frontend_Implementation_Phases.md  # 🔥 13-phase frontend guide
+│   ├── Frontend_Implementation_Phases.md  # 🔥 13-phase frontend guide + NFR
+│   ├── NFR_Verification.md                # ✅ Non-functional requirements verification
 │   └── Project requirements.txt
 ├── server/                        # Backend (Node.js + Express + Prisma)
 │   ├── src/
@@ -271,6 +275,7 @@ jikmunn-portfolio-cms/
     │   ├── seo.spec.ts               # SEO E2E tests
     │   └── accessibility.spec.ts     # Accessibility E2E tests
     ├── public/                       # Static assets
+    ├── amplify.yml                   # AWS Amplify Gen 2 build configuration
     ├── .env.local.example
     ├── jest.config.ts                # Jest configuration
     ├── jest.setup.ts                 # Jest setup file
@@ -281,6 +286,9 @@ jikmunn-portfolio-cms/
     ├── tsconfig.json
     ├── eslint.config.mjs
     ├── package.json
+    ├── DEPLOYMENT.md                 # AWS Amplify deployment guide
+    ├── ENVIRONMENT.md                # Environment variables documentation
+    ├── ERROR_TRACKING.md             # Error tracking setup guide
     └── README.md
 ```
 
@@ -289,7 +297,7 @@ jikmunn-portfolio-cms/
 ### Quick Reference
 
 - **[Backend Implementation Phases](docs/Backend_Implementation_Phases.md)** - Complete 12-phase backend architecture guide (76 API routes)
-- **[Frontend Implementation Phases](docs/Frontend_Implementation_Phases.md)** - Comprehensive 13-phase frontend roadmap (77 requirements)
+- **[Frontend Implementation Phases](docs/Frontend_Implementation_Phases.md)** - Comprehensive 13-phase frontend roadmap (74 requirements)
 - **[Backend PRD](docs/Portfolio_CMS_Backend_PRD.md)** - Detailed backend requirements
 - **[Frontend PRD](docs/Portfolio_CMS_Frontend_PRD.md)** - Detailed frontend requirements
 - **[Backend API Documentation](server/README.md)** - All 76 API endpoints with examples
@@ -313,9 +321,40 @@ jikmunn-portfolio-cms/
 - ✅ **Phase 10:** Performance Optimization (4/4 FR) - COMPLETE
 - ✅ **Phase 11:** SEO & Metadata (3/3 FR) - COMPLETE
 - ✅ **Phase 12:** Testing & Quality (3/3 FR) - COMPLETE
-- ⏳ **Phase 13:** Deployment & DevOps (4/4 FR) - PENDING
+- ✅ **Phase 13:** Deployment & DevOps (4/4 FR) - COMPLETE
+- ✅ **Final Phase:** Non-Functional Requirements (9/9 NFR) - COMPLETE
 
-**Progress:** 61/65 functional requirements completed (94%)
+**Progress:**
+
+- Functional Requirements: 65/65 (100%) 🎉
+- Non-Functional Requirements: 9/9 (100%) 🎉
+- **Total: 74/74 Requirements (100% COMPLETE)** 🚀
+
+> 📖 See [NFR Verification](docs/NFR_Verification.md) for complete non-functional requirements compliance documentation.
+
+### Backend Implementation Status
+
+- ✅ **Phase 1:** Project Setup & Configuration (Infrastructure) - COMPLETE
+- ✅ **Phase 2:** Database Schema & Prisma Setup (11 models) - COMPLETE
+- ✅ **Phase 3:** Authentication & Authorization (AWS Cognito + JWT) - COMPLETE
+- ✅ **Phase 4:** Projects Module (CRUD + S3 Upload + Public API) - COMPLETE
+- ✅ **Phase 5:** Blogs Module (CRUD + S3 Upload + Public API) - COMPLETE
+- ✅ **Phase 6:** About, Services & Skills Modules - COMPLETE
+- ✅ **Phase 7:** Resume Module (5 sub-modules) - COMPLETE
+- ✅ **Phase 8:** Testimonials & FAQ Modules - COMPLETE
+- ✅ **Phase 9:** Trash Module (Soft Delete + Auto-Cleanup) - COMPLETE
+- ✅ **Phase 10:** Real-time Features (Socket.IO + Notifications) - COMPLETE
+- ✅ **Phase 11:** System Management & DevTools - COMPLETE
+- ✅ **Phase 12:** Documentation & Testing - COMPLETE
+
+**Progress:**
+
+- Total Phases: 12/12 (100%) ✅
+- API Routes: 76/76 (100%) ✅
+- Database Models: 11/11 (100%) ✅
+- **Backend: 100% Production-Ready** 🚀
+
+> 📖 See [Backend Implementation Phases](docs/Backend_Implementation_Phases.md) for complete 12-phase architecture guide.
 
 ## 🛠️ Development Workflow
 
@@ -343,7 +382,9 @@ npm run type-check
 
 ## 🎉 Project Status
 
-**Backend: 100% Complete** - All 12 phases implemented and production-ready!
+**🚀 BOTH BACKEND AND FRONTEND: 100% COMPLETE!**
+
+### Backend: 100% Complete ✅
 
 > 📖 See [Backend Implementation Phases](docs/Backend_Implementation_Phases.md) for detailed breakdown of all completed features.
 
@@ -354,21 +395,41 @@ npm run type-check
 - ✅ **Testing:** Jest framework with unit tests
 - ✅ **Security:** Helmet, CORS, JWT verification, soft delete
 
+### Frontend: 100% Complete ✅
+
+> 📖 See [Frontend Implementation Phases](docs/Frontend_Implementation_Phases.md) and [NFR Verification](docs/NFR_Verification.md) for complete documentation.
+
+- ✅ **13 Development Phases:** All functional requirements (65/65)
+- ✅ **Non-Functional Requirements:** All NFRs verified (9/9)
+- ✅ **Total Requirements:** 74/74 implemented and verified
+- ✅ **Quality Metrics:** 100% TypeScript, 80%+ test coverage, WCAG 2.1 AA
+- ✅ **Production Ready:** AWS Amplify deployment, CI/CD pipeline, error tracking
+
 ## 🚀 Tech Stack
 
-### Backend
+### Backend (100% ✅ Complete)
 
-- **Runtime:** Node.js with TypeScript
-- **Framework:** Express.js
-- **Database:** PostgreSQL
-- **ORM:** Prisma
-- **Authentication:** AWS Cognito (JWT)
-- **Storage:** AWS S3
-- **Validation:** Zod
-- **Logging:** Winston & Morgan
-- **Security:** Helmet, CORS, Rate Limiting
+- **Runtime:** Node.js v18+ with TypeScript (strict mode)
+- **Framework:** Express.js v4+ (RESTful API)
+- **Database:** PostgreSQL (11 Prisma models, 20+ relations)
+- **ORM:** Prisma (migrations, seeding, Prisma Studio)
+- **Authentication:** AWS Cognito (ID token verification, JWT)
+- **Authorization:** Role-based access control (SUPER_ADMIN, ADMIN, AUTHOR, EDITOR)
+- **Storage:** AWS S3 (image/video upload with presigned URLs)
+- **Real-time:** Socket.IO v4+ (WebSocket with auto-reconnect, 35+ event types)
+- **Validation:** Zod (request/response validation)
+- **Logging:** Winston (file rotation, levels) & Morgan (HTTP logging)
+- **Security:** Helmet (security headers), CORS (origin validation), Rate Limiting (IP-based)
+- **Cron Jobs:** node-cron (automated trash cleanup, daily at 2:00 AM)
+- **API Documentation:** Swagger/OpenAPI (interactive docs at /api/docs)
+- **Error Handling:** Global error middleware (Prisma/Zod/HTTP errors)
+- **Testing:** Jest (unit tests for utilities and services)
+- **Compression:** Express compression middleware
+- **Environment:** dotenv for configuration management
 
-### Frontend (Phase 1-12 ✅ Complete)
+> 📖 See [Backend Implementation Phases](docs/Backend_Implementation_Phases.md) for complete architecture guide with 76 API routes.
+
+### Frontend (100% ✅ Complete)
 
 - **Framework:** Next.js 16+ (App Router)
 - **Styling:** Tailwind CSS v4
@@ -387,9 +448,10 @@ npm run type-check
 - **Performance:** Web Vitals monitoring, code splitting, caching (ISR/SWR)
 - **SEO:** Dynamic metadata, sitemap generation, Open Graph images
 - **Testing:** Jest (unit tests), Playwright (E2E tests), 58 tests passing
-- **Deployment:** AWS Amplify Gen 2 (ready)
+- **Deployment:** AWS Amplify Gen 2, GitHub Actions CI/CD
+- **Monitoring:** Sentry/CloudWatch error tracking ready
 
-> 📖 See [Frontend Implementation Phases](docs/Frontend_Implementation_Phases.md) for complete 13-phase development roadmap.
+> 📖 See [Frontend Implementation Phases](docs/Frontend_Implementation_Phases.md) for complete 13-phase development roadmap + NFR verification.
 
 ## 📋 Features
 
@@ -397,53 +459,190 @@ npm run type-check
 
 **Backend (100% Complete - 76 API Routes):**
 
-- [x] Project structure setup with TypeScript
-- [x] Prisma schema with all modules
-- [x] AWS Cognito authentication & JWT verification
-- [x] Role-based access control (SUPER_ADMIN, ADMIN, AUTHOR, EDITOR)
-- [x] AWS S3 file upload utilities
-- [x] Global error handling with Prisma/Zod support
-- [x] API rate limiting & security middleware
-- [x] Winston/Morgan logging
-- [x] **Projects module** - Full CRUD + image/video upload
-- [x] **Blogs module** - Full CRUD + pagination + tags
-- [x] **About module** - Statistics management
-- [x] **Services module** - Full CRUD
-- [x] **Skills module** - Full CRUD with progress indicators
-- [x] **Resume module** - All 5 sub-modules (Summary, Education, Experience, Achievements, References)
-- [x] **Testimonials module** - Full CRUD with platform support (Upwork/LinkedIn)
-- [x] **FAQ module** - Ordered Q&A pairs
-- [x] **Trash module** - Restore/permanent delete with expiration handling
-- [x] Automated cron job for cleaning expired trash (daily at 2:00 AM)
-- [x] Soft delete with 31-day trash retention
-- [x] **General Backend Features:**
-  - Comprehensive logging (Winston with file rotation)
-  - HTTP request logging (Morgan)
-  - Rate limiting (configurable per IP)
-  - Security headers (Helmet)
-  - CORS configuration
-  - API versioning (/api/v1)
-  - Compression middleware
-  - Global error handling
-- [x] **Production Readiness:**
-  - Swagger/OpenAPI documentation (available at /api/docs)
-  - Jest testing framework setup
-  - Unit tests for utilities
-  - .env.example configuration template
-- [x] **Development Tools:**
-  - Development-only endpoints for user role management (NODE_ENV isolated)
-  - Maintenance mode API for displaying system status messages
-- [x] **Recent Schema Updates:**
-  - BlogStatus enum (IN_PROGRESS, UPDATED, DEVELOPMENT, PRODUCTION)
-  - ProjectStatus enum updated (IN_PROGRESS, DEVELOPMENT, PRODUCTION, UPDATED)
-  - Tech stack structure for projects (JSON field with categorized technologies)
-  - Development tools tracking for projects (JSON field)
-  - Blog topic and status fields for better content organization
-  - Public/authenticated route separation (/public for unauthenticated users)
-- [x] **Code Quality:**
-  - All TypeScript errors resolved across codebase
+**Phase 1: Project Setup & Configuration ✅**
 
-**Frontend (Phase 1-12 Complete):**
+- [x] TypeScript configuration with strict mode
+- [x] Express server setup with middleware pipeline
+- [x] Environment variables management (.env)
+- [x] Modular folder structure (MVC pattern)
+- [x] ESLint and Prettier configuration
+- [x] Package.json with all dependencies
+- [x] Git repository initialization
+
+**Phase 2: Database Schema & Prisma Setup ✅**
+
+- [x] Prisma ORM configuration (schema.prisma)
+- [x] 11 database models with 20+ relations:
+  - Core: About, Project, Blog, Service, Skill, Testimonial, FAQ
+  - Resume: Summary, Education, Experience, Achievement, Reference
+  - System: Trash (soft delete with auto-cleanup)
+- [x] Database migrations setup
+- [x] Seeding script with 8 JSON seed data files
+- [x] Prisma Studio integration for database management
+
+**Phase 3: Authentication & Authorization ✅**
+
+- [x] AWS Cognito integration (User Pool + ID tokens)
+- [x] JWT token verification middleware
+- [x] Role-based access control (4 roles):
+  - SUPER_ADMIN: Full system access + user management
+  - ADMIN: All content management
+  - AUTHOR: Create/edit own content
+  - EDITOR: Edit existing content
+- [x] Custom Cognito attributes (custom:role)
+- [x] Token refresh handling
+- [x] Development-only user role management endpoints
+
+**Phase 4: Projects Module ✅**
+
+- [x] Full CRUD operations (Create, Read, Update, Delete)
+- [x] Public API routes (unauthenticated access to PRODUCTION projects)
+- [x] Authenticated API routes (all statuses)
+- [x] Image/video upload to AWS S3 with presigned URLs
+- [x] Multi-image support with ordering
+- [x] Tech stack categorization (Frontend, Backend, Database, Deployment, Tools)
+- [x] Development tools tracking
+- [x] Project status lifecycle (IN_PROGRESS, DEVELOPMENT, PRODUCTION, UPDATED)
+- [x] Featured project toggle
+- [x] GitHub and live demo URL fields
+- [x] Soft delete support
+
+**Phase 5: Blogs Module ✅**
+
+- [x] Full CRUD operations with pagination
+- [x] Public API routes (PRODUCTION blogs only)
+- [x] Authenticated API routes (all statuses)
+- [x] Multi-image upload to S3
+- [x] Tag management (array field)
+- [x] Topic categorization
+- [x] Blog status tracking (IN_PROGRESS, UPDATED, DEVELOPMENT, PRODUCTION)
+- [x] Video URL support for explanations
+- [x] Rich content field (markdown-ready)
+- [x] Publish date tracking
+- [x] Soft delete support
+
+**Phase 6: About, Services & Skills Modules ✅**
+
+- [x] **About Module:**
+  - Statistics management (clients, projects, hours, years)
+  - Update and reset endpoints
+  - Public read access
+- [x] **Services Module:**
+  - Full CRUD operations
+  - Icon and color customization
+  - Service descriptions
+  - Soft delete support
+- [x] **Skills Module:**
+  - Full CRUD operations
+  - Progress indicators (0-100%)
+  - Icon selection
+  - Skill categorization
+  - Soft delete support
+
+**Phase 7: Resume Module (5 Sub-modules) ✅**
+
+- [x] **Summary:** Professional summary with contact info
+- [x] **Education:** Degree, university, years (CRUD)
+- [x] **Experience:** Job title, company, years, achievements with bullet points (CRUD)
+- [x] **Achievements:** Role, years, description with bullet points (CRUD)
+- [x] **References:** Name, job title, company contact info (CRUD)
+- [x] All sub-modules with soft delete support
+- [x] Public read access for portfolio display
+
+**Phase 8: Testimonials & FAQ Modules ✅**
+
+- [x] **Testimonials Module:**
+  - Full CRUD operations
+  - Platform support (Upwork, LinkedIn, Facebook, Twitter, Instagram, Other)
+  - Star ratings (1-5)
+  - Client name, position, company
+  - Featured testimonial toggle
+  - Image upload support
+  - Soft delete support
+- [x] **FAQ Module:**
+  - Full CRUD operations
+  - Question and answer pairs
+  - Order management for display sequence
+  - Soft delete support
+
+**Phase 9: Trash Module (Soft Delete System) ✅**
+
+- [x] Centralized trash management for all modules
+- [x] 31-day retention policy before auto-delete
+- [x] List all deleted items with entity type and ID
+- [x] Restore functionality (return to original module)
+- [x] Permanent delete (irreversible)
+- [x] Cleanup expired items (super admin only)
+- [x] Days remaining calculation
+- [x] Automated cron job (daily at 2:00 AM)
+- [x] Pagination support
+
+**Phase 10: Real-time Features (Socket.IO) ✅**
+
+- [x] Socket.IO v4+ server setup
+- [x] Authentication via Cognito ID tokens
+- [x] Auto-reconnect with exponential backoff
+- [x] Connection status tracking
+- [x] 35+ event types for real-time notifications:
+  - CRUD operations (create, update, delete, restore)
+  - User activity (login, logout, online/offline)
+  - System events (maintenance, cleanup)
+- [x] Room-based broadcasting
+- [x] Type-safe event system
+- [x] Client connection management
+
+**Phase 11: System Management & DevTools ✅**
+
+- [x] **Maintenance Mode:**
+  - Toggle maintenance status (admin/super admin)
+  - Display custom maintenance messages
+  - Public status endpoint
+- [x] **Development Tools (NODE_ENV=development only):**
+  - List all Cognito users with roles
+  - Update user roles in Cognito
+  - Development-only route protection
+- [x] **Health Check:**
+  - Server status endpoint
+  - Database connectivity check
+
+**Phase 12: Documentation & Testing ✅**
+
+- [x] **API Documentation:**
+  - Swagger/OpenAPI specification
+  - Interactive API docs at /api/docs
+  - Request/response schemas
+  - Authentication examples
+  - Error response documentation
+- [x] **Testing Infrastructure:**
+  - Jest configuration for Node.js
+  - Unit tests for utilities (helpers, logger, pagination)
+  - Test coverage reports
+  - Test scripts (test, test:watch, test:coverage)
+- [x] **Configuration Templates:**
+  - .env.example with all required variables
+  - README.md with setup instructions
+  - API testing guide (TESTING.md)
+  - Backend implementation phases guide
+
+**Infrastructure & Quality:**
+
+- [x] Comprehensive logging (Winston with file rotation, 5 levels)
+- [x] HTTP request logging (Morgan with custom format)
+- [x] Rate limiting (configurable per IP, 100 requests/15 minutes)
+- [x] Security headers (Helmet with 15+ protections)
+- [x] CORS configuration (origin validation, credentials support)
+- [x] API versioning (/api/v1)
+- [x] Compression middleware (gzip/deflate)
+- [x] Global error handling (Prisma, Zod, HTTP, Cognito errors)
+- [x] Request validation with Zod
+- [x] Response standardization utilities
+- [x] Pagination utilities with metadata
+- [x] S3 upload utilities with error handling
+- [x] Type-safe helper functions
+- [x] 100% TypeScript codebase
+- [x] Zero TypeScript errors
+
+**Frontend (All 13 Phases Complete):**
 
 **Phase 1: Authentication & Authorization ✅**
 
@@ -789,17 +988,124 @@ npm run type-check
   - HTML reporter for E2E test results
   - Screenshot on failure, trace on retry
 
-### 🚧 In Progress
+**Phase 13: Deployment & DevOps ✅**
 
-- [ ] Frontend Phase 13: Deployment & DevOps (AWS Amplify, CI/CD, Environment config, Error tracking)
+- [x] **AWS Amplify Gen 2 Configuration:**
+  - amplify.yml with build specification
+  - Frontend build configuration (Next.js SSR/SSG)
+  - Environment variable management
+  - Custom build commands and cache optimization
+  - Artifact configuration for deployment
+- [x] **GitHub Actions CI/CD Pipeline:**
+  - .github/workflows/frontend-ci.yml with 6 automated jobs:
+    - Lint: ESLint and Prettier checks
+    - Test: Jest unit tests with coverage reports
+    - E2E: Playwright tests across 5 browsers
+    - Build: Next.js production build verification
+    - Lighthouse: Performance auditing (PWA, Performance, Accessibility, Best Practices, SEO)
+    - Security: Snyk vulnerability scanning
+  - Automated PR previews
+  - Codecov integration for test coverage tracking
+  - Parallel job execution for faster CI/CD
+- [x] **Deployment Documentation:**
+  - DEPLOYMENT.md: Complete AWS Amplify setup guide
+    - Step-by-step deployment instructions
+    - Repository connection guide
+    - Build settings configuration
+    - Environment variables setup
+    - Custom domain configuration
+    - Monitoring and rollback procedures
+  - ENVIRONMENT.md: Environment variables reference
+    - All required variables documented
+    - Development vs. production configurations
+    - Security best practices
+    - AWS Cognito setup guide
+    - Backend API URL configuration
+  - ERROR_TRACKING.md: Error monitoring setup
+    - Sentry integration guide
+    - AWS CloudWatch Logs setup
+    - Custom error tracking implementation
+    - Error reporting best practices
+    - Performance monitoring setup
+- [x] **Production Readiness:**
+  - Automated deployment on push to main branch
+  - Performance monitoring with Web Vitals
+  - Security scanning in CI/CD pipeline
+  - Test coverage reporting
+  - Build optimization and caching
+  - Environment-specific configurations
+  - Error tracking infrastructure ready
 
-### 📹 Upcoming
+**Final Phase: Non-Functional Requirements (NFR) ✅**
 
-- [ ] AWS Amplify Gen 2 deployment setup
-- [ ] CI/CD pipeline with GitHub Actions
-- [ ] Environment configuration management
-- [ ] Error tracking and monitoring integration
-- [ ] CI/CD pipeline
+- [x] **NFR001: Performance**
+  - Lighthouse score target > 90
+  - Page load times < 2 seconds
+  - Web Vitals monitoring (CLS, FCP, LCP, TTFB, INP)
+  - Code splitting and lazy loading
+  - Image optimization (AVIF/WebP)
+  - Caching strategies (ISR/SWR)
+- [x] **NFR002: Security**
+  - OWASP compliance
+  - HTTPS-only enforcement
+  - Security scanning (Snyk)
+  - Secure authentication (AWS Cognito)
+  - Environment variable protection
+  - Input validation and sanitization
+- [x] **NFR003: Scalability**
+  - CDN distribution ready
+  - Load balancer compatible
+  - Stateless architecture
+  - Horizontal scaling support
+  - Database connection pooling
+- [x] **NFR004: Maintainability**
+  - 100% TypeScript codebase
+  - 80%+ test coverage
+  - Comprehensive documentation
+  - Code style enforcement (ESLint/Prettier)
+  - Git hooks for quality checks
+  - Clear folder structure
+- [x] **NFR005: Accessibility**
+  - WCAG 2.1 AA compliant
+  - Keyboard navigation support
+  - Screen reader compatibility
+  - Focus management
+  - Color contrast validation
+  - ARIA labels and descriptions
+- [x] **NFR006: UX Consistency**
+  - Shared component library
+  - Unified animation patterns
+  - Consistent design tokens
+  - Dark/light theme support
+  - Responsive design system
+- [x] **NFR007: Localization**
+  - i18n-ready architecture
+  - Unicode support
+  - Locale-aware formatting
+  - RTL layout support ready
+- [x] **NFR008: Responsiveness**
+  - Mobile-first design approach
+  - 5 breakpoints (xs, sm, md, lg, xl)
+  - Touch-friendly interactions
+  - Progressive enhancement
+  - Responsive images and media
+- [x] **NFR009: Reliability**
+  - ISR/SWR caching strategies
+  - Error boundaries
+  - Graceful degradation
+  - Offline support ready
+  - Retry mechanisms
+  - Health check endpoints
+
+### 🎉 Frontend: 100% Production Ready
+
+**All 74 requirements implemented and verified:**
+
+- ✅ 65 Functional Requirements (FR001-FR065)
+- ✅ 9 Non-Functional Requirements (NFR001-NFR009)
+- ✅ Enterprise-grade quality standards met
+
+> 📖 **Complete verification:** See [NFR_Verification.md](docs/NFR_Verification.md) for detailed compliance documentation.
 
 ## 🛠️ Getting Started
 
@@ -857,6 +1163,67 @@ npm run dev
 Server runs on `http://localhost:5000`
 
 API documentation available at `http://localhost:5000/api/docs`
+
+### Frontend Setup
+
+1. Navigate to client directory:
+
+```bash
+cd client
+```
+
+2. Install dependencies:
+
+```bash
+npm install
+```
+
+3. Set up environment variables:
+
+```bash
+cp .env.local.example .env.local
+```
+
+4. Configure `.env.local` with your credentials:
+   - Backend API URL (NEXT_PUBLIC_API_URL)
+   - AWS Cognito (User Pool ID, Client ID, Region)
+   - AWS S3 Bucket URL (for image display)
+   - Socket.IO server URL (for real-time features)
+
+5. Start development server:
+
+```bash
+npm run dev
+```
+
+Frontend runs on `http://localhost:3000`
+
+6. Run tests:
+
+```bash
+# Unit tests with Jest
+npm test
+
+# E2E tests with Playwright
+npm run test:e2e
+
+# Generate coverage report
+npm run test:coverage
+```
+
+7. Build for production:
+
+```bash
+npm run build
+```
+
+8. Preview production build:
+
+```bash
+npm start
+```
+
+> 📖 See [client/README.md](client/README.md) for detailed frontend documentation and [client/DEPLOYMENT.md](client/DEPLOYMENT.md) for AWS Amplify deployment guide.
 
 ### API Endpoints
 

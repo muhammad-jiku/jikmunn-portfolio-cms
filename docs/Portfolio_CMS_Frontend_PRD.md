@@ -2,7 +2,7 @@
 
 **Last Updated:** November 30, 2025
 
-> **📋 Quick Reference:** For a concise phase-by-phase implementation guide with all 77 requirements (65 Functional + 12 Non-Functional), see [Frontend_Implementation_Phases.md](./Frontend_Implementation_Phases.md)
+> **📋 Quick Reference:** For a concise phase-by-phase implementation guide with all 74 requirements (65 Functional + 9 Non-Functional), see [Frontend_Implementation_Phases.md](./Frontend_Implementation_Phases.md)
 
 The following document outlines the detailed functional requirements of the **Device-Responsive Portfolio CMS** frontend, built using **Next.js 15+**, **Tailwind CSS v4**, **Shadcn/ui**, and **Redux Toolkit**.
 
@@ -192,11 +192,7 @@ export const disconnectSocket = () => {
 
 ```typescript
 // lib/cognito.ts
-import {
-  CognitoUserPool,
-  CognitoUser,
-  AuthenticationDetails,
-} from 'amazon-cognito-identity-js';
+import { CognitoUserPool, CognitoUser, AuthenticationDetails } from 'amazon-cognito-identity-js';
 
 const poolData = {
   UserPoolId: process.env.NEXT_PUBLIC_COGNITO_USER_POOL_ID!,
@@ -217,11 +213,7 @@ export const forgotPassword = (email: string) => {
   // Forgot password implementation
 };
 
-export const resetPassword = (
-  email: string,
-  code: string,
-  newPassword: string
-) => {
+export const resetPassword = (email: string, code: string, newPassword: string) => {
   // Reset password implementation
 };
 ```

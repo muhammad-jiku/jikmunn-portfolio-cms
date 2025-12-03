@@ -53,35 +53,67 @@ server/
 │   │   ├── cognito.config.ts
 │   │   ├── database.config.ts
 │   │   ├── socket.config.ts
+│   │   ├── swagger.config.ts
 │   │   └── index.config.ts
 │   ├── utils/               # Utility functions
+│   │   ├── cron.util.ts
 │   │   ├── helpers.util.ts
 │   │   ├── logger.util.ts
 │   │   ├── pagination.util.ts
 │   │   ├── response.util.ts
+│   │   ├── s3.util.ts
 │   │   ├── socket.util.ts
-│   │   └── s3.util.ts
+│   │   ├── types.util.ts
+│   │   └── __tests__/       # Unit tests
 │   └── app/                 # Application modules
 │       ├── middleware/      # Express middleware
 │       │   ├── auth.middleware.ts
-│       │   ├── dev.middleware.ts        # Dev-only middleware
 │       │   ├── errorHandler.middleware.ts
-│       │   └── validation.middleware.ts
+│       │   ├── rateLimiter.middleware.ts
+│       │   └── validate.middleware.ts
 │       ├── modules/         # Feature modules
 │       │   ├── projects/
+│       │   │   ├── projects.controller.ts
+│       │   │   ├── projects.service.ts
+│       │   │   ├── projects.routes.ts
+│       │   │   ├── projects.validation.ts
+│       │   │   ├── projects.interface.ts
+│       │   │   └── projects.constants.ts
 │       │   ├── blogs/
+│       │   │   ├── blogs.controller.ts
+│       │   │   ├── blogs.service.ts
+│       │   │   ├── blogs.routes.ts
+│       │   │   ├── blogs.validation.ts
+│       │   │   ├── blogs.interface.ts
+│       │   │   └── blogs.constants.ts
 │       │   ├── about/
 │       │   ├── services/
 │       │   ├── skills/
 │       │   ├── resume/
+│       │   │   ├── summary/
+│       │   │   ├── education/
+│       │   │   ├── experience/
+│       │   │   ├── achievements/
+│       │   │   └── references/
 │       │   ├── testimonials/
 │       │   ├── faq/
 │       │   ├── trash/
-│       │   └── common/      # Shared services, dev & maintenance controllers
+│       │   └── common/      # Shared services (maintenance)
 │       └── routes/          # API routes
+│           └── index.routes.ts
 ├── prisma/
-│   └── schema.prisma        # Database schema
-└── package.json
+│   ├── schema.prisma        # Database schema
+│   ├── seed.ts              # Database seeding
+│   ├── seed-data/           # JSON seed files
+│   └── migrations/          # Migration history
+├── logs/                    # Winston logs (gitignored)
+├── .env.example
+├── package.json
+├── jest.config.js
+├── eslint.config.mjs
+├── tsconfig.json
+├── SOCKET_IO_GUIDE.md
+└── README.md
 ```
 
 ## Getting Started
