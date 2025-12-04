@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import httpStatus from 'http-status';
 import { catchAsync, pick } from '../../../utils/helpers.util';
 import { sendResponse } from '../../../utils/response.util';
+import { notifyFAQCreated, notifyFAQDeleted, notifyFAQUpdated } from '../../../utils/socket.util';
 import { paginationFields } from '../../../utils/types.util';
 import { faqFilterableFields } from './faq.constants';
 import { IFAQ } from './faq.interface';
@@ -10,6 +11,9 @@ import { FAQServices } from './faq.service';
 const createFaq = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
   try {
     const result = await FAQServices.createFaq(req.body);
+
+    // Emit real-time notification
+    notifyFAQCreated(result);
 
     sendResponse<IFAQ>(res, {
       statusCode: httpStatus.CREATED,
@@ -64,6 +68,9 @@ const updateFaq = catchAsync(async (req: Request, res: Response, next: NextFunct
 
     const result = await FAQServices.updateFaq(id, req.body);
 
+    // Emit real-time notification
+    notifyFAQUpdated(result);
+
     sendResponse<IFAQ>(res, {
       statusCode: httpStatus.OK,
       success: true,
@@ -80,6 +87,9 @@ const deleteFaq = catchAsync(async (req: Request, res: Response, next: NextFunct
     const { id } = req.params;
 
     const result = await FAQServices.deleteFaq(id);
+
+    // Emit real-time notification
+    notifyFAQDeleted(id);
 
     sendResponse<IFAQ>(res, {
       statusCode: httpStatus.OK,

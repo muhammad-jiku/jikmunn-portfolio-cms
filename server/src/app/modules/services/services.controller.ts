@@ -2,6 +2,11 @@ import { NextFunction, Response } from 'express';
 import httpStatus from 'http-status';
 import { catchAsync, pick } from '../../../utils/helpers.util';
 import { sendResponse } from '../../../utils/response.util';
+import {
+  notifyServiceCreated,
+  notifyServiceDeleted,
+  notifyServiceUpdated,
+} from '../../../utils/socket.util';
 import { paginationFields } from '../../../utils/types.util';
 import { AuthRequest } from '../../middleware/auth.middleware';
 import { serviceFilterableFields } from './services.constants';
@@ -11,6 +16,9 @@ import { ServiceServices } from './services.service';
 const createService = catchAsync(async (req: AuthRequest, res: Response, next: NextFunction) => {
   try {
     const result = await ServiceServices.createService(req.body);
+
+    // Emit real-time notification
+    notifyServiceCreated(result);
 
     sendResponse<IService>(res, {
       statusCode: httpStatus.CREATED,
@@ -65,6 +73,9 @@ const updateService = catchAsync(async (req: AuthRequest, res: Response, next: N
 
     const result = await ServiceServices.updateService(id, req.body);
 
+    // Emit real-time notification
+    notifyServiceUpdated(result);
+
     sendResponse<IService>(res, {
       statusCode: httpStatus.OK,
       success: true,
@@ -81,6 +92,9 @@ const deleteService = catchAsync(async (req: AuthRequest, res: Response, next: N
     const { id } = req.params;
 
     const result = await ServiceServices.deleteService(id);
+
+    // Emit real-time notification
+    notifyServiceDeleted(id);
 
     sendResponse<IService>(res, {
       statusCode: httpStatus.OK,

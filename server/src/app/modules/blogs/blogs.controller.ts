@@ -5,6 +5,11 @@ import { catchAsync, pick } from '../../../utils/helpers.util';
 import { logger } from '../../../utils/logger.util';
 import { sendResponse } from '../../../utils/response.util';
 import { uploadMultipleToS3 } from '../../../utils/s3.util';
+import {
+  notifyBlogCreated,
+  notifyBlogDeleted,
+  notifyBlogUpdated,
+} from '../../../utils/socket.util';
 import { paginationFields } from '../../../utils/types.util';
 import { AuthRequest } from '../../middleware/auth.middleware';
 import { blogFilterableFields } from './blogs.constants';
@@ -43,6 +48,9 @@ const createBlog = catchAsync(async (req: AuthRequest, res: Response, next: Next
     };
 
     const result = await BlogServices.createBlog(blogData);
+
+    // Emit real-time notification
+    notifyBlogCreated(result);
 
     sendResponse<IBlog>(res, {
       statusCode: httpStatus.CREATED,
@@ -101,6 +109,9 @@ const updateBlog = catchAsync(async (req: AuthRequest, res: Response, next: Next
 
     const result = await BlogServices.updateBlog(id, req.body);
 
+    // Emit real-time notification
+    notifyBlogUpdated(result);
+
     sendResponse<IBlog>(res, {
       statusCode: httpStatus.OK,
       success: true,
@@ -117,6 +128,9 @@ const deleteBlog = catchAsync(async (req: AuthRequest, res: Response, next: Next
     const { id } = req.params;
 
     const result = await BlogServices.deleteBlog(id);
+
+    // Emit real-time notification
+    notifyBlogDeleted(id);
 
     sendResponse<IBlog>(res, {
       statusCode: httpStatus.OK,

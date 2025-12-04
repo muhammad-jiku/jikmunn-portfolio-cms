@@ -2,6 +2,11 @@ import { NextFunction, Request, Response } from 'express';
 import httpStatus from 'http-status';
 import { catchAsync, pick } from '../../../utils/helpers.util';
 import { sendResponse } from '../../../utils/response.util';
+import {
+  notifySkillCreated,
+  notifySkillDeleted,
+  notifySkillUpdated,
+} from '../../../utils/socket.util';
 import { paginationFields } from '../../../utils/types.util';
 import { skillFilterableFields } from './skills.constants';
 import { ISkill } from './skills.interface';
@@ -10,6 +15,9 @@ import { SkillServices } from './skills.service';
 const createSkill = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
   try {
     const result = await SkillServices.createSkill(req.body);
+
+    // Emit real-time notification
+    notifySkillCreated(result);
 
     sendResponse<ISkill>(res, {
       statusCode: httpStatus.CREATED,
@@ -64,6 +72,9 @@ const updateSkill = catchAsync(async (req: Request, res: Response, next: NextFun
 
     const result = await SkillServices.updateSkill(id, req.body);
 
+    // Emit real-time notification
+    notifySkillUpdated(result);
+
     sendResponse<ISkill>(res, {
       statusCode: httpStatus.OK,
       success: true,
@@ -80,6 +91,9 @@ const deleteSkill = catchAsync(async (req: Request, res: Response, next: NextFun
     const { id } = req.params;
 
     const result = await SkillServices.deleteSkill(id);
+
+    // Emit real-time notification
+    notifySkillDeleted(id);
 
     sendResponse<ISkill>(res, {
       statusCode: httpStatus.OK,

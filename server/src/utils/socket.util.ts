@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { emitToAdmins, SocketEvents } from '../config/socket.config';
 import { logger } from './logger.util';
 
@@ -224,6 +225,163 @@ export const notifyFAQDeleted = (faqId: string) => {
     });
   } catch (error) {
     logger.error('Error emitting faq:deleted event', error);
+  }
+};
+
+// Resume
+export const notifyResumeUpdated = (resume: any) => {
+  try {
+    emitToAdmins(SocketEvents.RESUME_UPDATED, {
+      message: 'Resume summary updated',
+      data: resume,
+      timestamp: new Date().toISOString(),
+    });
+  } catch (error) {
+    logger.error('Error emitting resume:updated event', error);
+  }
+};
+
+export const notifyEducationCreated = (education: any) => {
+  try {
+    emitToAdmins(SocketEvents.EDUCATION_CREATED, {
+      message: 'New education entry created',
+      data: education,
+      timestamp: new Date().toISOString(),
+    });
+  } catch (error) {
+    logger.error('Error emitting education:created event', error);
+  }
+};
+
+export const notifyEducationUpdated = (education: any) => {
+  try {
+    emitToAdmins(SocketEvents.EDUCATION_UPDATED, {
+      message: 'Education entry updated',
+      data: education,
+      timestamp: new Date().toISOString(),
+    });
+  } catch (error) {
+    logger.error('Error emitting education:updated event', error);
+  }
+};
+
+export const notifyEducationDeleted = (educationId: string) => {
+  try {
+    emitToAdmins(SocketEvents.EDUCATION_DELETED, {
+      message: 'Education entry deleted',
+      data: { id: educationId },
+      timestamp: new Date().toISOString(),
+    });
+  } catch (error) {
+    logger.error('Error emitting education:deleted event', error);
+  }
+};
+
+export const notifyExperienceCreated = (experience: any) => {
+  try {
+    emitToAdmins(SocketEvents.EXPERIENCE_CREATED, {
+      message: 'New experience entry created',
+      data: experience,
+      timestamp: new Date().toISOString(),
+    });
+  } catch (error) {
+    logger.error('Error emitting experience:created event', error);
+  }
+};
+
+export const notifyExperienceUpdated = (experience: any) => {
+  try {
+    emitToAdmins(SocketEvents.EXPERIENCE_UPDATED, {
+      message: 'Experience entry updated',
+      data: experience,
+      timestamp: new Date().toISOString(),
+    });
+  } catch (error) {
+    logger.error('Error emitting experience:updated event', error);
+  }
+};
+
+export const notifyExperienceDeleted = (experienceId: string) => {
+  try {
+    emitToAdmins(SocketEvents.EXPERIENCE_DELETED, {
+      message: 'Experience entry deleted',
+      data: { id: experienceId },
+      timestamp: new Date().toISOString(),
+    });
+  } catch (error) {
+    logger.error('Error emitting experience:deleted event', error);
+  }
+};
+
+export const notifyAchievementCreated = (achievement: any) => {
+  try {
+    emitToAdmins(SocketEvents.ACHIEVEMENT_CREATED, {
+      message: 'New achievement created',
+      data: achievement,
+      timestamp: new Date().toISOString(),
+    });
+  } catch (error) {
+    logger.error('Error emitting achievement:created event', error);
+  }
+};
+
+export const notifyAchievementUpdated = (achievement: any) => {
+  try {
+    emitToAdmins(SocketEvents.ACHIEVEMENT_UPDATED, {
+      message: 'Achievement updated',
+      data: achievement,
+      timestamp: new Date().toISOString(),
+    });
+  } catch (error) {
+    logger.error('Error emitting achievement:updated event', error);
+  }
+};
+
+export const notifyAchievementDeleted = (achievementId: string) => {
+  try {
+    emitToAdmins(SocketEvents.ACHIEVEMENT_DELETED, {
+      message: 'Achievement deleted',
+      data: { id: achievementId },
+      timestamp: new Date().toISOString(),
+    });
+  } catch (error) {
+    logger.error('Error emitting achievement:deleted event', error);
+  }
+};
+
+export const notifyReferenceCreated = (reference: any) => {
+  try {
+    emitToAdmins(SocketEvents.REFERENCE_CREATED, {
+      message: 'New reference created',
+      data: reference,
+      timestamp: new Date().toISOString(),
+    });
+  } catch (error) {
+    logger.error('Error emitting reference:created event', error);
+  }
+};
+
+export const notifyReferenceUpdated = (reference: any) => {
+  try {
+    emitToAdmins(SocketEvents.REFERENCE_UPDATED, {
+      message: 'Reference updated',
+      data: reference,
+      timestamp: new Date().toISOString(),
+    });
+  } catch (error) {
+    logger.error('Error emitting reference:updated event', error);
+  }
+};
+
+export const notifyReferenceDeleted = (referenceId: string) => {
+  try {
+    emitToAdmins(SocketEvents.REFERENCE_DELETED, {
+      message: 'Reference deleted',
+      data: { id: referenceId },
+      timestamp: new Date().toISOString(),
+    });
+  } catch (error) {
+    logger.error('Error emitting reference:deleted event', error);
   }
 };
 

@@ -2,6 +2,21 @@ import { NextFunction, Request, Response } from 'express';
 import httpStatus from 'http-status';
 import { catchAsync, pick } from '../../../utils/helpers.util';
 import { sendResponse } from '../../../utils/response.util';
+import {
+  notifyAchievementCreated,
+  notifyAchievementDeleted,
+  notifyAchievementUpdated,
+  notifyEducationCreated,
+  notifyEducationDeleted,
+  notifyEducationUpdated,
+  notifyExperienceCreated,
+  notifyExperienceDeleted,
+  notifyExperienceUpdated,
+  notifyReferenceCreated,
+  notifyReferenceDeleted,
+  notifyReferenceUpdated,
+  notifyResumeUpdated,
+} from '../../../utils/socket.util';
 import { paginationFields } from '../../../utils/types.util';
 import {
   achievementFilterableFields,
@@ -83,6 +98,9 @@ const updateSummary = catchAsync(async (req: Request, res: Response, next: NextF
 
     const result = await ResumeSummaryServices.updateSummary(id, req.body);
 
+    // Emit real-time notification
+    notifyResumeUpdated(result);
+
     sendResponse<IResumeSummary>(res, {
       statusCode: httpStatus.OK,
       success: true,
@@ -115,6 +133,9 @@ const deleteSummary = catchAsync(async (req: Request, res: Response, next: NextF
 const createEducation = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
   try {
     const result = await EducationServices.createEducation(req.body);
+
+    // Emit real-time notification
+    notifyEducationCreated(result);
 
     sendResponse<IEducation>(res, {
       statusCode: httpStatus.CREATED,
@@ -169,6 +190,9 @@ const updateEducation = catchAsync(async (req: Request, res: Response, next: Nex
 
     const result = await EducationServices.updateEducation(id, req.body);
 
+    // Emit real-time notification
+    notifyEducationUpdated(result);
+
     sendResponse<IEducation>(res, {
       statusCode: httpStatus.OK,
       success: true,
@@ -186,6 +210,9 @@ const deleteEducation = catchAsync(async (req: Request, res: Response, next: Nex
 
     const result = await EducationServices.deleteEducation(id);
 
+    // Emit real-time notification
+    notifyEducationDeleted(id);
+
     sendResponse<IEducation>(res, {
       statusCode: httpStatus.OK,
       success: true,
@@ -201,6 +228,9 @@ const deleteEducation = catchAsync(async (req: Request, res: Response, next: Nex
 const createExperience = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
   try {
     const result = await ExperienceServices.createExperience(req.body);
+
+    // Emit real-time notification
+    notifyExperienceCreated(result);
 
     sendResponse<IExperience>(res, {
       statusCode: httpStatus.CREATED,
@@ -255,6 +285,9 @@ const updateExperience = catchAsync(async (req: Request, res: Response, next: Ne
 
     const result = await ExperienceServices.updateExperience(id, req.body);
 
+    // Emit real-time notification
+    notifyExperienceUpdated(result);
+
     sendResponse<IExperience>(res, {
       statusCode: httpStatus.OK,
       success: true,
@@ -272,6 +305,9 @@ const deleteExperience = catchAsync(async (req: Request, res: Response, next: Ne
 
     const result = await ExperienceServices.deleteExperience(id);
 
+    // Emit real-time notification
+    notifyExperienceDeleted(id);
+
     sendResponse<IExperience>(res, {
       statusCode: httpStatus.OK,
       success: true,
@@ -287,6 +323,9 @@ const deleteExperience = catchAsync(async (req: Request, res: Response, next: Ne
 const createAchievement = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
   try {
     const result = await AchievementServices.createAchievement(req.body);
+
+    // Emit real-time notification
+    notifyAchievementCreated(result);
 
     sendResponse<IAchievement>(res, {
       statusCode: httpStatus.CREATED,
@@ -341,6 +380,9 @@ const updateAchievement = catchAsync(async (req: Request, res: Response, next: N
 
     const result = await AchievementServices.updateAchievement(id, req.body);
 
+    // Emit real-time notification
+    notifyAchievementUpdated(result);
+
     sendResponse<IAchievement>(res, {
       statusCode: httpStatus.OK,
       success: true,
@@ -358,6 +400,9 @@ const deleteAchievement = catchAsync(async (req: Request, res: Response, next: N
 
     const result = await AchievementServices.deleteAchievement(id);
 
+    // Emit real-time notification
+    notifyAchievementDeleted(id);
+
     sendResponse<IAchievement>(res, {
       statusCode: httpStatus.OK,
       success: true,
@@ -373,6 +418,9 @@ const deleteAchievement = catchAsync(async (req: Request, res: Response, next: N
 const createReference = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
   try {
     const result = await ReferenceServices.createReference(req.body);
+
+    // Emit real-time notification
+    notifyReferenceCreated(result);
 
     sendResponse<IReference>(res, {
       statusCode: httpStatus.CREATED,
@@ -427,6 +475,9 @@ const updateReference = catchAsync(async (req: Request, res: Response, next: Nex
 
     const result = await ReferenceServices.updateReference(id, req.body);
 
+    // Emit real-time notification
+    notifyReferenceUpdated(result);
+
     sendResponse<IReference>(res, {
       statusCode: httpStatus.OK,
       success: true,
@@ -443,6 +494,9 @@ const deleteReference = catchAsync(async (req: Request, res: Response, next: Nex
     const { id } = req.params;
 
     const result = await ReferenceServices.deleteReference(id);
+
+    // Emit real-time notification
+    notifyReferenceDeleted(id);
 
     sendResponse<IReference>(res, {
       statusCode: httpStatus.OK,

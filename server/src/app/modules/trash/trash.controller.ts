@@ -2,6 +2,11 @@ import { NextFunction, Request, Response } from 'express';
 import httpStatus from 'http-status';
 import { catchAsync, pick } from '../../../utils/helpers.util';
 import { sendResponse } from '../../../utils/response.util';
+import {
+  notifyTrashCleaned,
+  notifyTrashPermanentlyDeleted,
+  notifyTrashRestored,
+} from '../../../utils/socket.util';
 import { paginationFields } from '../../../utils/types.util';
 import { TrashServices } from './trash.service';
 
@@ -46,6 +51,9 @@ const restoreTrash = catchAsync(async (req: Request, res: Response, next: NextFu
 
     const result = await TrashServices.restoreTrash(id);
 
+    // Emit real-time notification
+    notifyTrashRestored(result);
+
     sendResponse(res, {
       statusCode: httpStatus.OK,
       success: true,
@@ -64,6 +72,9 @@ const permanentlyDeleteTrash = catchAsync(
 
       const result = await TrashServices.permanentlyDeleteTrash(id);
 
+      // Emit real-time notification
+      notifyTrashPermanentlyDeleted(id, result.entityType);
+
       sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
@@ -79,6 +90,9 @@ const permanentlyDeleteTrash = catchAsync(
 const cleanupExpiredTrash = catchAsync(async (_req: Request, res: Response, next: NextFunction) => {
   try {
     const result = await TrashServices.cleanupExpiredTrash();
+
+    // Emit real-time notification
+    notifyTrashCleaned(result.deletedCount);
 
     sendResponse(res, {
       statusCode: httpStatus.OK,

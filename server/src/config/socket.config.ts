@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Server as HTTPServer } from 'http';
 import { Server as SocketIOServer } from 'socket.io';
 import { logger } from '../utils/logger.util';
@@ -117,6 +118,12 @@ export const SocketEvents = {
   EXPERIENCE_CREATED: 'experience:created',
   EXPERIENCE_UPDATED: 'experience:updated',
   EXPERIENCE_DELETED: 'experience:deleted',
+  ACHIEVEMENT_CREATED: 'achievement:created',
+  ACHIEVEMENT_UPDATED: 'achievement:updated',
+  ACHIEVEMENT_DELETED: 'achievement:deleted',
+  REFERENCE_CREATED: 'reference:created',
+  REFERENCE_UPDATED: 'reference:updated',
+  REFERENCE_DELETED: 'reference:deleted',
 
   // Testimonials
   TESTIMONIAL_CREATED: 'testimonial:created',
