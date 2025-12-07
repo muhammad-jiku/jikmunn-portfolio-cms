@@ -37,7 +37,7 @@ export default function RootLayout({
           attribute="class"
           defaultTheme="system"
           enableSystem
-          disableTransitionOnChange
+          storageKey="portfolio-cms-theme"
         >
           <ReduxProvider>
             <SocketProvider>

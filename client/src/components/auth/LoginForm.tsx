@@ -55,7 +55,7 @@ export default function LoginForm() {
           {...register('email')}
           type="email"
           id="email"
-          className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full px-4 py-2 border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-50 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
           placeholder="you@example.com"
         />
         {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
@@ -69,7 +69,7 @@ export default function LoginForm() {
           {...register('password')}
           type="password"
           id="password"
-          className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full px-4 py-2 border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-50 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
           placeholder="••••••••"
         />
         {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>}
@@ -81,13 +81,16 @@ export default function LoginForm() {
             {...register('rememberMe')}
             type="checkbox"
             id="rememberMe"
-            className="h-4 w-4 rounded border-gray-300"
+            className="h-4 w-4 rounded border-zinc-300 dark:border-zinc-600 text-primary focus:ring-primary"
           />
-          <label htmlFor="rememberMe" className="ml-2 text-sm">
+          <label htmlFor="rememberMe" className="ml-2 text-sm text-zinc-700 dark:text-zinc-300">
             Remember me
           </label>
         </div>
-        <a href="/forgot-password" className="text-sm text-blue-600 hover:underline">
+        <a
+          href="/forgot-password"
+          className="text-sm text-primary hover:text-primary-hover hover:underline"
+        >
           Forgot password?
         </a>
       </div>
@@ -97,14 +100,17 @@ export default function LoginForm() {
       <button
         type="submit"
         disabled={isLoading}
-        className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+        className="w-full bg-linear-to-r from-primary to-secondary hover:from-primary-hover hover:to-secondary-hover text-white py-2 px-4 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {isLoading ? 'Signing in...' : 'Sign in'}
       </button>
 
-      <p className="text-center text-sm">
+      <p className="text-center text-sm text-zinc-600 dark:text-zinc-400">
         Don&apos;t have an account?{' '}
-        <a href="/register" className="text-blue-600 hover:underline">
+        <a
+          href="/register"
+          className="text-primary hover:text-primary-hover hover:underline font-medium"
+        >
           Sign up
         </a>
       </p>

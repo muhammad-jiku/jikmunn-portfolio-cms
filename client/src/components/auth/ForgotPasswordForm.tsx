@@ -87,7 +87,7 @@ export default function ForgotPasswordForm() {
   if (step === 'reset') {
     return (
       <form onSubmit={resetForm.handleSubmit(onResetSubmit)} className="space-y-6">
-        <div className="bg-blue-50 text-blue-800 px-4 py-3 rounded-lg text-sm">
+        <div className="bg-purple-50 dark:bg-purple-950 text-purple-800 dark:text-purple-200 px-4 py-3 rounded-lg text-sm">
           We&apos;ve sent a verification code to <strong>{email}</strong>
         </div>
 
@@ -99,7 +99,7 @@ export default function ForgotPasswordForm() {
             {...resetForm.register('code')}
             type="text"
             id="code"
-            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-4 py-2 border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-50 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
             placeholder="123456"
           />
           {resetForm.formState.errors.code && (
@@ -115,7 +115,7 @@ export default function ForgotPasswordForm() {
             {...resetForm.register('newPassword')}
             type="password"
             id="newPassword"
-            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-4 py-2 border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-50 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
             placeholder="••••••••"
           />
           {resetForm.formState.errors.newPassword && (
@@ -133,7 +133,7 @@ export default function ForgotPasswordForm() {
             {...resetForm.register('confirmPassword')}
             type="password"
             id="confirmPassword"
-            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-4 py-2 border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-50 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
             placeholder="••••••••"
           />
           {resetForm.formState.errors.confirmPassword && (
@@ -150,7 +150,7 @@ export default function ForgotPasswordForm() {
         <button
           type="submit"
           disabled={isLoading}
-          className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full bg-linear-to-r from-primary to-accent hover:from-primary-hover hover:to-accent-hover text-white py-2 px-4 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {isLoading ? 'Resetting password...' : 'Reset password'}
         </button>
@@ -158,7 +158,7 @@ export default function ForgotPasswordForm() {
         <button
           type="button"
           onClick={() => setStep('email')}
-          className="w-full text-blue-600 hover:underline text-sm"
+          className="w-full text-primary hover:text-primary-hover hover:underline text-sm"
         >
           Back to email entry
         </button>
@@ -182,7 +182,7 @@ export default function ForgotPasswordForm() {
           {...emailForm.register('email')}
           type="email"
           id="email"
-          className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full px-4 py-2 border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-50 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
           placeholder="you@example.com"
         />
         {emailForm.formState.errors.email && (
@@ -195,14 +195,17 @@ export default function ForgotPasswordForm() {
       <button
         type="submit"
         disabled={isLoading}
-        className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+        className="w-full bg-linear-to-r from-secondary to-accent hover:from-secondary-hover hover:to-accent-hover text-white py-2 px-4 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {isLoading ? 'Sending code...' : 'Send verification code'}
       </button>
 
-      <p className="text-center text-sm">
+      <p className="text-center text-sm text-zinc-600 dark:text-zinc-400">
         Remember your password?{' '}
-        <a href="/login" className="text-blue-600 hover:underline">
+        <a
+          href="/login"
+          className="text-primary hover:text-primary-hover hover:underline font-medium"
+        >
           Sign in
         </a>
       </p>
