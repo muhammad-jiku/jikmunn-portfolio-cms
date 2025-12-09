@@ -28,8 +28,10 @@ export default function ProtectedRoute({ children, requiredRole }: ProtectedRout
 
   if (!isAuthenticated || (requiredRole && user && !hasRole(user.role, requiredRole))) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <p>Checking authentication...</p>
+      <div className="min-h-screen flex items-center justify-center px-4">
+        <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-400">
+          Checking authentication...
+        </p>
       </div>
     );
   }

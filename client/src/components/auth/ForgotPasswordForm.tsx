@@ -77,80 +77,92 @@ export default function ForgotPasswordForm() {
 
   if (step === 'success') {
     return (
-      <div className="bg-green-50 text-green-800 px-6 py-4 rounded-lg">
-        <h3 className="font-semibold mb-2">Password reset successful!</h3>
-        <p>You can now sign in with your new password. Redirecting to login...</p>
+      <div className="bg-green-50 text-green-800 px-4 sm:px-6 py-3 sm:py-4 rounded-lg">
+        <h3 className="font-semibold mb-2 text-sm sm:text-base">Password reset successful!</h3>
+        <p className="text-xs sm:text-sm">
+          You can now sign in with your new password. Redirecting to login...
+        </p>
       </div>
     );
   }
 
   if (step === 'reset') {
     return (
-      <form onSubmit={resetForm.handleSubmit(onResetSubmit)} className="space-y-6">
-        <div className="bg-purple-50 dark:bg-purple-950 text-purple-800 dark:text-purple-200 px-4 py-3 rounded-lg text-sm">
+      <form onSubmit={resetForm.handleSubmit(onResetSubmit)} className="space-y-4 sm:space-y-6">
+        <div className="bg-purple-50 dark:bg-purple-950 text-purple-800 dark:text-purple-200 px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg text-xs sm:text-sm">
           We&apos;ve sent a verification code to <strong>{email}</strong>
         </div>
 
         <div>
-          <label htmlFor="code" className="block text-sm font-medium mb-2">
+          <label htmlFor="code" className="block text-xs sm:text-sm font-medium mb-1.5 sm:mb-2">
             Verification Code
           </label>
           <input
             {...resetForm.register('code')}
             type="text"
             id="code"
-            className="w-full px-4 py-2 border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-50 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+            className="w-full px-3 sm:px-4 py-2 sm:py-2.5 border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-50 rounded-lg text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
             placeholder="123456"
           />
           {resetForm.formState.errors.code && (
-            <p className="text-red-500 text-sm mt-1">{resetForm.formState.errors.code.message}</p>
+            <p className="text-red-500 text-xs sm:text-sm mt-1">
+              {resetForm.formState.errors.code.message}
+            </p>
           )}
         </div>
 
         <div>
-          <label htmlFor="newPassword" className="block text-sm font-medium mb-2">
+          <label
+            htmlFor="newPassword"
+            className="block text-xs sm:text-sm font-medium mb-1.5 sm:mb-2"
+          >
             New Password
           </label>
           <input
             {...resetForm.register('newPassword')}
             type="password"
             id="newPassword"
-            className="w-full px-4 py-2 border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-50 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+            className="w-full px-3 sm:px-4 py-2 sm:py-2.5 border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-50 rounded-lg text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
             placeholder="••••••••"
           />
           {resetForm.formState.errors.newPassword && (
-            <p className="text-red-500 text-sm mt-1">
+            <p className="text-red-500 text-xs sm:text-sm mt-1">
               {resetForm.formState.errors.newPassword.message}
             </p>
           )}
         </div>
 
         <div>
-          <label htmlFor="confirmPassword" className="block text-sm font-medium mb-2">
+          <label
+            htmlFor="confirmPassword"
+            className="block text-xs sm:text-sm font-medium mb-1.5 sm:mb-2"
+          >
             Confirm New Password
           </label>
           <input
             {...resetForm.register('confirmPassword')}
             type="password"
             id="confirmPassword"
-            className="w-full px-4 py-2 border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-50 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+            className="w-full px-3 sm:px-4 py-2 sm:py-2.5 border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-50 rounded-lg text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
             placeholder="••••••••"
           />
           {resetForm.formState.errors.confirmPassword && (
-            <p className="text-red-500 text-sm mt-1">
+            <p className="text-red-500 text-xs sm:text-sm mt-1">
               {resetForm.formState.errors.confirmPassword.message}
             </p>
           )}
         </div>
 
         {error && (
-          <div className="bg-red-50 text-red-600 px-4 py-3 rounded-lg text-sm">{error}</div>
+          <div className="bg-red-50 text-red-600 px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg text-xs sm:text-sm">
+            {error}
+          </div>
         )}
 
         <button
           type="submit"
           disabled={isLoading}
-          className="w-full bg-linear-to-r from-primary to-accent hover:from-primary-hover hover:to-accent-hover text-white py-2 px-4 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full bg-linear-to-r from-primary to-accent hover:from-primary-hover hover:to-accent-hover text-white py-2.5 sm:py-3 px-4 rounded-lg text-sm sm:text-base font-medium transition-all duration-300 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {isLoading ? 'Resetting password...' : 'Reset password'}
         </button>
@@ -158,7 +170,7 @@ export default function ForgotPasswordForm() {
         <button
           type="button"
           onClick={() => setStep('email')}
-          className="w-full text-primary hover:text-primary-hover hover:underline text-sm"
+          className="w-full text-primary hover:text-primary-hover hover:underline text-xs sm:text-sm"
         >
           Back to email entry
         </button>
@@ -167,40 +179,46 @@ export default function ForgotPasswordForm() {
   }
 
   return (
-    <form onSubmit={emailForm.handleSubmit(onEmailSubmit)} className="space-y-6">
-      <div className="text-center mb-6">
-        <p className="text-sm text-gray-600">
+    <form onSubmit={emailForm.handleSubmit(onEmailSubmit)} className="space-y-4 sm:space-y-6">
+      <div className="text-center mb-4 sm:mb-6">
+        <p className="text-xs sm:text-sm text-gray-600 dark:text-zinc-400">
           Enter your email address and we&apos;ll send you a code to reset your password.
         </p>
       </div>
 
       <div>
-        <label htmlFor="email" className="block text-sm font-medium mb-2">
+        <label htmlFor="email" className="block text-xs sm:text-sm font-medium mb-1.5 sm:mb-2">
           Email
         </label>
         <input
           {...emailForm.register('email')}
           type="email"
           id="email"
-          className="w-full px-4 py-2 border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-50 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+          className="w-full px-3 sm:px-4 py-2 sm:py-2.5 border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-50 rounded-lg text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
           placeholder="you@example.com"
         />
         {emailForm.formState.errors.email && (
-          <p className="text-red-500 text-sm mt-1">{emailForm.formState.errors.email.message}</p>
+          <p className="text-red-500 text-xs sm:text-sm mt-1">
+            {emailForm.formState.errors.email.message}
+          </p>
         )}
       </div>
 
-      {error && <div className="bg-red-50 text-red-600 px-4 py-3 rounded-lg text-sm">{error}</div>}
+      {error && (
+        <div className="bg-red-50 text-red-600 px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg text-xs sm:text-sm">
+          {error}
+        </div>
+      )}
 
       <button
         type="submit"
         disabled={isLoading}
-        className="w-full bg-linear-to-r from-secondary to-accent hover:from-secondary-hover hover:to-accent-hover text-white py-2 px-4 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+        className="w-full bg-linear-to-r from-secondary to-accent hover:from-secondary-hover hover:to-accent-hover text-white py-2.5 sm:py-3 px-4 rounded-lg text-sm sm:text-base font-medium transition-all duration-300 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {isLoading ? 'Sending code...' : 'Send verification code'}
       </button>
 
-      <p className="text-center text-sm text-zinc-600 dark:text-zinc-400">
+      <p className="text-center text-xs sm:text-sm text-zinc-600 dark:text-zinc-400">
         Remember your password?{' '}
         <a
           href="/login"

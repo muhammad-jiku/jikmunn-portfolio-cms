@@ -73,9 +73,11 @@ export default function PublicProjectPage() {
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-        <div className="container mx-auto px-4 py-8">
+        <div className="container mx-auto px-3 sm:px-4 py-6 sm:py-8">
           <div className="flex items-center justify-center h-64">
-            <div className="text-lg text-gray-600 dark:text-gray-400">Loading project...</div>
+            <div className="text-base sm:text-lg text-gray-600 dark:text-gray-400">
+              Loading project...
+            </div>
           </div>
         </div>
       </div>
@@ -85,12 +87,14 @@ export default function PublicProjectPage() {
   if (!project) {
     return (
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-        <div className="container mx-auto px-4 py-8">
-          <div className="flex flex-col items-center justify-center h-64 space-y-4">
-            <div className="text-lg text-gray-600 dark:text-gray-400">Project not found</div>
+        <div className="container mx-auto px-3 sm:px-4 py-6 sm:py-8">
+          <div className="flex flex-col items-center justify-center h-64 space-y-3 sm:space-y-4">
+            <div className="text-base sm:text-lg text-gray-600 dark:text-gray-400">
+              Project not found
+            </div>
             <Link
               href="/"
-              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+              className="px-3 py-1.5 sm:px-4 sm:py-2 text-sm sm:text-base bg-blue-600 text-white rounded-lg hover:bg-blue-700"
             >
               Back to Home
             </Link>
@@ -104,16 +108,16 @@ export default function PublicProjectPage() {
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       {/* Navigation Bar */}
       <nav className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
-        <div className="container mx-auto px-4 py-4">
+        <div className="container mx-auto px-3 sm:px-4 py-3 sm:py-4">
           <div className="flex items-center justify-between">
             <button
               onClick={() => router.back()}
-              className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+              className="flex items-center gap-1.5 sm:gap-2 text-sm sm:text-base text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
             >
-              <ArrowLeft className="w-5 h-5" />
+              <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5" />
               Back
             </button>
-            <Link href="/" className="text-xl font-bold text-gray-900 dark:text-white">
+            <Link href="/" className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white">
               Portfolio
             </Link>
           </div>
@@ -121,66 +125,68 @@ export default function PublicProjectPage() {
       </nav>
 
       {/* Main Content */}
-      <div className="container mx-auto px-4 py-8">
-        <div className="max-w-5xl mx-auto space-y-8">
+      <div className="container mx-auto px-3 sm:px-4 py-6 sm:py-8">
+        <div className="max-w-5xl mx-auto space-y-4 sm:space-y-6 md:space-y-8">
           {/* Project Header */}
-          <div className="bg-white dark:bg-gray-800 p-8 rounded-lg border border-gray-200 dark:border-gray-700">
-            <div className="flex items-start justify-between mb-4">
+          <div className="bg-white dark:bg-gray-800 p-4 sm:p-6 md:p-8 rounded-lg border border-gray-200 dark:border-gray-700">
+            <div className="flex flex-col sm:flex-row items-start justify-between gap-3 sm:gap-4 mb-3 sm:mb-4">
               <div className="flex-1">
-                <div className="flex items-center gap-3 mb-2">
-                  <h1 className="text-4xl font-bold text-gray-900 dark:text-white">
+                <div className="flex items-center gap-2 sm:gap-3 mb-1.5 sm:mb-2">
+                  <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
                     {project.title}
                   </h1>
                   {project.isFeatured && (
-                    <Star className="w-7 h-7 text-yellow-500 fill-yellow-500" />
+                    <Star className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 text-yellow-500 fill-yellow-500" />
                   )}
                 </div>
-                <p className="text-xl text-gray-600 dark:text-gray-400">{project.category}</p>
+                <p className="text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-400">
+                  {project.category}
+                </p>
               </div>
               <span
-                className={`px-4 py-2 rounded-full text-sm font-medium ${getStatusColor(project.status)}`}
+                className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-medium ${getStatusColor(project.status)}`}
               >
                 {project.status.replace('_', ' ')}
               </span>
             </div>
 
             {/* Quick Stats */}
-            <div className="flex flex-wrap gap-6 mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+            <div className="flex flex-wrap gap-3 sm:gap-4 md:gap-6 mt-4 sm:mt-6 pt-4 sm:pt-6 border-t border-gray-200 dark:border-gray-700">
               {project.client && (
-                <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
+                <div className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm text-gray-600 dark:text-gray-400">
                   <span className="font-semibold">Client:</span>
                   <span>{project.client}</span>
                 </div>
               )}
               {project.duration && (
-                <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
-                  <Clock className="w-4 h-4" />
+                <div className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm text-gray-600 dark:text-gray-400">
+                  <Clock className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                   <span>{project.duration}</span>
                 </div>
               )}
               {project.teamSize && (
-                <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
-                  <Users className="w-4 h-4" />
+                <div className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm text-gray-600 dark:text-gray-400">
+                  <Users className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                   <span>{project.teamSize} members</span>
                 </div>
               )}
-              <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
-                <Eye className="w-4 h-4" />
+              <div className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm text-gray-600 dark:text-gray-400">
+                <Eye className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 <span>{project.viewCount.toLocaleString()} views</span>
               </div>
             </div>
 
             {/* Action Links */}
             {(project.githubUrl || project.liveUrl) && (
-              <div className="flex flex-wrap gap-4 mt-6">
+              <div className="flex flex-wrap gap-3 sm:gap-4 mt-4 sm:mt-6">
                 {project.githubUrl && (
                   <a
                     href={project.githubUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-6 py-3 border-2 border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                    className="flex items-center gap-1.5 sm:gap-2 px-4 py-2 sm:px-6 sm:py-3 text-sm sm:text-base border-2 border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
                   >
-                    <Github className="w-5 h-5" />
+                    <Github className="w-4 h-4 sm:w-5 sm:h-5" />
                     View Source Code
                   </a>
                 )}
@@ -189,9 +195,9 @@ export default function PublicProjectPage() {
                     href={project.liveUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                    className="flex items-center gap-1.5 sm:gap-2 px-4 py-2 sm:px-6 sm:py-3 text-sm sm:text-base bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
                   >
-                    <ExternalLink className="w-5 h-5" />
+                    <ExternalLink className="w-4 h-4 sm:w-5 sm:h-5" />
                     View Live Demo
                   </a>
                 )}
@@ -201,9 +207,11 @@ export default function PublicProjectPage() {
 
           {/* Media Gallery */}
           {project.media && project.media.length > 0 && (
-            <div className="bg-white dark:bg-gray-800 p-8 rounded-lg border border-gray-200 dark:border-gray-700">
-              <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Gallery</h2>
-              <div className="space-y-4">
+            <div className="bg-white dark:bg-gray-800 p-4 sm:p-6 md:p-8 rounded-lg border border-gray-200 dark:border-gray-700">
+              <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-gray-900 dark:text-white">
+                Gallery
+              </h2>
+              <div className="space-y-3 sm:space-y-4">
                 <div className="aspect-video rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-900">
                   {project.media[selectedMediaIndex].type === MediaType.IMAGE ? (
                     // eslint-disable-next-line @next/next/no-img-element
@@ -221,7 +229,7 @@ export default function PublicProjectPage() {
                   )}
                 </div>
                 {project.media.length > 1 && (
-                  <div className="grid grid-cols-4 md:grid-cols-6 gap-3">
+                  <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2 sm:gap-3">
                     {project.media.map((item, index) => (
                       <button
                         key={item.id}
@@ -251,11 +259,11 @@ export default function PublicProjectPage() {
           )}
 
           {/* Description */}
-          <div className="bg-white dark:bg-gray-800 p-8 rounded-lg border border-gray-200 dark:border-gray-700">
-            <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">
+          <div className="bg-white dark:bg-gray-800 p-4 sm:p-6 md:p-8 rounded-lg border border-gray-200 dark:border-gray-700">
+            <h2 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-gray-900 dark:text-white">
               About This Project
             </h2>
-            <p className="text-gray-600 dark:text-gray-400 whitespace-pre-wrap leading-relaxed">
+            <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 whitespace-pre-wrap leading-relaxed">
               {project.description}
             </p>
           </div>
@@ -263,24 +271,24 @@ export default function PublicProjectPage() {
           {/* Tech Stack */}
           {project.techStack &&
             Object.values(project.techStack).some((arr) => arr && arr.length > 0) && (
-              <div className="bg-white dark:bg-gray-800 p-8 rounded-lg border border-gray-200 dark:border-gray-700">
-                <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">
+              <div className="bg-white dark:bg-gray-800 p-4 sm:p-6 md:p-8 rounded-lg border border-gray-200 dark:border-gray-700">
+                <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-gray-900 dark:text-white">
                   Technologies Used
                 </h2>
-                <div className="space-y-6">
+                <div className="space-y-4 sm:space-y-6">
                   {Object.entries(project.techStack).map(
                     ([category, techs]) =>
                       techs &&
                       techs.length > 0 && (
                         <div key={category}>
-                          <h3 className="text-sm font-semibold text-gray-600 dark:text-gray-400 uppercase mb-3 tracking-wide">
+                          <h3 className="text-xs sm:text-sm font-semibold text-gray-600 dark:text-gray-400 uppercase mb-2 sm:mb-3 tracking-wide">
                             {category}
                           </h3>
-                          <div className="flex flex-wrap gap-2">
+                          <div className="flex flex-wrap gap-1.5 sm:gap-2">
                             {techs.map((tech: string, index: number) => (
                               <span
                                 key={index}
-                                className="px-4 py-2 bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200 rounded-full text-sm font-medium"
+                                className="px-2.5 py-1 sm:px-3 sm:py-1.5 md:px-4 md:py-2 text-xs sm:text-sm bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200 rounded-full font-medium"
                               >
                                 {tech}
                               </span>
@@ -295,17 +303,17 @@ export default function PublicProjectPage() {
 
           {/* Features */}
           {project.features && project.features.length > 0 && (
-            <div className="bg-white dark:bg-gray-800 p-8 rounded-lg border border-gray-200 dark:border-gray-700">
-              <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">
+            <div className="bg-white dark:bg-gray-800 p-4 sm:p-6 md:p-8 rounded-lg border border-gray-200 dark:border-gray-700">
+              <h2 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-gray-900 dark:text-white">
                 Key Features
               </h2>
-              <ul className="space-y-3">
+              <ul className="space-y-2 sm:space-y-3">
                 {project.features.map((feature, index) => (
                   <li
                     key={index}
-                    className="flex items-start gap-3 text-gray-600 dark:text-gray-400"
+                    className="flex items-start gap-2 sm:gap-3 text-sm sm:text-base text-gray-600 dark:text-gray-400"
                   >
-                    <span className="shrink-0 w-6 h-6 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 flex items-center justify-center text-sm font-semibold mt-0.5">
+                    <span className="shrink-0 w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 flex items-center justify-center text-xs sm:text-sm font-semibold mt-0.5">
                       {index + 1}
                     </span>
                     <span className="flex-1">{feature}</span>
@@ -317,17 +325,17 @@ export default function PublicProjectPage() {
 
           {/* Challenges */}
           {project.challenges && project.challenges.length > 0 && (
-            <div className="bg-white dark:bg-gray-800 p-8 rounded-lg border border-gray-200 dark:border-gray-700">
-              <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">
+            <div className="bg-white dark:bg-gray-800 p-4 sm:p-6 md:p-8 rounded-lg border border-gray-200 dark:border-gray-700">
+              <h2 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-gray-900 dark:text-white">
                 Challenges & Solutions
               </h2>
-              <ul className="space-y-3">
+              <ul className="space-y-2 sm:space-y-3">
                 {project.challenges.map((challenge, index) => (
                   <li
                     key={index}
-                    className="flex items-start gap-3 text-gray-600 dark:text-gray-400"
+                    className="flex items-start gap-2 sm:gap-3 text-sm sm:text-base text-gray-600 dark:text-gray-400"
                   >
-                    <span className="shrink-0 w-2 h-2 rounded-full bg-orange-500 mt-2"></span>
+                    <span className="shrink-0 w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-orange-500 mt-1.5 sm:mt-2"></span>
                     <span className="flex-1">{challenge}</span>
                   </li>
                 ))}
@@ -337,17 +345,17 @@ export default function PublicProjectPage() {
 
           {/* Learnings */}
           {project.learnings && project.learnings.length > 0 && (
-            <div className="bg-white dark:bg-gray-800 p-8 rounded-lg border border-gray-200 dark:border-gray-700">
-              <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">
+            <div className="bg-white dark:bg-gray-800 p-4 sm:p-6 md:p-8 rounded-lg border border-gray-200 dark:border-gray-700">
+              <h2 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-gray-900 dark:text-white">
                 Key Takeaways
               </h2>
-              <ul className="space-y-3">
+              <ul className="space-y-2 sm:space-y-3">
                 {project.learnings.map((learning, index) => (
                   <li
                     key={index}
-                    className="flex items-start gap-3 text-gray-600 dark:text-gray-400"
+                    className="flex items-start gap-2 sm:gap-3 text-sm sm:text-base text-gray-600 dark:text-gray-400"
                   >
-                    <span className="shrink-0 w-2 h-2 rounded-full bg-green-500 mt-2"></span>
+                    <span className="shrink-0 w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-green-500 mt-1.5 sm:mt-2"></span>
                     <span className="flex-1">{learning}</span>
                   </li>
                 ))}
@@ -357,12 +365,14 @@ export default function PublicProjectPage() {
 
           {/* Timeline */}
           {(project.startDate || project.endDate || project.createdAt) && (
-            <div className="bg-white dark:bg-gray-800 p-8 rounded-lg border border-gray-200 dark:border-gray-700">
-              <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Timeline</h2>
-              <div className="space-y-3 text-gray-600 dark:text-gray-400">
+            <div className="bg-white dark:bg-gray-800 p-4 sm:p-6 md:p-8 rounded-lg border border-gray-200 dark:border-gray-700">
+              <h2 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-gray-900 dark:text-white">
+                Timeline
+              </h2>
+              <div className="space-y-2 sm:space-y-3 text-sm sm:text-base text-gray-600 dark:text-gray-400">
                 {project.startDate && (
-                  <div className="flex items-center gap-3">
-                    <Calendar className="w-5 h-5" />
+                  <div className="flex items-center gap-2 sm:gap-3">
+                    <Calendar className="w-4 h-4 sm:w-5 sm:h-5" />
                     <span>
                       <span className="font-semibold">Started:</span>{' '}
                       {new Date(project.startDate).toLocaleDateString('en-US', {
@@ -404,8 +414,8 @@ export default function PublicProjectPage() {
       </div>
 
       {/* Footer */}
-      <footer className="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 mt-16">
-        <div className="container mx-auto px-4 py-8 text-center text-gray-600 dark:text-gray-400">
+      <footer className="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 mt-12 sm:mt-16">
+        <div className="container mx-auto px-3 sm:px-4 py-6 sm:py-8 text-center text-xs sm:text-sm text-gray-600 dark:text-gray-400">
           <p>&copy; {new Date().getFullYear()} Portfolio. All rights reserved.</p>
         </div>
       </footer>

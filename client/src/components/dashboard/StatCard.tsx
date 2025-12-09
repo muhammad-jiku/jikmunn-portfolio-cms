@@ -30,15 +30,15 @@ export default function StatCard({
   color = 'blue',
 }: StatCardProps) {
   return (
-    <div className="bg-white dark:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-800 p-6 hover:shadow-md transition-shadow duration-200">
+    <div className="bg-white dark:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-800 p-4 sm:p-6 hover:shadow-md transition-shadow duration-200">
       <div className="flex items-center justify-between">
-        <div>
-          <p className="text-sm text-zinc-600 dark:text-zinc-400 mb-1">{title}</p>
-          <p className="text-2xl font-bold text-zinc-900 dark:text-zinc-50">{value}</p>
+        <div className="flex-1 min-w-0">
+          <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 mb-1">{title}</p>
+          <p className="text-xl sm:text-2xl font-bold text-zinc-900 dark:text-zinc-50">{value}</p>
           {trend && (
             <p
               className={cn(
-                'text-sm mt-2',
+                'text-xs sm:text-sm mt-2',
                 trend.isPositive
                   ? 'text-green-600 dark:text-green-400'
                   : 'text-red-600 dark:text-red-400'
@@ -49,8 +49,8 @@ export default function StatCard({
             </p>
           )}
         </div>
-        <div className={cn('p-3 rounded-lg', colorClasses[color])}>
-          <Icon className="w-6 h-6" />
+        <div className={cn('p-2 sm:p-3 rounded-lg', colorClasses[color])}>
+          <Icon className="w-5 h-5 sm:w-6 sm:h-6" />
         </div>
       </div>
     </div>

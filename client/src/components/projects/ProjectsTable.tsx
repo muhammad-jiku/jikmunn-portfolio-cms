@@ -54,32 +54,32 @@ export default function ProjectsTable({ projects, onEdit, onDelete, onView }: Pr
           <tr>
             <th
               onClick={() => handleSort('title')}
-              className="px-6 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider cursor-pointer hover:bg-zinc-100 dark:hover:bg-zinc-800"
+              className="px-3 sm:px-6 py-2 sm:py-3 text-left text-[10px] sm:text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider cursor-pointer hover:bg-zinc-100 dark:hover:bg-zinc-800"
             >
               Title {sortField === 'title' && (sortOrder === 'asc' ? '↑' : '↓')}
             </th>
             <th
               onClick={() => handleSort('category')}
-              className="px-6 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider cursor-pointer hover:bg-zinc-100 dark:hover:bg-zinc-800"
+              className="px-3 sm:px-6 py-2 sm:py-3 text-left text-[10px] sm:text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider cursor-pointer hover:bg-zinc-100 dark:hover:bg-zinc-800"
             >
               Category {sortField === 'category' && (sortOrder === 'asc' ? '↑' : '↓')}
             </th>
             <th
               onClick={() => handleSort('status')}
-              className="px-6 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider cursor-pointer hover:bg-zinc-100 dark:hover:bg-zinc-800"
+              className="px-3 sm:px-6 py-2 sm:py-3 text-left text-[10px] sm:text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider cursor-pointer hover:bg-zinc-100 dark:hover:bg-zinc-800"
             >
               Status {sortField === 'status' && (sortOrder === 'asc' ? '↑' : '↓')}
             </th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">
+            <th className="px-3 sm:px-6 py-2 sm:py-3 text-left text-[10px] sm:text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">
               Media
             </th>
             <th
               onClick={() => handleSort('viewCount')}
-              className="px-6 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider cursor-pointer hover:bg-zinc-100 dark:hover:bg-zinc-800"
+              className="px-3 sm:px-6 py-2 sm:py-3 text-left text-[10px] sm:text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider cursor-pointer hover:bg-zinc-100 dark:hover:bg-zinc-800"
             >
               Views {sortField === 'viewCount' && (sortOrder === 'asc' ? '↑' : '↓')}
             </th>
-            <th className="px-6 py-3 text-right text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">
+            <th className="px-3 sm:px-6 py-2 sm:py-3 text-right text-[10px] sm:text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">
               Actions
             </th>
           </tr>
@@ -87,58 +87,60 @@ export default function ProjectsTable({ projects, onEdit, onDelete, onView }: Pr
         <tbody className="bg-white dark:bg-zinc-950 divide-y divide-zinc-200 dark:divide-zinc-800">
           {sortedProjects.map((project) => (
             <tr key={project.id} className="hover:bg-zinc-50 dark:hover:bg-zinc-900">
-              <td className="px-6 py-4 whitespace-nowrap">
+              <td className="px-3 sm:px-6 py-3 sm:py-4 whitespace-nowrap">
                 <div className="flex items-center">
                   <div>
-                    <div className="text-sm font-medium text-zinc-900 dark:text-zinc-50">
+                    <div className="text-xs sm:text-sm font-medium text-zinc-900 dark:text-zinc-50">
                       {project.title}
                     </div>
                     {project.isFeatured && (
-                      <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-violet-100 text-violet-800 dark:bg-violet-900 dark:text-violet-200">
+                      <span className="inline-flex items-center px-1.5 sm:px-2 py-0.5 rounded text-[10px] sm:text-xs font-medium bg-violet-100 text-violet-800 dark:bg-violet-900 dark:text-violet-200">
                         Featured
                       </span>
                     )}
                   </div>
                 </div>
               </td>
-              <td className="px-6 py-4 whitespace-nowrap">
-                <div className="text-sm text-zinc-900 dark:text-zinc-50">{project.category}</div>
+              <td className="px-3 sm:px-6 py-3 sm:py-4 whitespace-nowrap">
+                <div className="text-xs sm:text-sm text-zinc-900 dark:text-zinc-50">
+                  {project.category}
+                </div>
               </td>
-              <td className="px-6 py-4 whitespace-nowrap">
+              <td className="px-3 sm:px-6 py-3 sm:py-4 whitespace-nowrap">
                 <span
-                  className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(project.status)}`}
+                  className={`inline-flex items-center px-2 sm:px-2.5 py-0.5 rounded-full text-[10px] sm:text-xs font-medium ${getStatusColor(project.status)}`}
                 >
                   {project.status.replace('_', ' ')}
                 </span>
               </td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-zinc-500 dark:text-zinc-400">
+              <td className="px-3 sm:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm text-zinc-500 dark:text-zinc-400">
                 {project.media.length} files
               </td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-zinc-500 dark:text-zinc-400">
+              <td className="px-3 sm:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm text-zinc-500 dark:text-zinc-400">
                 {project.viewCount}
               </td>
-              <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                <div className="flex justify-end gap-2">
+              <td className="px-3 sm:px-6 py-3 sm:py-4 whitespace-nowrap text-right text-sm font-medium">
+                <div className="flex justify-end gap-1 sm:gap-2">
                   <button
                     onClick={() => onView(project)}
-                    className="text-purple-600 hover:text-purple-700 dark:text-purple-400 dark:hover:text-purple-300"
+                    className="p-1 sm:p-0 text-purple-600 hover:text-purple-700 dark:text-purple-400 dark:hover:text-purple-300"
                     title="View"
                   >
-                    <Eye className="w-5 h-5" />
+                    <Eye className="w-4 h-4 sm:w-5 sm:h-5" />
                   </button>
                   <button
                     onClick={() => onEdit(project)}
-                    className="text-primary hover:text-primary-hover dark:text-pink-400 dark:hover:text-pink-300"
+                    className="p-1 sm:p-0 text-primary hover:text-primary-hover dark:text-pink-400 dark:hover:text-pink-300"
                     title="Edit"
                   >
-                    <Edit className="w-5 h-5" />
+                    <Edit className="w-4 h-4 sm:w-5 sm:h-5" />
                   </button>
                   <button
                     onClick={() => onDelete(project.id)}
-                    className="text-red-600 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300"
+                    className="p-1 sm:p-0 text-red-600 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300"
                     title="Delete"
                   >
-                    <Trash2 className="w-5 h-5" />
+                    <Trash2 className="w-4 h-4 sm:w-5 sm:h-5" />
                   </button>
                 </div>
               </td>
@@ -147,7 +149,7 @@ export default function ProjectsTable({ projects, onEdit, onDelete, onView }: Pr
         </tbody>
       </table>
       {sortedProjects.length === 0 && (
-        <div className="text-center py-12 text-zinc-500 dark:text-zinc-400">
+        <div className="text-center py-8 sm:py-12 text-sm sm:text-base text-zinc-500 dark:text-zinc-400">
           No projects found. Create your first project!
         </div>
       )}

@@ -29,17 +29,17 @@ export default function DashboardPage() {
   return (
     <DashboardLayout>
       {/* Welcome Section */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold bg-linear-to-r from-primary via-secondary to-accent bg-clip-text text-transparent mb-2">
+      <div className="mb-6 sm:mb-8">
+        <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold bg-linear-to-r from-primary via-secondary to-accent bg-clip-text text-transparent mb-1.5 sm:mb-2">
           Welcome back, {user.name || user.email}!
         </h1>
-        <p className="text-zinc-600 dark:text-zinc-400">
+        <p className="text-xs sm:text-sm md:text-base text-zinc-600 dark:text-zinc-400">
           Here&apos;s what&apos;s happening with your portfolio today.
         </p>
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6 mb-6 sm:mb-8">
         <StatCard
           title="Total Projects"
           value={24}
@@ -71,17 +71,17 @@ export default function DashboardPage() {
       </div>
 
       {/* Charts Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 mb-6 sm:mb-8">
         <ProjectsChart />
         <BlogsChart />
       </div>
 
       {/* Recent Activity */}
-      <div className="bg-white dark:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-800 p-6">
-        <h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-50 mb-4">
+      <div className="bg-white dark:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-800 p-3 sm:p-4 md:p-6">
+        <h3 className="text-sm sm:text-base md:text-lg font-semibold text-zinc-900 dark:text-zinc-50 mb-3 sm:mb-4">
           Recent Activity
         </h3>
-        <div className="space-y-4">
+        <div className="space-y-2 sm:space-y-3 md:space-y-4">
           {[
             {
               action: 'Created new project',
@@ -107,18 +107,22 @@ export default function DashboardPage() {
             return (
               <div
                 key={index}
-                className="flex items-center gap-4 p-3 rounded-lg hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors cursor-pointer group"
+                className="flex items-center gap-2 sm:gap-3 md:gap-4 p-2 sm:p-2.5 md:p-3 rounded-lg hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors cursor-pointer group"
               >
-                <div className="p-2 bg-purple-50 dark:bg-purple-950/30 rounded-lg group-hover:shadow-md transition-shadow">
-                  <Icon className="w-5 h-5 text-purple-600 dark:text-purple-400" />
+                <div className="p-1.5 sm:p-2 bg-purple-50 dark:bg-purple-950/30 rounded-lg group-hover:shadow-md transition-shadow shrink-0">
+                  <Icon className="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5 text-purple-600 dark:text-purple-400" />
                 </div>
-                <div className="flex-1">
-                  <p className="text-sm font-medium text-zinc-900 dark:text-zinc-50">
+                <div className="flex-1 min-w-0">
+                  <p className="text-xs sm:text-sm font-medium text-zinc-900 dark:text-zinc-50 truncate">
                     {activity.action}
                   </p>
-                  <p className="text-sm text-zinc-600 dark:text-zinc-400">{activity.item}</p>
+                  <p className="text-xs text-zinc-600 dark:text-zinc-400 truncate">
+                    {activity.item}
+                  </p>
                 </div>
-                <p className="text-sm text-gray-500 dark:text-gray-500">{activity.time}</p>
+                <p className="text-[10px] sm:text-xs md:text-sm text-gray-500 dark:text-gray-500 whitespace-nowrap shrink-0">
+                  {activity.time}
+                </p>
               </div>
             );
           })}

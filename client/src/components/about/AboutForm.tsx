@@ -78,14 +78,16 @@ export default function AboutForm() {
   };
 
   return (
-    <div className="bg-white dark:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-800 shadow-sm p-6">
-      <div className="flex items-center justify-between mb-6">
-        <h2 className="text-2xl font-bold text-zinc-900 dark:text-zinc-50">About Statistics</h2>
+    <div className="bg-white dark:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-800 shadow-sm p-4 sm:p-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-0 mb-4 sm:mb-6">
+        <h2 className="text-xl sm:text-2xl font-bold text-zinc-900 dark:text-zinc-50">
+          About Statistics
+        </h2>
         <button
           type="button"
           onClick={handleReset}
           disabled={loading}
-          className="flex items-center gap-2 px-4 py-2 text-sm text-red-600 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 disabled:opacity-50"
+          className="flex items-center gap-2 px-3 py-2 sm:px-4 text-xs sm:text-sm text-red-600 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 disabled:opacity-50 whitespace-nowrap self-start sm:self-auto"
         >
           <RotateCcw className="w-4 h-4" />
           Reset All
@@ -94,7 +96,7 @@ export default function AboutForm() {
 
       {message && (
         <div
-          className={`mb-4 p-4 rounded-lg ${
+          className={`mb-4 p-3 sm:p-4 rounded-lg text-sm ${
             message.type === 'success'
               ? 'bg-green-50 text-green-800 dark:bg-green-900/20 dark:text-green-400'
               : 'bg-red-50 text-red-800 dark:bg-red-900/20 dark:text-red-400'
@@ -104,8 +106,8 @@ export default function AboutForm() {
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="space-y-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
           <div>
             <label className="flex items-center gap-2 text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">
               <Users className="w-4 h-4" />

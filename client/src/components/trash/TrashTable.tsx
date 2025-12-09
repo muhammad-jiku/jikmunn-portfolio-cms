@@ -95,10 +95,10 @@ export default function TrashTable() {
   }
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-3 sm:space-y-4">
       {message && (
         <div
-          className={`p-4 rounded-lg ${
+          className={`p-3 sm:p-4 rounded-lg text-xs sm:text-sm ${
             message.type === 'success'
               ? 'bg-green-50 dark:bg-green-900/20 text-green-800 dark:text-green-200'
               : 'bg-red-50 dark:bg-red-900/20 text-red-800 dark:text-red-200'
@@ -108,23 +108,23 @@ export default function TrashTable() {
         </div>
       )}
 
-      <div className="flex justify-between items-center">
-        <h2 className="text-xl font-semibold text-zinc-900 dark:text-zinc-50">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+        <h2 className="text-lg sm:text-xl font-semibold text-zinc-900 dark:text-zinc-50">
           Trash ({total} items)
         </h2>
         <button
           onClick={handleCleanup}
-          className="flex items-center gap-2 px-4 py-2 bg-red-600 dark:bg-red-700 text-white rounded-lg hover:bg-red-700 dark:hover:bg-red-800 transition-colors"
+          className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium bg-red-600 dark:bg-red-700 text-white rounded-lg hover:bg-red-700 dark:hover:bg-red-800 transition-colors"
         >
-          <Trash2 className="w-4 h-4" />
+          <Trash2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
           Cleanup Expired
         </button>
       </div>
 
       {trash.length === 0 ? (
-        <div className="text-center py-12 bg-white dark:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-800">
-          <Trash2 className="w-12 h-12 mx-auto mb-4 text-zinc-400 dark:text-zinc-600" />
-          <p className="text-zinc-600 dark:text-zinc-400">Trash is empty</p>
+        <div className="text-center py-8 sm:py-12 bg-white dark:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-800">
+          <Trash2 className="w-10 h-10 sm:w-12 sm:h-12 mx-auto mb-3 sm:mb-4 text-zinc-400 dark:text-zinc-600" />
+          <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-400">Trash is empty</p>
         </div>
       ) : (
         <div className="bg-white dark:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-800 shadow-sm overflow-hidden">
@@ -132,19 +132,19 @@ export default function TrashTable() {
             <table className="w-full">
               <thead className="bg-zinc-50 dark:bg-zinc-950">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-300 uppercase tracking-wider">
+                  <th className="px-3 sm:px-6 py-2 sm:py-3 text-left text-[10px] sm:text-xs font-medium text-zinc-500 dark:text-zinc-300 uppercase tracking-wider">
                     Type
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-300 uppercase tracking-wider">
+                  <th className="px-3 sm:px-6 py-2 sm:py-3 text-left text-[10px] sm:text-xs font-medium text-zinc-500 dark:text-zinc-300 uppercase tracking-wider">
                     Entity ID
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-300 uppercase tracking-wider">
+                  <th className="px-3 sm:px-6 py-2 sm:py-3 text-left text-[10px] sm:text-xs font-medium text-zinc-500 dark:text-zinc-300 uppercase tracking-wider">
                     Deleted At
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-300 uppercase tracking-wider">
+                  <th className="px-3 sm:px-6 py-2 sm:py-3 text-left text-[10px] sm:text-xs font-medium text-zinc-500 dark:text-zinc-300 uppercase tracking-wider">
                     Days Remaining
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-300 uppercase tracking-wider">
+                  <th className="px-3 sm:px-6 py-2 sm:py-3 text-left text-[10px] sm:text-xs font-medium text-zinc-500 dark:text-zinc-300 uppercase tracking-wider">
                     Actions
                   </th>
                 </tr>
@@ -159,18 +159,18 @@ export default function TrashTable() {
                       key={item.id}
                       className={`hover:bg-zinc-50 dark:hover:bg-zinc-950 ${isExpired ? 'bg-red-50 dark:bg-red-900/10' : ''}`}
                     >
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <span className="px-2 py-1 text-xs font-medium rounded-full bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-200">
+                      <td className="px-3 sm:px-6 py-3 sm:py-4 whitespace-nowrap">
+                        <span className="px-1.5 sm:px-2 py-0.5 sm:py-1 text-[10px] sm:text-xs font-medium rounded-full bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-200">
                           {item.entityType}
                         </span>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-zinc-900 dark:text-zinc-300">
+                      <td className="px-3 sm:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm text-zinc-900 dark:text-zinc-300">
                         {item.entityId.substring(0, 8)}...
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-zinc-600 dark:text-zinc-400">
+                      <td className="px-3 sm:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm text-zinc-600 dark:text-zinc-400">
                         {new Date(item.deletedAt).toLocaleDateString()}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm">
+                      <td className="px-3 sm:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm">
                         {isExpired ? (
                           <span className="text-red-600 dark:text-red-400 font-semibold">
                             Expired
@@ -187,22 +187,22 @@ export default function TrashTable() {
                           </span>
                         )}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm">
-                        <div className="flex gap-2">
+                      <td className="px-3 sm:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm">
+                        <div className="flex gap-1 sm:gap-2">
                           <button
                             onClick={() => handleRestore(item.id, item.entityType)}
-                            className="flex items-center gap-1 px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                            className="flex items-center gap-0.5 sm:gap-1 px-2 sm:px-3 py-1 text-[10px] sm:text-xs font-medium bg-green-600 text-white rounded hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                             disabled={isExpired}
                           >
-                            <RotateCcw className="w-3 h-3" />
-                            Restore
+                            <RotateCcw className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
+                            <span className="hidden sm:inline">Restore</span>
                           </button>
                           <button
                             onClick={() => handlePermanentDelete(item.id, item.entityType)}
-                            className="flex items-center gap-1 px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700 transition-colors"
+                            className="flex items-center gap-0.5 sm:gap-1 px-2 sm:px-3 py-1 text-[10px] sm:text-xs font-medium bg-red-600 text-white rounded hover:bg-red-700 transition-colors"
                           >
-                            <Trash2 className="w-3 h-3" />
-                            Delete
+                            <Trash2 className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
+                            <span className="hidden sm:inline">Delete</span>
                           </button>
                         </div>
                       </td>
@@ -215,21 +215,21 @@ export default function TrashTable() {
 
           {/* Pagination */}
           {totalPages > 1 && (
-            <div className="flex justify-between items-center px-6 py-4 bg-zinc-50 dark:bg-zinc-950 border-t border-zinc-200 dark:border-zinc-800">
+            <div className="flex justify-between items-center px-3 sm:px-6 py-3 sm:py-4 bg-zinc-50 dark:bg-zinc-950 border-t border-zinc-200 dark:border-zinc-800">
               <button
                 onClick={() => setPage((p) => Math.max(1, p - 1))}
                 disabled={page === 1}
-                className="flex items-center gap-2 px-4 py-2 text-sm bg-white dark:bg-zinc-800 text-zinc-700 dark:text-zinc-200 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-700 disabled:opacity-50 border border-zinc-300 dark:border-zinc-700 transition-colors"
+                className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm bg-white dark:bg-zinc-800 text-zinc-700 dark:text-zinc-200 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-700 disabled:opacity-50 border border-zinc-300 dark:border-zinc-700 transition-colors"
               >
                 Previous
               </button>
-              <span className="text-sm text-zinc-700 dark:text-zinc-300">
+              <span className="text-xs sm:text-sm text-zinc-700 dark:text-zinc-300">
                 Page {page} of {totalPages}
               </span>
               <button
                 onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
                 disabled={page === totalPages}
-                className="flex items-center gap-2 px-4 py-2 text-sm bg-white dark:bg-zinc-800 text-zinc-700 dark:text-zinc-200 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-700 disabled:opacity-50 border border-zinc-300 dark:border-zinc-700 transition-colors"
+                className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm bg-white dark:bg-zinc-800 text-zinc-700 dark:text-zinc-200 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-700 disabled:opacity-50 border border-zinc-300 dark:border-zinc-700 transition-colors"
               >
                 Next
               </button>

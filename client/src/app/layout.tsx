@@ -5,7 +5,7 @@ import { ThemeProvider } from '@/components/providers/ThemeProvider';
 import { CommandPalette } from '@/components/ui/CommandPalette';
 import { Toaster } from '@/components/ui/Toaster';
 import { generateMetadata as createMetadata } from '@/lib/seo';
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 
@@ -25,6 +25,17 @@ export const metadata: Metadata = createMetadata({
     'Professional portfolio content management system for managing projects, blogs, services, skills, resume, testimonials, and FAQs.',
 });
 
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
+    { media: '(prefers-color-scheme: dark)', color: '#09090b' },
+  ],
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -32,7 +43,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-50`}
+      >
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -42,7 +55,7 @@ export default function RootLayout({
           <ReduxProvider>
             <SocketProvider>
               <WebVitals />
-              {children}
+              <div className="relative">{children}</div>
               <Toaster />
               <CommandPalette />
             </SocketProvider>

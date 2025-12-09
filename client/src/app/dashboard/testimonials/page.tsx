@@ -72,81 +72,81 @@ export default function TestimonialsPage() {
 
   return (
     <DashboardLayout>
-      <div className="space-y-6">
-        <div className="flex items-center justify-between">
+      <div className="space-y-4 sm:space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
           <div>
-            <h1 className="text-3xl font-bold bg-linear-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+            <h1 className="text-xl sm:text-2xl md:text-3xl font-bold bg-linear-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
               Testimonials
             </h1>
-            <p className="mt-2 text-zinc-600 dark:text-zinc-400">
+            <p className="mt-1.5 sm:mt-2 text-xs sm:text-sm text-zinc-600 dark:text-zinc-400">
               Manage client testimonials and reviews
             </p>
           </div>
           <button
             onClick={handleCreate}
-            className="flex items-center gap-2 px-4 py-2 bg-linear-to-r from-primary to-secondary hover:from-primary-hover hover:to-secondary-hover text-white rounded-lg transition-all duration-200"
+            className="flex items-center gap-1.5 sm:gap-2 px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm bg-linear-to-r from-primary to-secondary hover:from-primary-hover hover:to-secondary-hover text-white rounded-lg transition-all duration-200"
           >
-            <Plus className="w-4 h-4" />
+            <Plus className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             Add Testimonial
           </button>
         </div>
 
         {testimonials.length === 0 ? (
-          <div className="bg-white dark:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-800 shadow-sm p-8 text-center">
-            <p className="text-zinc-500 dark:text-zinc-400">
+          <div className="bg-white dark:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-800 shadow-sm p-6 sm:p-8 text-center">
+            <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400">
               No testimonials yet. Create one to get started!
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {testimonials.map((testimonial) => (
               <div
                 key={testimonial.id}
-                className="bg-white dark:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-800 shadow-sm p-6 relative hover:shadow-md transition-shadow"
+                className="bg-white dark:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-800 shadow-sm p-4 sm:p-6 relative hover:shadow-md transition-shadow"
               >
-                <Quote className="absolute top-4 right-4 w-8 h-8 text-purple-500/20" />
+                <Quote className="absolute top-3 right-3 sm:top-4 sm:right-4 w-6 h-6 sm:w-8 sm:h-8 text-purple-500/20" />
 
-                <div className="flex items-start gap-4 mb-4">
+                <div className="flex items-start gap-3 sm:gap-4 mb-3 sm:mb-4">
                   {testimonial.imageUrl ? (
                     <Image
                       src={testimonial.imageUrl}
                       alt={testimonial.name}
-                      className="w-12 h-12 rounded-full object-cover"
+                      className="w-10 h-10 sm:w-12 sm:h-12 rounded-full object-cover"
                     />
                   ) : (
-                    <div className="w-12 h-12 rounded-full bg-zinc-200 dark:bg-zinc-700 flex items-center justify-center text-zinc-500 dark:text-zinc-400 font-bold">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-zinc-200 dark:bg-zinc-700 flex items-center justify-center text-zinc-500 dark:text-zinc-400 text-sm sm:text-base font-bold">
                       {testimonial.name.charAt(0)}
                     </div>
                   )}
                   <div className="flex-1">
-                    <h3 className="font-semibold text-zinc-900 dark:text-zinc-50">
+                    <h3 className="text-sm sm:text-base font-semibold text-zinc-900 dark:text-zinc-50">
                       {testimonial.name}
                     </h3>
-                    <p className="text-sm text-zinc-600 dark:text-zinc-400">
+                    <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400">
                       {testimonial.jobPosition}
                     </p>
-                    <span className="inline-block mt-1 px-2 py-1 text-xs rounded-full bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-400">
+                    <span className="inline-block mt-1 px-1.5 sm:px-2 py-0.5 sm:py-1 text-[10px] sm:text-xs rounded-full bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-400">
                       {testimonial.platform}
                     </span>
                   </div>
                 </div>
 
-                <p className="text-sm text-zinc-600 dark:text-zinc-400 mb-4 line-clamp-4">
+                <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 mb-3 sm:mb-4 line-clamp-4">
                   {testimonial.testimonial}
                 </p>
 
-                <div className="flex justify-end gap-2 pt-4 border-t border-zinc-200 dark:border-zinc-700">
+                <div className="flex justify-end gap-1.5 sm:gap-2 pt-3 sm:pt-4 border-t border-zinc-200 dark:border-zinc-700">
                   <button
                     onClick={() => handleEdit(testimonial)}
                     className="text-primary hover:text-primary-hover"
                   >
-                    <Edit className="w-4 h-4" />
+                    <Edit className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                   </button>
                   <button
                     onClick={() => handleDelete(testimonial.id)}
                     className="text-red-600 hover:text-red-700 dark:text-red-400"
                   >
-                    <Trash2 className="w-4 h-4" />
+                    <Trash2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                   </button>
                 </div>
               </div>

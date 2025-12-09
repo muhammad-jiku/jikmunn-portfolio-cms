@@ -78,9 +78,9 @@ export default function NotificationBell({ notifications, onClear }: Notificatio
 
       {isOpen && (
         <FadeIn duration={0.2}>
-          <div className="absolute right-0 mt-2 w-80 bg-white dark:bg-zinc-900 rounded-lg shadow-lg border border-zinc-200 dark:border-zinc-800 z-50 max-h-[500px] flex flex-col">
-            <div className="flex items-center justify-between p-4 border-b border-zinc-200 dark:border-zinc-800">
-              <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-50">
+          <div className="absolute right-0 mt-2 w-72 sm:w-80 md:w-96 bg-white dark:bg-zinc-900 rounded-lg shadow-lg border border-zinc-200 dark:border-zinc-800 z-50 max-h-[400px] sm:max-h-[500px] flex flex-col">
+            <div className="flex items-center justify-between p-3 sm:p-4 border-b border-zinc-200 dark:border-zinc-800">
+              <h3 className="text-xs sm:text-sm font-semibold text-zinc-900 dark:text-zinc-50">
                 Notifications ({unreadCount})
               </h3>
               {unreadCount > 0 && (
@@ -95,23 +95,23 @@ export default function NotificationBell({ notifications, onClear }: Notificatio
 
             <div className="overflow-y-auto flex-1">
               {notifications.length === 0 ? (
-                <div className="p-8 text-center text-zinc-500 dark:text-zinc-400">
-                  <Bell className="h-12 w-12 mx-auto mb-2 opacity-30" />
-                  <p className="text-sm">No new notifications</p>
+                <div className="p-6 sm:p-8 text-center text-zinc-500 dark:text-zinc-400">
+                  <Bell className="h-10 w-10 sm:h-12 sm:w-12 mx-auto mb-2 opacity-30" />
+                  <p className="text-xs sm:text-sm">No new notifications</p>
                 </div>
               ) : (
                 <div className="divide-y divide-zinc-200 dark:divide-zinc-800">
                   {notifications.map((notification, index) => (
                     <div
                       key={index}
-                      className="p-4 hover:bg-zinc-50 dark:hover:bg-zinc-950 transition-colors"
+                      className="p-3 sm:p-4 hover:bg-zinc-50 dark:hover:bg-zinc-950 transition-colors"
                     >
-                      <div className="flex items-start gap-3">
-                        <span className="text-2xl shrink-0">
+                      <div className="flex items-start gap-2 sm:gap-3">
+                        <span className="text-xl sm:text-2xl shrink-0">
                           {getEventIcon(notification.event)}
                         </span>
                         <div className="flex-1 min-w-0">
-                          <p className="text-sm text-zinc-900 dark:text-zinc-50 font-medium">
+                          <p className="text-xs sm:text-sm text-zinc-900 dark:text-zinc-50 font-medium">
                             {notification.message}
                           </p>
                           <p className={`text-xs mt-1 ${getEventColor(notification.event)}`}>

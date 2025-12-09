@@ -87,37 +87,39 @@ export default function VerifyEmailForm() {
 
   if (success) {
     return (
-      <div className="bg-green-50 dark:bg-green-950 text-green-800 dark:text-green-200 px-6 py-4 rounded-lg">
-        <h3 className="font-semibold mb-2">Email verified successfully!</h3>
-        <p>Your account is now active. Redirecting to login...</p>
+      <div className="bg-green-50 dark:bg-green-950 text-green-800 dark:text-green-200 px-4 sm:px-6 py-3 sm:py-4 rounded-lg">
+        <h3 className="font-semibold mb-2 text-sm sm:text-base">Email verified successfully!</h3>
+        <p className="text-xs sm:text-sm">Your account is now active. Redirecting to login...</p>
       </div>
     );
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-      <div className="text-center mb-6">
-        <p className="text-sm text-zinc-600 dark:text-zinc-400">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 sm:space-y-6">
+      <div className="text-center mb-4 sm:mb-6">
+        <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400">
           Please enter the 6-digit verification code sent to your email address.
         </p>
       </div>
 
       <div>
-        <label htmlFor="email" className="block text-sm font-medium mb-2">
+        <label htmlFor="email" className="block text-xs sm:text-sm font-medium mb-1.5 sm:mb-2">
           Email
         </label>
         <input
           {...register('email')}
           type="email"
           id="email"
-          className="w-full px-4 py-2 border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-50 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+          className="w-full px-3 sm:px-4 py-2 sm:py-2.5 border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-50 rounded-lg text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
           placeholder="you@example.com"
         />
-        {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
+        {errors.email && (
+          <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.email.message}</p>
+        )}
       </div>
 
       <div>
-        <label htmlFor="code" className="block text-sm font-medium mb-2">
+        <label htmlFor="code" className="block text-xs sm:text-sm font-medium mb-1.5 sm:mb-2">
           Verification Code
         </label>
         <input
@@ -125,14 +127,16 @@ export default function VerifyEmailForm() {
           type="text"
           id="code"
           maxLength={6}
-          className="w-full px-4 py-2 border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-50 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-center text-2xl tracking-widest font-mono"
+          className="w-full px-3 sm:px-4 py-2 sm:py-2.5 border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-50 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-center text-xl sm:text-2xl tracking-widest font-mono"
           placeholder="123456"
         />
-        {errors.code && <p className="text-red-500 text-sm mt-1">{errors.code.message}</p>}
+        {errors.code && (
+          <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.code.message}</p>
+        )}
       </div>
 
       {error && (
-        <div className="bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 px-4 py-3 rounded-lg text-sm font-medium">
+        <div className="bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg text-xs sm:text-sm font-medium">
           {error.includes('expired') || error.includes('Expired')
             ? '❌ Code expired. Please request a new one'
             : error.includes('invalid') || error.includes('Invalid') || error.includes('incorrect')
@@ -145,7 +149,7 @@ export default function VerifyEmailForm() {
 
       {validationMessage.text && !error && (
         <div
-          className={`px-4 py-3 rounded-lg text-sm font-medium border transition-all duration-300 ${
+          className={`px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg text-xs sm:text-sm font-medium border transition-all duration-300 ${
             validationMessage.type === 'success'
               ? 'bg-green-50 dark:bg-green-950/30 border-green-200 dark:border-green-800 text-green-600 dark:text-green-400'
               : validationMessage.type === 'warning'
@@ -160,12 +164,12 @@ export default function VerifyEmailForm() {
       <button
         type="submit"
         disabled={isLoading}
-        className="w-full bg-linear-to-r from-primary to-accent hover:from-primary-hover hover:to-accent-hover text-white py-2 px-4 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+        className="w-full bg-linear-to-r from-primary to-accent hover:from-primary-hover hover:to-accent-hover text-white py-2.5 sm:py-3 px-4 rounded-lg text-sm sm:text-base font-medium transition-all duration-300 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {isLoading ? 'Verifying...' : 'Verify Email'}
       </button>
 
-      <p className="text-center text-sm text-zinc-600 dark:text-zinc-400">
+      <p className="text-center text-xs sm:text-sm text-zinc-600 dark:text-zinc-400">
         Didn&apos;t receive the code?{' '}
         <button
           type="button"
@@ -179,7 +183,7 @@ export default function VerifyEmailForm() {
         </button>
       </p>
 
-      <p className="text-center text-sm text-zinc-600 dark:text-zinc-400">
+      <p className="text-center text-xs sm:text-sm text-zinc-600 dark:text-zinc-400">
         Already verified?{' '}
         <a
           href="/login"

@@ -85,23 +85,25 @@ export default function LoginForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 sm:space-y-6">
       <div>
-        <label htmlFor="email" className="block text-sm font-medium mb-2">
+        <label htmlFor="email" className="block text-xs sm:text-sm font-medium mb-1.5 sm:mb-2">
           Email
         </label>
         <input
           {...register('email')}
           type="email"
           id="email"
-          className="w-full px-4 py-2 border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-50 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+          className="w-full px-3 sm:px-4 py-2 sm:py-2.5 border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-50 rounded-lg text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
           placeholder="you@example.com"
         />
-        {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
+        {errors.email && (
+          <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.email.message}</p>
+        )}
       </div>
 
       <div>
-        <label htmlFor="password" className="block text-sm font-medium mb-2">
+        <label htmlFor="password" className="block text-xs sm:text-sm font-medium mb-1.5 sm:mb-2">
           Password
         </label>
         <div className="relative">
@@ -109,42 +111,51 @@ export default function LoginForm() {
             {...register('password')}
             type={showPassword ? 'text' : 'password'}
             id="password"
-            className="w-full px-4 py-2 pr-12 border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-50 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+            className="w-full px-3 sm:px-4 py-2 sm:py-2.5 pr-10 sm:pr-12 border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-50 rounded-lg text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
             placeholder="••••••••"
           />
           <button
             type="button"
             onClick={() => setShowPassword(!showPassword)}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200 transition-colors"
+            className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200 transition-colors p-1"
           >
-            {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+            {showPassword ? (
+              <EyeOff className="w-4 h-4 sm:w-5 sm:h-5" />
+            ) : (
+              <Eye className="w-4 h-4 sm:w-5 sm:h-5" />
+            )}
           </button>
         </div>
-        {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>}
+        {errors.password && (
+          <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.password.message}</p>
+        )}
       </div>
 
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between flex-wrap gap-2">
         <div className="flex items-center">
           <input
             {...register('rememberMe')}
             type="checkbox"
             id="rememberMe"
-            className="h-4 w-4 rounded border-zinc-300 dark:border-zinc-600 text-primary focus:ring-primary"
+            className="h-3.5 w-3.5 sm:h-4 sm:w-4 rounded border-zinc-300 dark:border-zinc-600 text-primary focus:ring-primary"
           />
-          <label htmlFor="rememberMe" className="ml-2 text-sm text-zinc-700 dark:text-zinc-300">
+          <label
+            htmlFor="rememberMe"
+            className="ml-1.5 sm:ml-2 text-xs sm:text-sm text-zinc-700 dark:text-zinc-300"
+          >
             Remember me
           </label>
         </div>
         <a
           href="/forgot-password"
-          className="text-sm text-primary hover:text-primary-hover hover:underline"
+          className="text-xs sm:text-sm text-primary hover:text-primary-hover hover:underline"
         >
           Forgot password?
         </a>
       </div>
 
       {error && (
-        <div className="bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 px-4 py-3 rounded-lg text-sm font-medium">
+        <div className="bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg text-xs sm:text-sm font-medium">
           {error.includes('not found') || error.includes('not exist')
             ? '❌ User not found'
             : error.includes('Invalid') || error.includes('incorrect') || error.includes('wrong')
@@ -156,14 +167,14 @@ export default function LoginForm() {
       )}
 
       {isAuthenticated && (
-        <div className="bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-800 text-green-600 dark:text-green-400 px-4 py-3 rounded-lg text-sm font-medium">
+        <div className="bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-800 text-green-600 dark:text-green-400 px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg text-xs sm:text-sm font-medium">
           🎉 Login successful! Redirecting...
         </div>
       )}
 
       {validationMessage.text && !error && !isAuthenticated && (
         <div
-          className={`px-4 py-3 rounded-lg text-sm font-medium border ${
+          className={`px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg text-xs sm:text-sm font-medium border ${
             validationMessage.type === 'success'
               ? 'bg-green-50 dark:bg-green-950/30 border-green-200 dark:border-green-800 text-green-600 dark:text-green-400'
               : 'bg-amber-50 dark:bg-amber-950/30 border-amber-200 dark:border-amber-800 text-amber-600 dark:text-amber-400'
@@ -176,12 +187,12 @@ export default function LoginForm() {
       <button
         type="submit"
         disabled={isLoading}
-        className="w-full bg-linear-to-r from-primary to-secondary hover:from-primary-hover hover:to-secondary-hover text-white py-2 px-4 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+        className="w-full bg-linear-to-r from-primary to-secondary hover:from-primary-hover hover:to-secondary-hover text-white py-2.5 sm:py-3 px-4 rounded-lg text-sm sm:text-base font-medium transition-all duration-300 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {isLoading ? 'Signing in...' : 'Sign in'}
       </button>
 
-      <p className="text-center text-sm text-zinc-600 dark:text-zinc-400">
+      <p className="text-center text-xs sm:text-sm text-zinc-600 dark:text-zinc-400">
         Don&apos;t have an account?{' '}
         <a
           href="/register"

@@ -7,22 +7,22 @@ import { Suspense } from 'react';
 
 function VerifyEmailContent() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-zinc-50 dark:bg-zinc-900 px-4 transition-colors duration-300">
+    <div className="min-h-screen flex items-center justify-center bg-zinc-50 dark:bg-zinc-900 px-3 sm:px-4 py-6 sm:py-8 transition-colors duration-300">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
         className="w-full max-w-md"
       >
-        <div className="bg-white dark:bg-zinc-800 rounded-2xl shadow-xl p-8 transition-colors duration-300">
+        <div className="bg-white dark:bg-zinc-800 rounded-2xl shadow-xl p-4 sm:p-6 md:p-8 transition-colors duration-300">
           <motion.div
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ delay: 0.2, duration: 0.5 }}
-            className="flex justify-center mb-6"
+            className="flex justify-center mb-4 sm:mb-6"
           >
-            <div className="w-16 h-16 bg-linear-to-br from-primary to-accent rounded-full flex items-center justify-center shadow-lg shadow-primary/30">
-              <CheckCircle className="w-10 h-10 text-white" />
+            <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 bg-linear-to-br from-primary to-accent rounded-full flex items-center justify-center shadow-lg shadow-primary/30">
+              <CheckCircle className="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 text-white" />
             </div>
           </motion.div>
 
@@ -30,12 +30,14 @@ function VerifyEmailContent() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3, duration: 0.5 }}
-            className="text-center mb-8"
+            className="text-center mb-6 sm:mb-8"
           >
-            <h1 className="text-3xl font-bold bg-linear-to-r from-zinc-900 to-zinc-700 dark:from-zinc-50 dark:to-zinc-300 bg-clip-text text-transparent mb-2">
+            <h1 className="text-2xl sm:text-3xl font-bold bg-linear-to-r from-zinc-900 to-zinc-700 dark:from-zinc-50 dark:to-zinc-300 bg-clip-text text-transparent mb-1.5 sm:mb-2">
               Verify Your Email
             </h1>
-            <p className="text-zinc-600 dark:text-zinc-400">Complete your registration</p>
+            <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-400">
+              Complete your registration
+            </p>
           </motion.div>
 
           <motion.div
@@ -51,7 +53,7 @@ function VerifyEmailContent() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5, duration: 0.5 }}
-          className="text-center mt-6 text-sm text-zinc-600 dark:text-zinc-400"
+          className="text-center mt-4 sm:mt-6 text-xs sm:text-sm text-zinc-600 dark:text-zinc-400"
         >
           Need help?{' '}
           <a
@@ -70,10 +72,10 @@ export default function VerifyEmailPage() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen flex items-center justify-center bg-zinc-50 dark:bg-zinc-900">
+        <div className="min-h-screen flex items-center justify-center bg-zinc-50 dark:bg-zinc-900 px-3 sm:px-4">
           <div className="text-center">
-            <div className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-            <p className="text-zinc-600 dark:text-zinc-400">Loading...</p>
+            <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-3 sm:mb-4"></div>
+            <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-400">Loading...</p>
           </div>
         </div>
       }

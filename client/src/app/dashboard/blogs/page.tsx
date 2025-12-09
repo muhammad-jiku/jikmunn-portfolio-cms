@@ -97,7 +97,9 @@ export default function BlogsPage() {
     return (
       <DashboardLayout>
         <div className="flex items-center justify-center h-64">
-          <div className="text-lg text-zinc-600 dark:text-zinc-400">Loading blogs...</div>
+          <div className="text-base sm:text-lg text-zinc-600 dark:text-zinc-400">
+            Loading blogs...
+          </div>
         </div>
       </DashboardLayout>
     );
@@ -105,42 +107,44 @@ export default function BlogsPage() {
 
   return (
     <DashboardLayout>
-      <div className="space-y-6">
+      <div className="space-y-4 sm:space-y-6">
         {/* Header */}
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
           <div>
-            <h1 className="text-3xl font-bold text-zinc-900 dark:text-white">Blogs</h1>
-            <p className="text-zinc-600 dark:text-zinc-400 mt-1">
+            <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-zinc-900 dark:text-white">
+              Blogs
+            </h1>
+            <p className="text-xs sm:text-sm md:text-base text-zinc-600 dark:text-zinc-400 mt-1">
               Manage your blog posts and articles
             </p>
           </div>
           <button
             onClick={() => setShowForm(true)}
-            className="flex items-center gap-2 px-4 py-2 bg-linear-to-r from-primary to-secondary hover:from-primary-hover hover:to-secondary-hover text-white rounded-lg transition-all duration-200"
+            className="flex items-center gap-1.5 sm:gap-2 px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm md:text-base bg-linear-to-r from-primary to-secondary hover:from-primary-hover hover:to-secondary-hover text-white rounded-lg transition-all duration-200 whitespace-nowrap"
           >
-            <Plus className="w-5 h-5" />
+            <Plus className="w-4 h-4 sm:w-5 sm:h-5" />
             New Blog
           </button>
         </div>
 
         {/* Filters */}
-        <div className="flex flex-col sm:flex-row gap-4">
+        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
           <div className="flex-1 relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-zinc-400 w-5 h-5" />
+            <Search className="absolute left-2.5 sm:left-3 top-1/2 transform -translate-y-1/2 text-zinc-400 w-4 h-4 sm:w-5 sm:h-5" />
             <input
               type="text"
               placeholder="Search blogs by title or tags..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border border-zinc-300 dark:border-zinc-600 rounded-lg focus:ring-2 focus:ring-primary dark:bg-zinc-800"
+              className="w-full pl-8 sm:pl-10 pr-3 sm:pr-4 py-1.5 sm:py-2 text-xs sm:text-sm border border-zinc-300 dark:border-zinc-600 rounded-lg focus:ring-2 focus:ring-primary dark:bg-zinc-800"
             />
           </div>
           <div className="flex items-center gap-2">
-            <Filter className="text-zinc-400 w-5 h-5" />
+            <Filter className="text-zinc-400 w-4 h-4 sm:w-5 sm:h-5" />
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value as BlogStatus | 'ALL')}
-              className="px-4 py-2 border border-zinc-300 dark:border-zinc-600 rounded-lg focus:ring-2 focus:ring-primary dark:bg-zinc-800"
+              className="px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm border border-zinc-300 dark:border-zinc-600 rounded-lg focus:ring-2 focus:ring-primary dark:bg-zinc-800"
             >
               <option value="ALL">All Status</option>
               <option value={BlogStatus.IN_PROGRESS}>In Progress</option>
@@ -152,28 +156,30 @@ export default function BlogsPage() {
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
-          <div className="bg-white dark:bg-zinc-800 p-4 rounded-lg border border-zinc-200 dark:border-zinc-700">
-            <div className="text-2xl font-bold text-zinc-900 dark:text-white">{blogs.length}</div>
-            <div className="text-sm text-zinc-600 dark:text-zinc-400">Total Blogs</div>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+          <div className="bg-white dark:bg-zinc-800 p-3 sm:p-4 rounded-lg border border-zinc-200 dark:border-zinc-700">
+            <div className="text-xl sm:text-2xl font-bold text-zinc-900 dark:text-white">
+              {blogs.length}
+            </div>
+            <div className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400">Total Blogs</div>
           </div>
-          <div className="bg-white dark:bg-zinc-800 p-4 rounded-lg border border-zinc-200 dark:border-zinc-700">
-            <div className="text-2xl font-bold text-green-600">
+          <div className="bg-white dark:bg-zinc-800 p-3 sm:p-4 rounded-lg border border-zinc-200 dark:border-zinc-700">
+            <div className="text-xl sm:text-2xl font-bold text-green-600">
               {blogs.filter((b) => b.status === BlogStatus.PRODUCTION).length}
             </div>
-            <div className="text-sm text-zinc-600 dark:text-zinc-400">Published</div>
+            <div className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400">Published</div>
           </div>
-          <div className="bg-white dark:bg-zinc-800 p-4 rounded-lg border border-zinc-200 dark:border-zinc-700">
-            <div className="text-2xl font-bold text-yellow-600">
+          <div className="bg-white dark:bg-zinc-800 p-3 sm:p-4 rounded-lg border border-zinc-200 dark:border-zinc-700">
+            <div className="text-xl sm:text-2xl font-bold text-yellow-600">
               {blogs.filter((b) => b.status === BlogStatus.IN_PROGRESS).length}
             </div>
-            <div className="text-sm text-zinc-600 dark:text-zinc-400">In Progress</div>
+            <div className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400">In Progress</div>
           </div>
-          <div className="bg-white dark:bg-zinc-800 p-4 rounded-lg border border-zinc-200 dark:border-zinc-700">
-            <div className="text-2xl font-bold text-primary">
+          <div className="bg-white dark:bg-zinc-800 p-3 sm:p-4 rounded-lg border border-zinc-200 dark:border-zinc-700">
+            <div className="text-xl sm:text-2xl font-bold text-primary">
               {blogs.filter((b) => b.status === BlogStatus.DEVELOPMENT).length}
             </div>
-            <div className="text-sm text-zinc-600 dark:text-zinc-400">Development</div>
+            <div className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400">Development</div>
           </div>
         </div>
 
@@ -189,10 +195,10 @@ export default function BlogsPage() {
 
         {/* Modal Form */}
         {(showForm || editingBlog) && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-3 sm:p-4 z-50">
             <div className="bg-white dark:bg-zinc-900 rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-              <div className="p-6">
-                <h2 className="text-2xl font-bold mb-6 text-zinc-900 dark:text-white">
+              <div className="p-4 sm:p-6">
+                <h2 className="text-lg sm:text-xl md:text-2xl font-bold mb-4 sm:mb-6 text-zinc-900 dark:text-white">
                   {editingBlog ? 'Edit Blog' : 'Create New Blog'}
                 </h2>
                 <BlogForm

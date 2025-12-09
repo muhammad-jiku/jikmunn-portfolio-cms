@@ -32,8 +32,8 @@ const blogsData = [
 
 export function ProjectsChart() {
   return (
-    <div className="bg-white dark:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-800 p-6 hover:shadow-md transition-shadow duration-200">
-      <h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-50 mb-4">
+    <div className="bg-white dark:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-800 p-4 sm:p-6 hover:shadow-md transition-shadow duration-200">
+      <h3 className="text-base sm:text-lg font-semibold text-zinc-900 dark:text-zinc-50 mb-3 sm:mb-4">
         Projects Overview
       </h3>
       <ResponsiveContainer width="100%" height={300}>
@@ -58,8 +58,10 @@ export function ProjectsChart() {
 
 export function BlogsChart() {
   return (
-    <div className="bg-white dark:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-800 p-6 hover:shadow-md transition-shadow duration-200">
-      <h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-50 mb-4">Blogs Activity</h3>
+    <div className="bg-white dark:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-800 p-4 sm:p-6 hover:shadow-md transition-shadow duration-200">
+      <h3 className="text-base sm:text-lg font-semibold text-zinc-900 dark:text-zinc-50 mb-3 sm:mb-4">
+        Blogs Activity
+      </h3>
       <ResponsiveContainer width="100%" height={300}>
         <LineChart data={blogsData}>
           <CartesianGrid strokeDasharray="3 3" stroke="#52525b" opacity={0.3} />

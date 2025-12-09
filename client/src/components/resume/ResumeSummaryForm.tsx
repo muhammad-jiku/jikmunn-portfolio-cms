@@ -50,12 +50,14 @@ export default function ResumeSummaryForm() {
   };
 
   return (
-    <div className="bg-white dark:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-800 shadow-sm p-6">
-      <h2 className="text-2xl font-bold text-zinc-900 dark:text-zinc-50 mb-6">Resume Summary</h2>
+    <div className="bg-white dark:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-800 shadow-sm p-4 sm:p-6">
+      <h2 className="text-xl sm:text-2xl font-bold text-zinc-900 dark:text-zinc-50 mb-4 sm:mb-6">
+        Resume Summary
+      </h2>
 
       {message && (
         <div
-          className={`mb-4 p-4 rounded-lg ${
+          className={`mb-4 p-3 sm:p-4 rounded-lg text-sm ${
             message.type === 'success'
               ? 'bg-green-50 text-green-800 dark:bg-green-900/20 dark:text-green-400'
               : 'bg-red-50 text-red-800 dark:bg-red-900/20 dark:text-red-400'
@@ -65,7 +67,7 @@ export default function ResumeSummaryForm() {
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="space-y-6">
+      <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
         <div>
           <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">
             Professional Summary
