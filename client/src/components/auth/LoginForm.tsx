@@ -3,8 +3,9 @@
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { clearError, login } from '@/store/slices/authSlice';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Eye, EyeOff } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
@@ -20,17 +21,45 @@ export default function LoginForm() {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const { isLoading, error, isAuthenticated } = useAppSelector((state) => state.auth);
+  const [showPassword, setShowPassword] = useState(false);
+  const [validationMessage, setValidationMessage] = useState<{
+    text: string;
+    type: 'success' | 'error' | '';
+  }>({ text: '', type: '' });
 
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
   });
 
+  // eslint-disable-next-line react-hooks/incompatible-library
+  const email = watch('email');
+  const password = watch('password');
+
+  useEffect(() => {
+    // Clear validation message when user types
+    setValidationMessage({ text: '', type: '' });
+
+    // Show validation feedback
+    if (email && password) {
+      if (password.length < 8) {
+        setValidationMessage({ text: '⚠️ Password too weak', type: 'error' });
+      } else if (errors.email) {
+        setValidationMessage({ text: '❌ Invalid email format', type: 'error' });
+      } else if (!errors.email && !errors.password) {
+        setValidationMessage({ text: '✓ Ready to sign in', type: 'success' });
+      }
+    }
+  }, [email, password, errors.email, errors.password]);
+
   useEffect(() => {
     if (isAuthenticated) {
+      // Check if we need to verify email based on error message
+      // Cognito will prevent login if email is not verified
       router.push('/dashboard');
     }
   }, [isAuthenticated, router]);
@@ -42,7 +71,17 @@ export default function LoginForm() {
   }, [dispatch]);
 
   const onSubmit = async (data: LoginFormData) => {
-    await dispatch(login(data));
+    const result = await dispatch(login(data));
+    // Check if login failed due to unverified email
+    if (login.rejected.match(result)) {
+      const errorMessage = result.error?.message || '';
+      if (errorMessage.includes('not confirmed') || errorMessage.includes('not verified')) {
+        // Redirect to verification page
+        setTimeout(() => {
+          router.push(`/verify-email?email=${encodeURIComponent(data.email)}`);
+        }, 2000);
+      }
+    }
   };
 
   return (
@@ -65,13 +104,22 @@ export default function LoginForm() {
         <label htmlFor="password" className="block text-sm font-medium mb-2">
           Password
         </label>
-        <input
-          {...register('password')}
-          type="password"
-          id="password"
-          className="w-full px-4 py-2 border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-50 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-          placeholder="••••••••"
-        />
+        <div className="relative">
+          <input
+            {...register('password')}
+            type={showPassword ? 'text' : 'password'}
+            id="password"
+            className="w-full px-4 py-2 pr-12 border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-50 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+            placeholder="••••••••"
+          />
+          <button
+            type="button"
+            onClick={() => setShowPassword(!showPassword)}
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200 transition-colors"
+          >
+            {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+          </button>
+        </div>
         {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>}
       </div>
 
@@ -95,7 +143,35 @@ export default function LoginForm() {
         </a>
       </div>
 
-      {error && <div className="bg-red-50 text-red-600 px-4 py-3 rounded-lg text-sm">{error}</div>}
+      {error && (
+        <div className="bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 px-4 py-3 rounded-lg text-sm font-medium">
+          {error.includes('not found') || error.includes('not exist')
+            ? '❌ User not found'
+            : error.includes('Invalid') || error.includes('incorrect') || error.includes('wrong')
+              ? '❌ Invalid credentials'
+              : error.includes('authenticated')
+                ? '⚠️ User not authenticated'
+                : `❌ ${error}`}
+        </div>
+      )}
+
+      {isAuthenticated && (
+        <div className="bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-800 text-green-600 dark:text-green-400 px-4 py-3 rounded-lg text-sm font-medium">
+          🎉 Login successful! Redirecting...
+        </div>
+      )}
+
+      {validationMessage.text && !error && !isAuthenticated && (
+        <div
+          className={`px-4 py-3 rounded-lg text-sm font-medium border ${
+            validationMessage.type === 'success'
+              ? 'bg-green-50 dark:bg-green-950/30 border-green-200 dark:border-green-800 text-green-600 dark:text-green-400'
+              : 'bg-amber-50 dark:bg-amber-950/30 border-amber-200 dark:border-amber-800 text-amber-600 dark:text-amber-400'
+          }`}
+        >
+          {validationMessage.text}
+        </div>
+      )}
 
       <button
         type="submit"

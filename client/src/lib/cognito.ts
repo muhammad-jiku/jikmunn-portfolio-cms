@@ -86,7 +86,12 @@ export const loginUser = (credentials: LoginCredentials): Promise<AuthResponse> 
         resolve({ user, idToken, accessToken, refreshToken });
       },
       onFailure: (err) => {
-        reject(err);
+        // Handle specific error cases for better user feedback
+        if (err.code === 'UserNotConfirmedException') {
+          reject(new Error('Email not verified. Please verify your email to continue.'));
+        } else {
+          reject(err);
+        }
       },
     });
   });

@@ -42,18 +42,20 @@ export default function Sidebar({ isCollapsed, onToggle }: SidebarProps) {
   return (
     <aside
       className={cn(
-        'fixed left-0 top-0 z-40 h-screen bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 transition-all duration-300',
+        'fixed left-0 top-0 z-40 h-screen bg-white dark:bg-zinc-900 border-r border-zinc-200 dark:border-zinc-800 transition-all duration-300',
         isCollapsed ? 'w-16' : 'w-64'
       )}
     >
       {/* Logo */}
-      <div className="flex items-center justify-between h-16 px-4 border-b border-gray-200 dark:border-gray-800">
+      <div className="flex items-center justify-between h-16 px-4 border-b border-zinc-200 dark:border-zinc-800">
         {!isCollapsed && (
-          <h1 className="text-xl font-bold text-gray-900 dark:text-white">Portfolio CMS</h1>
+          <h1 className="text-xl font-bold bg-linear-to-r from-primary to-accent bg-clip-text text-transparent">
+            Portfolio CMS
+          </h1>
         )}
         <button
           onClick={onToggle}
-          className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+          className="p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors text-zinc-700 dark:text-zinc-300"
         >
           {isCollapsed ? <ChevronRight className="w-5 h-5" /> : <ChevronLeft className="w-5 h-5" />}
         </button>
@@ -70,10 +72,10 @@ export default function Sidebar({ isCollapsed, onToggle }: SidebarProps) {
               key={item.href}
               href={item.href}
               className={cn(
-                'flex items-center gap-3 px-3 py-2 rounded-lg transition-colors',
+                'flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200',
                 isActive
-                  ? 'bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400'
-                  : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
+                  ? 'bg-purple-50 text-primary dark:bg-purple-950/30 dark:text-purple-400 shadow-sm'
+                  : 'text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-primary dark:hover:text-purple-400'
               )}
             >
               <Icon className="w-5 h-5 shrink-0" />

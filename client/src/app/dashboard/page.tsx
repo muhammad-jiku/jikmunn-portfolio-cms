@@ -30,10 +30,10 @@ export default function DashboardPage() {
     <DashboardLayout>
       {/* Welcome Section */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+        <h1 className="text-3xl font-bold bg-linear-to-r from-primary via-secondary to-accent bg-clip-text text-transparent mb-2">
           Welcome back, {user.name || user.email}!
         </h1>
-        <p className="text-gray-600 dark:text-gray-400">
+        <p className="text-zinc-600 dark:text-zinc-400">
           Here&apos;s what&apos;s happening with your portfolio today.
         </p>
       </div>
@@ -77,8 +77,8 @@ export default function DashboardPage() {
       </div>
 
       {/* Recent Activity */}
-      <div className="bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800 p-6">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+      <div className="bg-white dark:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-800 p-6">
+        <h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-50 mb-4">
           Recent Activity
         </h3>
         <div className="space-y-4">
@@ -107,16 +107,16 @@ export default function DashboardPage() {
             return (
               <div
                 key={index}
-                className="flex items-center gap-4 p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+                className="flex items-center gap-4 p-3 rounded-lg hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors cursor-pointer group"
               >
-                <div className="p-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-                  <Icon className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                <div className="p-2 bg-purple-50 dark:bg-purple-950/30 rounded-lg group-hover:shadow-md transition-shadow">
+                  <Icon className="w-5 h-5 text-purple-600 dark:text-purple-400" />
                 </div>
                 <div className="flex-1">
-                  <p className="text-sm font-medium text-gray-900 dark:text-white">
+                  <p className="text-sm font-medium text-zinc-900 dark:text-zinc-50">
                     {activity.action}
                   </p>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">{activity.item}</p>
+                  <p className="text-sm text-zinc-600 dark:text-zinc-400">{activity.item}</p>
                 </div>
                 <p className="text-sm text-gray-500 dark:text-gray-500">{activity.time}</p>
               </div>

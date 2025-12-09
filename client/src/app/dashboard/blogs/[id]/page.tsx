@@ -60,7 +60,7 @@ export default function BlogDetailPage() {
     return (
       <DashboardLayout>
         <div className="flex items-center justify-center h-64">
-          <div className="text-lg text-gray-600 dark:text-gray-400">Loading blog...</div>
+          <div className="text-lg text-zinc-600 dark:text-zinc-400">Loading blog...</div>
         </div>
       </DashboardLayout>
     );
@@ -70,10 +70,10 @@ export default function BlogDetailPage() {
     return (
       <DashboardLayout>
         <div className="flex flex-col items-center justify-center h-64 space-y-4">
-          <div className="text-lg text-gray-600 dark:text-gray-400">Blog not found</div>
+          <div className="text-lg text-zinc-600 dark:text-zinc-400">Blog not found</div>
           <button
             onClick={() => router.push('/dashboard/blogs')}
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+            className="px-4 py-2 bg-linear-to-r from-primary to-secondary hover:from-primary-hover hover:to-secondary-hover text-white rounded-lg transition-all duration-200"
           >
             Back to Blogs
           </button>
@@ -89,7 +89,7 @@ export default function BlogDetailPage() {
         <div className="flex items-center justify-between">
           <button
             onClick={() => router.push('/dashboard/blogs')}
-            className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+            className="flex items-center gap-2 text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white"
           >
             <ArrowLeft className="w-5 h-5" />
             Back to Blogs
@@ -97,7 +97,7 @@ export default function BlogDetailPage() {
           <div className="flex items-center gap-3">
             <button
               onClick={() => router.push(`/dashboard/blogs/edit/${blog.id}`)}
-              className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+              className="flex items-center gap-2 px-4 py-2 bg-linear-to-r from-primary to-secondary hover:from-primary-hover hover:to-secondary-hover text-white rounded-lg transition-all duration-200"
             >
               <Edit className="w-4 h-4" />
               Edit
@@ -116,9 +116,9 @@ export default function BlogDetailPage() {
         <div className="space-y-3">
           <div className="flex items-start justify-between">
             <div className="flex-1">
-              <h1 className="text-3xl font-bold text-gray-900 dark:text-white">{blog.title}</h1>
+              <h1 className="text-3xl font-bold text-zinc-900 dark:text-white">{blog.title}</h1>
               {blog.subtitle && (
-                <p className="text-xl text-gray-600 dark:text-gray-400 mt-2">{blog.subtitle}</p>
+                <p className="text-xl text-zinc-600 dark:text-zinc-400 mt-2">{blog.subtitle}</p>
               )}
             </div>
             <span
@@ -130,7 +130,7 @@ export default function BlogDetailPage() {
         </div>
 
         {/* Meta Information */}
-        <div className="flex flex-wrap gap-4 text-sm text-gray-600 dark:text-gray-400">
+        <div className="flex flex-wrap gap-4 text-sm text-zinc-600 dark:text-zinc-400">
           <div className="flex items-center gap-2">
             <Calendar className="w-4 h-4" />
             Published: {new Date(blog.publishedAt).toLocaleDateString()}
@@ -151,14 +151,14 @@ export default function BlogDetailPage() {
         {/* Tags */}
         {blog.tags && blog.tags.length > 0 && (
           <div>
-            <h3 className="text-sm font-semibold text-gray-600 dark:text-gray-400 uppercase mb-2">
+            <h3 className="text-sm font-semibold text-zinc-600 dark:text-zinc-400 uppercase mb-2">
               Tags
             </h3>
             <div className="flex flex-wrap gap-2">
               {blog.tags.map((tag, index) => (
                 <span
                   key={index}
-                  className="px-3 py-1 bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 rounded-full text-sm"
+                  className="px-3 py-1 bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200 rounded-full text-sm"
                 >
                   {tag}
                 </span>
@@ -169,16 +169,16 @@ export default function BlogDetailPage() {
 
         {/* Video */}
         {blog.videoUrl && (
-          <div className="bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
+          <div className="bg-white dark:bg-zinc-800 p-6 rounded-lg border border-zinc-200 dark:border-zinc-700">
             <div className="flex items-center gap-2 mb-3">
-              <Video className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+              <Video className="w-5 h-5 text-zinc-600 dark:text-zinc-400" />
               <h2 className="text-xl font-bold">Video Explanation</h2>
             </div>
             <a
               href={blog.videoUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-blue-600 dark:text-blue-400 hover:underline"
+              className="text-primary hover:text-primary-hover"
             >
               {blog.videoUrl}
             </a>
@@ -186,10 +186,10 @@ export default function BlogDetailPage() {
         )}
 
         {/* Content */}
-        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
+        <div className="bg-white dark:bg-zinc-800 p-6 rounded-lg border border-zinc-200 dark:border-zinc-700">
           <h2 className="text-xl font-bold mb-4">Content</h2>
           <div className="prose dark:prose-invert max-w-none">
-            <div className="whitespace-pre-wrap text-gray-700 dark:text-gray-300">
+            <div className="whitespace-pre-wrap text-zinc-700 dark:text-zinc-300">
               {blog.description}
             </div>
           </div>
@@ -197,7 +197,7 @@ export default function BlogDetailPage() {
 
         {/* Images Gallery */}
         {blog.images && blog.images.length > 0 && (
-          <div className="bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
+          <div className="bg-white dark:bg-zinc-800 p-6 rounded-lg border border-zinc-200 dark:border-zinc-700">
             <h2 className="text-xl font-bold mb-4">Images ({blog.images.length})</h2>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {blog.images.map((image) => (
@@ -215,9 +215,9 @@ export default function BlogDetailPage() {
         )}
 
         {/* Timestamps */}
-        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
+        <div className="bg-white dark:bg-zinc-800 p-6 rounded-lg border border-zinc-200 dark:border-zinc-700">
           <h2 className="text-xl font-bold mb-3">Timeline</h2>
-          <div className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
+          <div className="space-y-2 text-sm text-zinc-600 dark:text-zinc-400">
             <div className="flex items-center gap-2">
               <Calendar className="w-4 h-4" />
               <span>Created: {new Date(blog.createdAt).toLocaleString()}</span>

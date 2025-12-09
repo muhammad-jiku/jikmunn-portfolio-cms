@@ -75,55 +75,55 @@ export default function BlogsTable({ blogs, onEdit, onDelete, onView }: BlogsTab
     <div className="overflow-x-auto">
       <table className="w-full border-collapse">
         <thead>
-          <tr className="bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+          <tr className="bg-zinc-50 dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-800">
             <th
               onClick={() => handleSort('title')}
-              className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700"
+              className="px-6 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider cursor-pointer hover:bg-zinc-100 dark:hover:bg-zinc-800"
             >
               Title {getSortIcon('title')}
             </th>
             <th
               onClick={() => handleSort('topic')}
-              className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700"
+              className="px-6 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider cursor-pointer hover:bg-zinc-100 dark:hover:bg-zinc-800"
             >
               Topic {getSortIcon('topic')}
             </th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+            <th className="px-6 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">
               Tags
             </th>
             <th
               onClick={() => handleSort('status')}
-              className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700"
+              className="px-6 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider cursor-pointer hover:bg-zinc-100 dark:hover:bg-zinc-800"
             >
               Status {getSortIcon('status')}
             </th>
             <th
               onClick={() => handleSort('publishedAt')}
-              className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700"
+              className="px-6 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider cursor-pointer hover:bg-zinc-100 dark:hover:bg-zinc-800"
             >
               Published {getSortIcon('publishedAt')}
             </th>
-            <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+            <th className="px-6 py-3 text-right text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">
               Actions
             </th>
           </tr>
         </thead>
-        <tbody className="bg-white dark:bg-gray-900 divide-y divide-gray-200 dark:divide-gray-700">
+        <tbody className="bg-white dark:bg-zinc-950 divide-y divide-zinc-200 dark:divide-zinc-800">
           {sortedBlogs.map((blog) => (
-            <tr key={blog.id} className="hover:bg-gray-50 dark:hover:bg-gray-800">
+            <tr key={blog.id} className="hover:bg-zinc-50 dark:hover:bg-zinc-900">
               <td className="px-6 py-4 whitespace-nowrap">
                 <div className="flex flex-col">
-                  <div className="text-sm font-medium text-gray-900 dark:text-white">
+                  <div className="text-sm font-medium text-zinc-900 dark:text-zinc-50">
                     {blog.title}
                   </div>
                   {blog.subtitle && (
-                    <div className="text-sm text-gray-500 dark:text-gray-400">{blog.subtitle}</div>
+                    <div className="text-sm text-zinc-500 dark:text-zinc-400">{blog.subtitle}</div>
                   )}
                 </div>
               </td>
               <td className="px-6 py-4 whitespace-nowrap">
                 {blog.topic && (
-                  <span className="inline-flex items-center gap-1 text-sm text-gray-600 dark:text-gray-400">
+                  <span className="inline-flex items-center gap-1 text-sm text-zinc-600 dark:text-zinc-400">
                     <Tag className="w-3 h-3" />
                     {blog.topic}
                   </span>
@@ -134,13 +134,13 @@ export default function BlogsTable({ blogs, onEdit, onDelete, onView }: BlogsTab
                   {blog.tags.slice(0, 3).map((tag, index) => (
                     <span
                       key={index}
-                      className="px-2 py-1 bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300 rounded text-xs"
+                      className="px-2 py-1 bg-zinc-100 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300 rounded text-xs"
                     >
                       {tag}
                     </span>
                   ))}
                   {blog.tags.length > 3 && (
-                    <span className="px-2 py-1 text-gray-500 dark:text-gray-400 text-xs">
+                    <span className="px-2 py-1 text-zinc-500 dark:text-zinc-400 text-xs">
                       +{blog.tags.length - 3}
                     </span>
                   )}
@@ -154,7 +154,7 @@ export default function BlogsTable({ blogs, onEdit, onDelete, onView }: BlogsTab
                 </span>
               </td>
               <td className="px-6 py-4 whitespace-nowrap">
-                <div className="flex items-center gap-1 text-sm text-gray-600 dark:text-gray-400">
+                <div className="flex items-center gap-1 text-sm text-zinc-600 dark:text-zinc-400">
                   <Calendar className="w-3 h-3" />
                   {new Date(blog.publishedAt).toLocaleDateString()}
                 </div>
@@ -163,21 +163,21 @@ export default function BlogsTable({ blogs, onEdit, onDelete, onView }: BlogsTab
                 <div className="flex items-center justify-end gap-2">
                   <button
                     onClick={() => onView(blog)}
-                    className="text-blue-600 hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-300"
+                    className="text-purple-600 hover:text-purple-700 dark:text-purple-400 dark:hover:text-purple-300"
                     title="View blog"
                   >
                     <Eye className="w-4 h-4" />
                   </button>
                   <button
                     onClick={() => onEdit(blog)}
-                    className="text-green-600 hover:text-green-900 dark:text-green-400 dark:hover:text-green-300"
+                    className="text-primary hover:text-primary-hover dark:text-pink-400 dark:hover:text-pink-300"
                     title="Edit blog"
                   >
                     <Edit className="w-4 h-4" />
                   </button>
                   <button
                     onClick={() => onDelete(blog.id)}
-                    className="text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300"
+                    className="text-red-600 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300"
                     title="Delete blog"
                   >
                     <Trash2 className="w-4 h-4" />
@@ -189,7 +189,7 @@ export default function BlogsTable({ blogs, onEdit, onDelete, onView }: BlogsTab
         </tbody>
       </table>
       {sortedBlogs.length === 0 && (
-        <div className="text-center py-12 text-gray-500 dark:text-gray-400">
+        <div className="text-center py-12 text-zinc-500 dark:text-zinc-400">
           No blogs found. Create your first blog post!
         </div>
       )}

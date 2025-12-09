@@ -13,7 +13,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
+    <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950">
       <Sidebar
         isCollapsed={isSidebarCollapsed}
         onToggle={() => setIsSidebarCollapsed(!isSidebarCollapsed)}

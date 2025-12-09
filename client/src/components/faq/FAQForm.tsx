@@ -43,19 +43,22 @@ export default function FAQForm({ faq, onSubmit, onClose }: FAQFormProps) {
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-        <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+      <div className="bg-white dark:bg-zinc-900 rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+        <div className="flex items-center justify-between p-6 border-b border-zinc-200 dark:border-zinc-800">
+          <h2 className="text-xl font-semibold text-zinc-900 dark:text-zinc-50">
             {faq ? 'Edit FAQ' : 'Add FAQ'}
           </h2>
-          <button onClick={onClose} className="text-gray-400 hover:text-gray-500">
+          <button
+            onClick={onClose}
+            className="text-zinc-400 hover:text-zinc-500 dark:hover:text-zinc-300"
+          >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         <form onSubmit={handleSubmit} className="p-6 space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">
               Question *
             </label>
             <input
@@ -63,13 +66,13 @@ export default function FAQForm({ faq, onSubmit, onClose }: FAQFormProps) {
               value={formData.question}
               onChange={(e) => setFormData({ ...formData, question: e.target.value })}
               placeholder="Enter the question"
-              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+              className="w-full px-4 py-2 border border-zinc-300 dark:border-zinc-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-zinc-900 dark:text-zinc-50"
               required
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">
               Answer *
             </label>
             <textarea
@@ -77,13 +80,13 @@ export default function FAQForm({ faq, onSubmit, onClose }: FAQFormProps) {
               onChange={(e) => setFormData({ ...formData, answer: e.target.value })}
               rows={6}
               placeholder="Enter the answer"
-              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+              className="w-full px-4 py-2 border border-zinc-300 dark:border-zinc-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-zinc-900 dark:text-zinc-50"
               required
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">
               Display Order
             </label>
             <input
@@ -91,25 +94,25 @@ export default function FAQForm({ faq, onSubmit, onClose }: FAQFormProps) {
               value={formData.order}
               onChange={(e) => setFormData({ ...formData, order: parseInt(e.target.value) || 0 })}
               min="0"
-              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+              className="w-full px-4 py-2 border border-zinc-300 dark:border-zinc-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-zinc-900 dark:text-zinc-50"
             />
-            <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+            <p className="mt-1 text-xs text-zinc-500 dark:text-zinc-400">
               Lower numbers appear first
             </p>
           </div>
 
-          <div className="flex justify-end gap-3 pt-4 border-t border-gray-200 dark:border-gray-700">
+          <div className="flex justify-end gap-3 pt-4 border-t border-zinc-200 dark:border-zinc-800">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg"
+              className="px-4 py-2 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-lg transition-colors"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={loading}
-              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
+              className="px-4 py-2 bg-linear-to-r from-primary to-secondary hover:from-primary-hover hover:to-secondary-hover text-white rounded-lg disabled:opacity-50 transition-all duration-200"
             >
               {loading ? 'Saving...' : faq ? 'Update' : 'Create'}
             </button>

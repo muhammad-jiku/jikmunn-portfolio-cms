@@ -54,7 +54,7 @@ export default function BlogForm({ initialData, onSubmit, onCancel, isLoading }:
             type="text"
             value={formData.title}
             onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700"
+            className="w-full px-4 py-2 border border-zinc-300 dark:border-zinc-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-zinc-900 dark:text-zinc-50"
             required
           />
         </div>
@@ -65,7 +65,7 @@ export default function BlogForm({ initialData, onSubmit, onCancel, isLoading }:
             type="text"
             value={formData.subtitle || ''}
             onChange={(e) => setFormData({ ...formData, subtitle: e.target.value })}
-            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700"
+            className="w-full px-4 py-2 border border-zinc-300 dark:border-zinc-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-zinc-900 dark:text-zinc-50"
           />
         </div>
       </div>
@@ -78,7 +78,7 @@ export default function BlogForm({ initialData, onSubmit, onCancel, isLoading }:
             placeholder="e.g., Web Development, AI, Cloud Computing"
             value={formData.topic || ''}
             onChange={(e) => setFormData({ ...formData, topic: e.target.value })}
-            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700"
+            className="w-full px-4 py-2 border border-zinc-300 dark:border-zinc-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-zinc-900 dark:text-zinc-50"
           />
         </div>
 
@@ -87,7 +87,7 @@ export default function BlogForm({ initialData, onSubmit, onCancel, isLoading }:
           <select
             value={formData.status}
             onChange={(e) => setFormData({ ...formData, status: e.target.value as BlogStatus })}
-            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700"
+            className="w-full px-4 py-2 border border-zinc-300 dark:border-zinc-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-zinc-900 dark:text-zinc-50"
           >
             <option value={BlogStatus.IN_PROGRESS}>In Progress</option>
             <option value={BlogStatus.DEVELOPMENT}>Development</option>
@@ -105,10 +105,10 @@ export default function BlogForm({ initialData, onSubmit, onCancel, isLoading }:
           onChange={(e) => setFormData({ ...formData, description: e.target.value })}
           rows={8}
           placeholder="Write your blog content here..."
-          className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 font-mono text-sm"
+          className="w-full px-4 py-2 border border-zinc-300 dark:border-zinc-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-zinc-900 dark:text-zinc-50 font-mono text-sm"
           required
         />
-        <p className="text-xs text-gray-500 mt-1">
+        <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-1">
           Tip: Use markdown formatting for better content structure
         </p>
       </div>
@@ -123,12 +123,12 @@ export default function BlogForm({ initialData, onSubmit, onCancel, isLoading }:
             onChange={(e) => setNewTag(e.target.value)}
             onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addTag())}
             placeholder="Add a tag and press Enter"
-            className="flex-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700"
+            className="flex-1 px-4 py-2 border border-zinc-300 dark:border-zinc-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-zinc-900 dark:text-zinc-50"
           />
           <button
             type="button"
             onClick={addTag}
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+            className="px-4 py-2 bg-linear-to-r from-primary to-secondary hover:from-primary-hover hover:to-secondary-hover text-white rounded-lg transition-all duration-200"
           >
             Add
           </button>
@@ -137,7 +137,7 @@ export default function BlogForm({ initialData, onSubmit, onCancel, isLoading }:
           {formData.tags.map((tag, index) => (
             <span
               key={index}
-              className="inline-flex items-center gap-1 px-3 py-1 bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 rounded-full text-sm"
+              className="inline-flex items-center gap-1 px-3 py-1 bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200 rounded-full text-sm"
             >
               {tag}
               <button type="button" onClick={() => removeTag(index)}>
@@ -156,26 +156,26 @@ export default function BlogForm({ initialData, onSubmit, onCancel, isLoading }:
           placeholder="https://youtube.com/watch?v=..."
           value={formData.videoUrl || ''}
           onChange={(e) => setFormData({ ...formData, videoUrl: e.target.value })}
-          className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700"
+          className="w-full px-4 py-2 border border-zinc-300 dark:border-zinc-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-zinc-900 dark:text-zinc-50"
         />
-        <p className="text-xs text-gray-500 mt-1">
+        <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-1">
           Optional: Add a video explanation for your blog
         </p>
       </div>
 
       {/* Action Buttons */}
-      <div className="flex justify-end gap-4 pt-6 border-t">
+      <div className="flex justify-end gap-4 pt-6 border-t border-zinc-200 dark:border-zinc-800">
         <button
           type="button"
           onClick={onCancel}
-          className="px-6 py-2 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800"
+          className="px-6 py-2 border border-zinc-300 dark:border-zinc-700 rounded-lg hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors"
           disabled={isLoading}
         >
           Cancel
         </button>
         <button
           type="submit"
-          className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
+          className="px-6 py-2 bg-linear-to-r from-primary to-secondary hover:from-primary-hover hover:to-secondary-hover text-white rounded-lg disabled:opacity-50 transition-all duration-200"
           disabled={isLoading}
         >
           {isLoading ? 'Saving...' : initialData ? 'Update Blog' : 'Create Blog'}

@@ -69,7 +69,7 @@ export default function FAQPage() {
     return (
       <DashboardLayout>
         <div className="flex items-center justify-center h-64">
-          <div className="text-gray-500 dark:text-gray-400">Loading...</div>
+          <div className="text-zinc-500 dark:text-zinc-400">Loading...</div>
         </div>
       </DashboardLayout>
     );
@@ -80,14 +80,14 @@ export default function FAQPage() {
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">FAQ Management</h1>
-            <p className="mt-2 text-gray-600 dark:text-gray-400">
+            <h1 className="text-3xl font-bold text-zinc-900 dark:text-white">FAQ Management</h1>
+            <p className="mt-2 text-zinc-600 dark:text-zinc-400">
               Manage frequently asked questions
             </p>
           </div>
           <button
             onClick={handleCreate}
-            className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+            className="flex items-center gap-2 px-4 py-2 bg-linear-to-r from-primary to-secondary hover:from-primary-hover hover:to-secondary-hover text-white rounded-lg transition-all duration-200"
           >
             <Plus className="w-4 h-4" />
             Add FAQ
@@ -95,19 +95,19 @@ export default function FAQPage() {
         </div>
 
         {faqs.length === 0 ? (
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-8 text-center">
-            <p className="text-gray-500 dark:text-gray-400">
+          <div className="bg-white dark:bg-zinc-800 rounded-lg shadow p-8 text-center">
+            <p className="text-zinc-500 dark:text-zinc-400">
               No FAQs yet. Create one to get started!
             </p>
           </div>
         ) : (
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow divide-y divide-gray-200 dark:divide-gray-700">
+          <div className="bg-white dark:bg-zinc-800 rounded-lg shadow divide-y divide-zinc-200 dark:divide-zinc-700">
             {faqs.map((faq) => (
               <div key={faq.id} className="p-6">
                 <div className="flex items-start gap-4">
                   <button
                     onClick={() => toggleExpand(faq.id)}
-                    className="shrink-0 w-8 h-8 flex items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 hover:bg-blue-200 dark:hover:bg-blue-900/50"
+                    className="shrink-0 w-8 h-8 flex items-center justify-center rounded-full bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 hover:bg-purple-200 dark:hover:bg-purple-900/50"
                   >
                     {expandedId === faq.id ? (
                       <ChevronUp className="w-4 h-4" />
@@ -119,10 +119,10 @@ export default function FAQPage() {
                   <div className="flex-1">
                     <div className="flex items-start justify-between gap-4">
                       <button onClick={() => toggleExpand(faq.id)} className="flex-1 text-left">
-                        <h3 className="font-semibold text-gray-900 dark:text-white">
+                        <h3 className="font-semibold text-zinc-900 dark:text-white">
                           {faq.question}
                         </h3>
-                        <span className="inline-block mt-1 text-xs text-gray-500 dark:text-gray-400">
+                        <span className="inline-block mt-1 text-xs text-zinc-500 dark:text-zinc-400">
                           Order: {faq.order}
                         </span>
                       </button>
@@ -130,7 +130,7 @@ export default function FAQPage() {
                       <div className="flex gap-2">
                         <button
                           onClick={() => handleEdit(faq)}
-                          className="text-blue-600 hover:text-blue-700 dark:text-blue-400"
+                          className="text-primary hover:text-primary-hover"
                         >
                           <Edit className="w-4 h-4" />
                         </button>
@@ -144,8 +144,8 @@ export default function FAQPage() {
                     </div>
 
                     {expandedId === faq.id && (
-                      <div className="mt-4 pl-4 border-l-2 border-blue-500">
-                        <p className="text-gray-600 dark:text-gray-400 whitespace-pre-wrap">
+                      <div className="mt-4 pl-4 border-l-2 border-purple-500">
+                        <p className="text-zinc-600 dark:text-zinc-400 whitespace-pre-wrap">
                           {faq.answer}
                         </p>
                       </div>

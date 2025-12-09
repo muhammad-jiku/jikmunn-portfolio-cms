@@ -64,7 +64,7 @@ export default function SkillsPage() {
     return (
       <DashboardLayout>
         <div className="flex items-center justify-center h-64">
-          <div className="text-gray-500 dark:text-gray-400">Loading...</div>
+          <div className="text-zinc-500 dark:text-zinc-400">Loading...</div>
         </div>
       </DashboardLayout>
     );
@@ -80,14 +80,16 @@ export default function SkillsPage() {
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Skills</h1>
-            <p className="mt-2 text-gray-600 dark:text-gray-400">
+            <h1 className="text-3xl font-bold bg-linear-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+              Skills
+            </h1>
+            <p className="mt-2 text-zinc-600 dark:text-zinc-400">
               Manage your technical skills and expertise
             </p>
           </div>
           <button
             onClick={handleCreate}
-            className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+            className="flex items-center gap-2 px-4 py-2 bg-linear-to-r from-primary to-secondary hover:from-primary-hover hover:to-secondary-hover text-white rounded-lg transition-all duration-200"
           >
             <Plus className="w-4 h-4" />
             Add Skill
@@ -96,19 +98,21 @@ export default function SkillsPage() {
 
         {/* Stats */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-            <p className="text-sm text-gray-600 dark:text-gray-400">Total Skills</p>
-            <p className="text-3xl font-bold text-gray-900 dark:text-white mt-2">{skills.length}</p>
+          <div className="bg-white dark:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-800 shadow-sm p-6">
+            <p className="text-sm text-zinc-600 dark:text-zinc-400">Total Skills</p>
+            <p className="text-3xl font-bold text-zinc-900 dark:text-zinc-50 mt-2">
+              {skills.length}
+            </p>
           </div>
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-            <p className="text-sm text-gray-600 dark:text-gray-400">Average Progress</p>
-            <p className="text-3xl font-bold text-gray-900 dark:text-white mt-2">
+          <div className="bg-white dark:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-800 shadow-sm p-6">
+            <p className="text-sm text-zinc-600 dark:text-zinc-400">Average Progress</p>
+            <p className="text-3xl font-bold text-zinc-900 dark:text-zinc-50 mt-2">
               {averageProgress}%
             </p>
           </div>
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-            <p className="text-sm text-gray-600 dark:text-gray-400">Expert Level (80%+)</p>
-            <p className="text-3xl font-bold text-gray-900 dark:text-white mt-2">
+          <div className="bg-white dark:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-800 shadow-sm p-6">
+            <p className="text-sm text-zinc-600 dark:text-zinc-400">Expert Level (80%+)</p>
+            <p className="text-3xl font-bold text-zinc-900 dark:text-zinc-50 mt-2">
               {skills.filter((s) => s.progress >= 80).length}
             </p>
           </div>

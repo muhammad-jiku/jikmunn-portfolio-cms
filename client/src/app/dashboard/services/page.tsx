@@ -64,7 +64,7 @@ export default function ServicesPage() {
     return (
       <DashboardLayout>
         <div className="flex items-center justify-center h-64">
-          <div className="text-gray-500 dark:text-gray-400">Loading...</div>
+          <div className="text-zinc-500 dark:text-zinc-400">Loading...</div>
         </div>
       </DashboardLayout>
     );
@@ -75,12 +75,14 @@ export default function ServicesPage() {
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Services</h1>
-            <p className="mt-2 text-gray-600 dark:text-gray-400">Manage your portfolio services</p>
+            <h1 className="text-3xl font-bold bg-linear-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+              Services
+            </h1>
+            <p className="mt-2 text-zinc-600 dark:text-zinc-400">Manage your portfolio services</p>
           </div>
           <button
             onClick={handleCreate}
-            className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+            className="flex items-center gap-2 px-4 py-2 bg-linear-to-r from-primary to-secondary hover:from-primary-hover hover:to-secondary-hover text-white rounded-lg transition-all duration-200"
           >
             <Plus className="w-4 h-4" />
             Add Service

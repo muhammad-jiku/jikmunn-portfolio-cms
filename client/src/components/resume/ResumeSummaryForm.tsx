@@ -50,8 +50,8 @@ export default function ResumeSummaryForm() {
   };
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-      <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Resume Summary</h2>
+    <div className="bg-white dark:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-800 shadow-sm p-6">
+      <h2 className="text-2xl font-bold text-zinc-900 dark:text-zinc-50 mb-6">Resume Summary</h2>
 
       {message && (
         <div
@@ -67,67 +67,67 @@ export default function ResumeSummaryForm() {
 
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-            Professional Summary (2-3 lines) *
+          <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">
+            Professional Summary
           </label>
           <textarea
             value={formData.summary}
             onChange={(e) => setFormData({ ...formData, summary: e.target.value })}
-            rows={4}
-            className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
-            required
+            rows={6}
+            placeholder="Write a brief professional summary..."
+            className="w-full px-4 py-2 border border-zinc-300 dark:border-zinc-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-zinc-900 dark:text-zinc-50"
           />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label className="flex items-center gap-2 text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">
               <MapPin className="w-4 h-4" />
-              Address *
+              Address
             </label>
             <input
               type="text"
               value={formData.address}
               onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
-              required
+              placeholder="City, Country"
+              className="w-full px-4 py-2 border border-zinc-300 dark:border-zinc-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-zinc-900 dark:text-zinc-50"
             />
           </div>
 
           <div>
-            <label className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label className="flex items-center gap-2 text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">
               <Phone className="w-4 h-4" />
-              Phone *
+              Phone
             </label>
             <input
               type="tel"
               value={formData.phone}
               onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
-              required
+              placeholder="+1 234 567 8900"
+              className="w-full px-4 py-2 border border-zinc-300 dark:border-zinc-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-zinc-900 dark:text-zinc-50"
             />
           </div>
 
           <div>
-            <label className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label className="flex items-center gap-2 text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">
               <Mail className="w-4 h-4" />
-              Email *
+              Email
             </label>
             <input
               type="email"
               value={formData.email}
               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
-              required
+              placeholder="your@email.com"
+              className="w-full px-4 py-2 border border-zinc-300 dark:border-zinc-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-zinc-900 dark:text-zinc-50"
             />
           </div>
         </div>
 
-        <div className="flex justify-end">
+        <div className="flex justify-end pt-4 border-t border-zinc-200 dark:border-zinc-800">
           <button
             type="submit"
             disabled={loading}
-            className="flex items-center gap-2 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
+            className="px-4 py-2 bg-linear-to-r from-primary to-secondary hover:from-primary-hover hover:to-secondary-hover text-white rounded-lg disabled:opacity-50 flex items-center gap-2 transition-all duration-200"
           >
             <Save className="w-4 h-4" />
             {loading ? 'Saving...' : 'Save Changes'}

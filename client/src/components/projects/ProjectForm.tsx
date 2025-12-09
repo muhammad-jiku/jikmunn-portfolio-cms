@@ -113,7 +113,7 @@ export default function ProjectForm({
             type="text"
             value={formData.title}
             onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700"
+            className="w-full px-4 py-2 border border-zinc-300 dark:border-zinc-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-zinc-900 dark:text-zinc-50"
             required
           />
         </div>
@@ -124,7 +124,7 @@ export default function ProjectForm({
             type="text"
             value={formData.category}
             onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700"
+            className="w-full px-4 py-2 border border-zinc-300 dark:border-zinc-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-zinc-900 dark:text-zinc-50"
             required
           />
         </div>
@@ -136,7 +136,7 @@ export default function ProjectForm({
           value={formData.description}
           onChange={(e) => setFormData({ ...formData, description: e.target.value })}
           rows={4}
-          className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700"
+          className="w-full px-4 py-2 border border-zinc-300 dark:border-zinc-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-zinc-900 dark:text-zinc-50"
           required
         />
       </div>
@@ -147,7 +147,7 @@ export default function ProjectForm({
           <select
             value={formData.status}
             onChange={(e) => setFormData({ ...formData, status: e.target.value as ProjectStatus })}
-            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700"
+            className="w-full px-4 py-2 border border-zinc-300 dark:border-zinc-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-zinc-900 dark:text-zinc-50"
           >
             <option value={ProjectStatus.IN_PROGRESS}>In Progress</option>
             <option value={ProjectStatus.DEVELOPMENT}>Development</option>
@@ -162,7 +162,7 @@ export default function ProjectForm({
             type="text"
             value={formData.client || ''}
             onChange={(e) => setFormData({ ...formData, client: e.target.value })}
-            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700"
+            className="w-full px-4 py-2 border border-zinc-300 dark:border-zinc-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-zinc-900 dark:text-zinc-50"
           />
         </div>
       </div>
@@ -175,7 +175,7 @@ export default function ProjectForm({
             placeholder="e.g., 3 months"
             value={formData.duration || ''}
             onChange={(e) => setFormData({ ...formData, duration: e.target.value })}
-            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700"
+            className="w-full px-4 py-2 border border-zinc-300 dark:border-zinc-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-zinc-900 dark:text-zinc-50"
           />
         </div>
 
@@ -191,7 +191,7 @@ export default function ProjectForm({
                 teamSize: e.target.value ? parseInt(e.target.value) : undefined,
               })
             }
-            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700"
+            className="w-full px-4 py-2 border border-zinc-300 dark:border-zinc-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-zinc-900 dark:text-zinc-50"
           />
         </div>
 
@@ -201,7 +201,7 @@ export default function ProjectForm({
               type="checkbox"
               checked={formData.isFeatured}
               onChange={(e) => setFormData({ ...formData, isFeatured: e.target.checked })}
-              className="w-4 h-4 text-blue-600 rounded focus:ring-2 focus:ring-blue-500"
+              className="w-4 h-4 text-primary rounded focus:ring-2 focus:ring-primary"
             />
             <span className="ml-2 text-sm font-medium">Featured Project</span>
           </label>
@@ -215,7 +215,7 @@ export default function ProjectForm({
             type="url"
             value={formData.githubUrl || ''}
             onChange={(e) => setFormData({ ...formData, githubUrl: e.target.value })}
-            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700"
+            className="w-full px-4 py-2 border border-zinc-300 dark:border-zinc-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-zinc-900 dark:text-zinc-50"
           />
         </div>
 
@@ -225,7 +225,7 @@ export default function ProjectForm({
             type="url"
             value={formData.liveUrl || ''}
             onChange={(e) => setFormData({ ...formData, liveUrl: e.target.value })}
-            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700"
+            className="w-full px-4 py-2 border border-zinc-300 dark:border-zinc-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-zinc-900 dark:text-zinc-50"
           />
         </div>
       </div>
@@ -243,12 +243,12 @@ export default function ProjectForm({
               (e.preventDefault(), addItem(newFeature, setFeatures, features, setNewFeature))
             }
             placeholder="Add a feature and press Enter"
-            className="flex-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700"
+            className="flex-1 px-4 py-2 border border-zinc-300 dark:border-zinc-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-zinc-900 dark:text-zinc-50"
           />
           <button
             type="button"
             onClick={() => addItem(newFeature, setFeatures, features, setNewFeature)}
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+            className="px-4 py-2 bg-linear-to-r from-primary to-secondary hover:from-primary-hover hover:to-secondary-hover text-white rounded-lg transition-all duration-200"
           >
             Add
           </button>
@@ -257,7 +257,7 @@ export default function ProjectForm({
           {features.map((feature, index) => (
             <span
               key={index}
-              className="inline-flex items-center gap-1 px-3 py-1 bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 rounded-full text-sm"
+              className="inline-flex items-center gap-1 px-3 py-1 bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200 rounded-full text-sm"
             >
               {feature}
               <button type="button" onClick={() => removeItem(index, features, setFeatures)}>
@@ -275,7 +275,7 @@ export default function ProjectForm({
           <select
             value={newTech.category}
             onChange={(e) => setNewTech({ ...newTech, category: e.target.value })}
-            className="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700"
+            className="px-4 py-2 border border-zinc-300 dark:border-zinc-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-zinc-900 dark:text-zinc-50"
           >
             <option value="frontend">Frontend</option>
             <option value="backend">Backend</option>
@@ -289,12 +289,12 @@ export default function ProjectForm({
             onChange={(e) => setNewTech({ ...newTech, value: e.target.value })}
             onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addTechStackItem())}
             placeholder="Add technology and press Enter"
-            className="flex-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700"
+            className="flex-1 px-4 py-2 border border-zinc-300 dark:border-zinc-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-zinc-900 dark:text-zinc-50"
           />
           <button
             type="button"
             onClick={addTechStackItem}
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+            className="px-4 py-2 bg-linear-to-r from-secondary to-accent hover:from-secondary-hover hover:to-accent-hover text-white rounded-lg transition-all duration-200"
           >
             Add
           </button>
@@ -339,12 +339,12 @@ export default function ProjectForm({
               addItem(newChallenge, setChallenges, challenges, setNewChallenge))
             }
             placeholder="Add a challenge and press Enter"
-            className="flex-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700"
+            className="flex-1 px-4 py-2 border border-zinc-300 dark:border-zinc-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-zinc-900 dark:text-zinc-50"
           />
           <button
             type="button"
             onClick={() => addItem(newChallenge, setChallenges, challenges, setNewChallenge)}
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+            className="px-4 py-2 bg-linear-to-r from-primary to-accent hover:from-primary-hover hover:to-accent-hover text-white rounded-lg transition-all duration-200"
           >
             Add
           </button>
@@ -353,7 +353,7 @@ export default function ProjectForm({
           {challenges.map((challenge, index) => (
             <span
               key={index}
-              className="inline-flex items-center gap-1 px-3 py-1 bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200 rounded-full text-sm"
+              className="inline-flex items-center gap-1 px-3 py-1 bg-pink-100 text-pink-800 dark:bg-pink-900 dark:text-pink-200 rounded-full text-sm"
             >
               {challenge}
               <button type="button" onClick={() => removeItem(index, challenges, setChallenges)}>
@@ -377,12 +377,12 @@ export default function ProjectForm({
               (e.preventDefault(), addItem(newLearning, setLearnings, learnings, setNewLearning))
             }
             placeholder="Add a learning and press Enter"
-            className="flex-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700"
+            className="flex-1 px-4 py-2 border border-zinc-300 dark:border-zinc-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-zinc-900 dark:text-zinc-50"
           />
           <button
             type="button"
             onClick={() => addItem(newLearning, setLearnings, learnings, setNewLearning)}
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+            className="px-4 py-2 bg-linear-to-r from-secondary to-primary hover:from-secondary-hover hover:to-primary-hover text-white rounded-lg transition-all duration-200"
           >
             Add
           </button>
@@ -391,7 +391,7 @@ export default function ProjectForm({
           {learnings.map((learning, index) => (
             <span
               key={index}
-              className="inline-flex items-center gap-1 px-3 py-1 bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200 rounded-full text-sm"
+              className="inline-flex items-center gap-1 px-3 py-1 bg-violet-100 text-violet-800 dark:bg-violet-900 dark:text-violet-200 rounded-full text-sm"
             >
               {learning}
               <button type="button" onClick={() => removeItem(index, learnings, setLearnings)}>
@@ -406,18 +406,18 @@ export default function ProjectForm({
       <MediaUpload media={media} onChange={setMedia} maxFiles={10} />
 
       {/* Action Buttons */}
-      <div className="flex justify-end gap-4 pt-6 border-t">
+      <div className="flex justify-end gap-4 pt-6 border-t border-zinc-200 dark:border-zinc-800">
         <button
           type="button"
           onClick={onCancel}
-          className="px-6 py-2 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800"
+          className="px-6 py-2 border border-zinc-300 dark:border-zinc-700 rounded-lg hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors"
           disabled={isLoading}
         >
           Cancel
         </button>
         <button
           type="submit"
-          className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
+          className="px-6 py-2 bg-linear-to-r from-primary to-secondary hover:from-primary-hover hover:to-secondary-hover text-white rounded-lg disabled:opacity-50 transition-all duration-200"
           disabled={isLoading}
         >
           {isLoading ? 'Saving...' : initialData ? 'Update Project' : 'Create Project'}

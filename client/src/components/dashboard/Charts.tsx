@@ -32,24 +32,24 @@ const blogsData = [
 
 export function ProjectsChart() {
   return (
-    <div className="bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800 p-6">
-      <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+    <div className="bg-white dark:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-800 p-6 hover:shadow-md transition-shadow duration-200">
+      <h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-50 mb-4">
         Projects Overview
       </h3>
       <ResponsiveContainer width="100%" height={300}>
         <BarChart data={projectsData}>
-          <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
-          <XAxis dataKey="month" stroke="#9CA3AF" />
-          <YAxis stroke="#9CA3AF" />
+          <CartesianGrid strokeDasharray="3 3" stroke="#52525b" opacity={0.3} />
+          <XAxis dataKey="month" stroke="#71717a" />
+          <YAxis stroke="#71717a" />
           <Tooltip
             contentStyle={{
-              backgroundColor: '#1F2937',
-              border: 'none',
+              backgroundColor: '#27272a',
+              border: '1px solid #3f3f46',
               borderRadius: '8px',
-              color: '#fff',
+              color: '#fafafa',
             }}
           />
-          <Bar dataKey="count" fill="#3B82F6" radius={[8, 8, 0, 0]} />
+          <Bar dataKey="count" fill="#7c3aed" radius={[8, 8, 0, 0]} />
         </BarChart>
       </ResponsiveContainer>
     </div>
@@ -58,27 +58,27 @@ export function ProjectsChart() {
 
 export function BlogsChart() {
   return (
-    <div className="bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800 p-6">
-      <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Blogs Activity</h3>
+    <div className="bg-white dark:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-800 p-6 hover:shadow-md transition-shadow duration-200">
+      <h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-50 mb-4">Blogs Activity</h3>
       <ResponsiveContainer width="100%" height={300}>
         <LineChart data={blogsData}>
-          <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
-          <XAxis dataKey="month" stroke="#9CA3AF" />
-          <YAxis stroke="#9CA3AF" />
+          <CartesianGrid strokeDasharray="3 3" stroke="#52525b" opacity={0.3} />
+          <XAxis dataKey="month" stroke="#71717a" />
+          <YAxis stroke="#71717a" />
           <Tooltip
             contentStyle={{
-              backgroundColor: '#1F2937',
-              border: 'none',
+              backgroundColor: '#27272a',
+              border: '1px solid #3f3f46',
               borderRadius: '8px',
-              color: '#fff',
+              color: '#fafafa',
             }}
           />
           <Line
             type="monotone"
             dataKey="count"
-            stroke="#10B981"
+            stroke="#ec4899"
             strokeWidth={2}
-            dot={{ fill: '#10B981', r: 4 }}
+            dot={{ fill: '#ec4899', r: 4 }}
           />
         </LineChart>
       </ResponsiveContainer>

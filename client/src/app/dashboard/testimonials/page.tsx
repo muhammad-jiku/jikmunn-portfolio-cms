@@ -64,7 +64,7 @@ export default function TestimonialsPage() {
     return (
       <DashboardLayout>
         <div className="flex items-center justify-center h-64">
-          <div className="text-gray-500 dark:text-gray-400">Loading...</div>
+          <div className="text-zinc-500 dark:text-zinc-400">Loading...</div>
         </div>
       </DashboardLayout>
     );
@@ -75,14 +75,16 @@ export default function TestimonialsPage() {
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Testimonials</h1>
-            <p className="mt-2 text-gray-600 dark:text-gray-400">
+            <h1 className="text-3xl font-bold bg-linear-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+              Testimonials
+            </h1>
+            <p className="mt-2 text-zinc-600 dark:text-zinc-400">
               Manage client testimonials and reviews
             </p>
           </div>
           <button
             onClick={handleCreate}
-            className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+            className="flex items-center gap-2 px-4 py-2 bg-linear-to-r from-primary to-secondary hover:from-primary-hover hover:to-secondary-hover text-white rounded-lg transition-all duration-200"
           >
             <Plus className="w-4 h-4" />
             Add Testimonial
@@ -90,8 +92,8 @@ export default function TestimonialsPage() {
         </div>
 
         {testimonials.length === 0 ? (
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-8 text-center">
-            <p className="text-gray-500 dark:text-gray-400">
+          <div className="bg-white dark:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-800 shadow-sm p-8 text-center">
+            <p className="text-zinc-500 dark:text-zinc-400">
               No testimonials yet. Create one to get started!
             </p>
           </div>
@@ -100,9 +102,9 @@ export default function TestimonialsPage() {
             {testimonials.map((testimonial) => (
               <div
                 key={testimonial.id}
-                className="bg-white dark:bg-gray-800 rounded-lg shadow p-6 relative"
+                className="bg-white dark:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-800 shadow-sm p-6 relative hover:shadow-md transition-shadow"
               >
-                <Quote className="absolute top-4 right-4 w-8 h-8 text-blue-500/20" />
+                <Quote className="absolute top-4 right-4 w-8 h-8 text-purple-500/20" />
 
                 <div className="flex items-start gap-4 mb-4">
                   {testimonial.imageUrl ? (
@@ -112,31 +114,31 @@ export default function TestimonialsPage() {
                       className="w-12 h-12 rounded-full object-cover"
                     />
                   ) : (
-                    <div className="w-12 h-12 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-gray-500 dark:text-gray-400 font-bold">
+                    <div className="w-12 h-12 rounded-full bg-zinc-200 dark:bg-zinc-700 flex items-center justify-center text-zinc-500 dark:text-zinc-400 font-bold">
                       {testimonial.name.charAt(0)}
                     </div>
                   )}
                   <div className="flex-1">
-                    <h3 className="font-semibold text-gray-900 dark:text-white">
+                    <h3 className="font-semibold text-zinc-900 dark:text-zinc-50">
                       {testimonial.name}
                     </h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                    <p className="text-sm text-zinc-600 dark:text-zinc-400">
                       {testimonial.jobPosition}
                     </p>
-                    <span className="inline-block mt-1 px-2 py-1 text-xs rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400">
+                    <span className="inline-block mt-1 px-2 py-1 text-xs rounded-full bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-400">
                       {testimonial.platform}
                     </span>
                   </div>
                 </div>
 
-                <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 line-clamp-4">
+                <p className="text-sm text-zinc-600 dark:text-zinc-400 mb-4 line-clamp-4">
                   {testimonial.testimonial}
                 </p>
 
-                <div className="flex justify-end gap-2 pt-4 border-t border-gray-200 dark:border-gray-700">
+                <div className="flex justify-end gap-2 pt-4 border-t border-zinc-200 dark:border-zinc-700">
                   <button
                     onClick={() => handleEdit(testimonial)}
-                    className="text-blue-600 hover:text-blue-700 dark:text-blue-400"
+                    className="text-primary hover:text-primary-hover"
                   >
                     <Edit className="w-4 h-4" />
                   </button>

@@ -100,8 +100,8 @@ export default function MediaUpload({ media, onChange, maxFiles = 10 }: MediaUpl
       <div
         className={`relative border-2 border-dashed rounded-lg p-8 text-center transition-colors ${
           dragActive
-            ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
-            : 'border-gray-300 dark:border-gray-700'
+            ? 'border-primary bg-purple-50 dark:bg-purple-900/20'
+            : 'border-zinc-300 dark:border-zinc-700'
         }`}
         onDragEnter={handleDrag}
         onDragLeave={handleDrag}
@@ -117,18 +117,18 @@ export default function MediaUpload({ media, onChange, maxFiles = 10 }: MediaUpl
           className="hidden"
         />
 
-        <Upload className="w-12 h-12 mx-auto mb-4 text-gray-400" />
-        <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+        <Upload className="w-12 h-12 mx-auto mb-4 text-zinc-400" />
+        <p className="text-sm text-zinc-600 dark:text-zinc-400 mb-2">
           Drag & drop files here, or click to select
         </p>
         <button
           type="button"
           onClick={onButtonClick}
-          className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+          className="px-4 py-2 bg-linear-to-r from-primary to-secondary hover:from-primary-hover hover:to-secondary-hover text-white rounded-lg transition-all duration-200"
         >
           Select Files
         </button>
-        <p className="text-xs text-gray-500 mt-2">
+        <p className="text-xs text-zinc-500 mt-2">
           Max {maxFiles} files. Supported: Images & Videos
         </p>
       </div>
@@ -139,7 +139,7 @@ export default function MediaUpload({ media, onChange, maxFiles = 10 }: MediaUpl
           {media.map((item, index) => (
             <div
               key={item.id}
-              className="relative group border rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-800"
+              className="relative group border border-zinc-200 dark:border-zinc-700 rounded-lg overflow-hidden bg-zinc-100 dark:bg-zinc-900"
               draggable
               onDragStart={(e) => e.dataTransfer.setData('text/plain', index.toString())}
               onDragOver={(e) => e.preventDefault()}
@@ -188,7 +188,7 @@ export default function MediaUpload({ media, onChange, maxFiles = 10 }: MediaUpl
               </div>
 
               {/* Reorder Hint */}
-              <div className="p-2 text-xs text-center text-gray-600 dark:text-gray-400">
+              <div className="p-2 text-xs text-center text-zinc-600 dark:text-zinc-400">
                 Drag to reorder
               </div>
             </div>

@@ -78,9 +78,9 @@ export default function AboutForm() {
   };
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+    <div className="bg-white dark:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-800 shadow-sm p-6">
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white">About Statistics</h2>
+        <h2 className="text-2xl font-bold text-zinc-900 dark:text-zinc-50">About Statistics</h2>
         <button
           type="button"
           onClick={handleReset}
@@ -107,7 +107,7 @@ export default function AboutForm() {
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <label className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label className="flex items-center gap-2 text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">
               <Users className="w-4 h-4" />
               Number of Clients
             </label>
@@ -118,13 +118,13 @@ export default function AboutForm() {
               onChange={(e) =>
                 setFormData({ ...formData, numberOfClients: parseInt(e.target.value) || 0 })
               }
-              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+              className="w-full px-4 py-2 border border-zinc-300 dark:border-zinc-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-zinc-900 dark:text-zinc-50"
               required
             />
           </div>
 
           <div>
-            <label className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label className="flex items-center gap-2 text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">
               <Briefcase className="w-4 h-4" />
               Number of Projects
             </label>
@@ -135,13 +135,13 @@ export default function AboutForm() {
               onChange={(e) =>
                 setFormData({ ...formData, numberOfProjects: parseInt(e.target.value) || 0 })
               }
-              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+              className="w-full px-4 py-2 border border-zinc-300 dark:border-zinc-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-zinc-900 dark:text-zinc-50"
               required
             />
           </div>
 
           <div>
-            <label className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label className="flex items-center gap-2 text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">
               <Clock className="w-4 h-4" />
               Hours of Support
             </label>
@@ -152,13 +152,13 @@ export default function AboutForm() {
               onChange={(e) =>
                 setFormData({ ...formData, hoursOfSupport: parseInt(e.target.value) || 0 })
               }
-              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+              className="w-full px-4 py-2 border border-zinc-300 dark:border-zinc-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-zinc-900 dark:text-zinc-50"
               required
             />
           </div>
 
           <div>
-            <label className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label className="flex items-center gap-2 text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">
               <Award className="w-4 h-4" />
               Years of Experience
             </label>
@@ -169,7 +169,7 @@ export default function AboutForm() {
               onChange={(e) =>
                 setFormData({ ...formData, yearsOfExperience: parseInt(e.target.value) || 0 })
               }
-              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+              className="w-full px-4 py-2 border border-zinc-300 dark:border-zinc-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-zinc-900 dark:text-zinc-50"
               required
             />
           </div>
@@ -179,7 +179,7 @@ export default function AboutForm() {
           <button
             type="submit"
             disabled={loading}
-            className="flex items-center gap-2 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="flex items-center gap-2 px-6 py-2 bg-linear-to-r from-primary to-secondary hover:from-primary-hover hover:to-secondary-hover text-white rounded-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
           >
             <Save className="w-4 h-4" />
             {loading ? 'Saving...' : 'Save Changes'}
@@ -188,8 +188,8 @@ export default function AboutForm() {
       </form>
 
       {about && (
-        <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
-          <p className="text-xs text-gray-500 dark:text-gray-400">
+        <div className="mt-6 pt-6 border-t border-zinc-200 dark:border-zinc-800">
+          <p className="text-xs text-zinc-500 dark:text-zinc-400">
             Last updated: {new Date(about.updatedAt).toLocaleString()}
           </p>
         </div>

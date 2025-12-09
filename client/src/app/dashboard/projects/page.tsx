@@ -93,7 +93,7 @@ export default function ProjectsPage() {
     return (
       <DashboardLayout>
         <div className="flex items-center justify-center h-64">
-          <div className="text-lg text-gray-600 dark:text-gray-400">Loading projects...</div>
+          <div className="text-lg text-zinc-600 dark:text-zinc-400">Loading projects...</div>
         </div>
       </DashboardLayout>
     );
@@ -105,12 +105,12 @@ export default function ProjectsPage() {
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Projects</h1>
-            <p className="text-gray-600 dark:text-gray-400 mt-1">Manage your portfolio projects</p>
+            <h1 className="text-3xl font-bold text-zinc-900 dark:text-white">Projects</h1>
+            <p className="text-zinc-600 dark:text-zinc-400 mt-1">Manage your portfolio projects</p>
           </div>
           <button
             onClick={() => setShowForm(true)}
-            className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+            className="flex items-center gap-2 px-4 py-2 bg-linear-to-r from-primary to-secondary hover:from-primary-hover hover:to-secondary-hover text-white rounded-lg transition-all duration-200"
           >
             <Plus className="w-5 h-5" />
             New Project
@@ -119,20 +119,20 @@ export default function ProjectsPage() {
 
         {/* Search Bar */}
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-zinc-400 w-5 h-5" />
           <input
             type="text"
             placeholder="Search projects..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-800"
+            className="w-full pl-10 pr-4 py-2 border border-zinc-300 dark:border-zinc-600 rounded-lg focus:ring-2 focus:ring-primary dark:bg-zinc-800"
           />
         </div>
 
         {/* Form Modal */}
         {(showForm || editingProject) && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-            <div className="bg-white dark:bg-gray-900 rounded-lg p-6 max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="bg-white dark:bg-zinc-900 rounded-lg p-6 max-w-4xl w-full max-h-[90vh] overflow-y-auto">
               <h2 className="text-2xl font-bold mb-6">
                 {editingProject ? 'Edit Project' : 'Create New Project'}
               </h2>

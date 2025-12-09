@@ -1,9 +1,12 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable react-hooks/incompatible-library */
 'use client';
 
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { clearError, register as registerUser } from '@/store/slices/authSlice';
 import { UserRole } from '@/types/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Eye, EyeOff } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -35,10 +38,18 @@ export default function RegisterForm() {
   const router = useRouter();
   const { isLoading, error } = useAppSelector((state) => state.auth);
   const [success, setSuccess] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [registeredEmail, setRegisteredEmail] = useState('');
+  const [validationMessage, setValidationMessage] = useState<{
+    text: string;
+    type: 'success' | 'error' | 'warning' | '';
+  }>({ text: '', type: '' });
 
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm<RegisterFormData>({
     resolver: zodResolver(registerSchema),
@@ -46,6 +57,53 @@ export default function RegisterForm() {
       role: UserRole.AUTHOR,
     },
   });
+
+  const password = watch('password');
+  const confirmPassword = watch('confirmPassword');
+  const email = watch('email');
+
+  // Calculate password strength
+  const getPasswordStrength = (pwd: string) => {
+    if (!pwd) return { score: 0, text: '' };
+    let score = 0;
+    if (pwd.length >= 8) score++;
+    if (pwd.length >= 12) score++;
+    if (/[A-Z]/.test(pwd)) score++;
+    if (/[a-z]/.test(pwd)) score++;
+    if (/[0-9]/.test(pwd)) score++;
+    if (/[@$!%*?&#]/.test(pwd)) score++;
+
+    if (score <= 2) return { score, text: '🔴 Too weak', type: 'error' };
+    if (score <= 4) return { score, text: '🟡 Weak password', type: 'warning' };
+    if (score <= 5) return { score, text: '🟢 Strong password', type: 'success' };
+    return { score, text: '🟢 Very strong password!', type: 'success' };
+  };
+
+  useEffect(() => {
+    if (!password && !confirmPassword) {
+      setValidationMessage({ text: '', type: '' });
+      return;
+    }
+
+    const strength = getPasswordStrength(password || '');
+
+    if (password && confirmPassword) {
+      if (password !== confirmPassword) {
+        setValidationMessage({ text: '❌ Passwords do not match', type: 'error' });
+      } else {
+        if (strength.score <= 2) {
+          setValidationMessage({ text: strength.text, type: 'error' });
+        } else {
+          setValidationMessage({ text: '✓ Passwords matched! ' + strength.text, type: 'success' });
+        }
+      }
+    } else if (password) {
+      setValidationMessage({
+        text: strength.text,
+        type: strength.type as 'success' | 'error' | 'warning',
+      });
+    }
+  }, [password, confirmPassword]);
 
   useEffect(() => {
     return () => {
@@ -57,15 +115,19 @@ export default function RegisterForm() {
     const result = await dispatch(registerUser(data));
     if (registerUser.fulfilled.match(result)) {
       setSuccess(true);
-      setTimeout(() => router.push('/login'), 3000);
+      setRegisteredEmail(data.email);
+      setTimeout(() => router.push(`/verify-email?email=${encodeURIComponent(data.email)}`), 3000);
     }
   };
 
   if (success) {
     return (
-      <div className="bg-green-50 text-green-800 px-6 py-4 rounded-lg">
+      <div className="bg-green-50 dark:bg-green-950 text-green-800 dark:text-green-200 px-6 py-4 rounded-lg">
         <h3 className="font-semibold mb-2">Registration successful!</h3>
-        <p>Please check your email to verify your account. Redirecting to login...</p>
+        <p>
+          We&apos;ve sent a 6-digit verification code to <strong>{registeredEmail}</strong>.
+        </p>
+        <p className="mt-2">Redirecting to verification page...</p>
       </div>
     );
   }
@@ -104,13 +166,22 @@ export default function RegisterForm() {
         <label htmlFor="password" className="block text-sm font-medium mb-2">
           Password *
         </label>
-        <input
-          {...register('password')}
-          type="password"
-          id="password"
-          className="w-full px-4 py-2 border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-50 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-          placeholder="••••••••"
-        />
+        <div className="relative">
+          <input
+            {...register('password')}
+            type={showPassword ? 'text' : 'password'}
+            id="password"
+            className="w-full px-4 py-2 pr-12 border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-50 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+            placeholder="••••••••"
+          />
+          <button
+            type="button"
+            onClick={() => setShowPassword(!showPassword)}
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200 transition-colors"
+          >
+            {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+          </button>
+        </div>
         {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>}
       </div>
 
@@ -118,13 +189,22 @@ export default function RegisterForm() {
         <label htmlFor="confirmPassword" className="block text-sm font-medium mb-2">
           Confirm Password *
         </label>
-        <input
-          {...register('confirmPassword')}
-          type="password"
-          id="confirmPassword"
-          className="w-full px-4 py-2 border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-50 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-          placeholder="••••••••"
-        />
+        <div className="relative">
+          <input
+            {...register('confirmPassword')}
+            type={showConfirmPassword ? 'text' : 'password'}
+            id="confirmPassword"
+            className="w-full px-4 py-2 pr-12 border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-50 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+            placeholder="••••••••"
+          />
+          <button
+            type="button"
+            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200 transition-colors"
+          >
+            {showConfirmPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+          </button>
+        </div>
         {errors.confirmPassword && (
           <p className="text-red-500 text-sm mt-1">{errors.confirmPassword.message}</p>
         )}
@@ -147,7 +227,29 @@ export default function RegisterForm() {
         {errors.role && <p className="text-red-500 text-sm mt-1">{errors.role.message}</p>}
       </div>
 
-      {error && <div className="bg-red-50 text-red-600 px-4 py-3 rounded-lg text-sm">{error}</div>}
+      {error && (
+        <div className="bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 px-4 py-3 rounded-lg text-sm font-medium">
+          {error.includes('already exists') || error.includes('already registered')
+            ? '❌ User already exists'
+            : error.includes('Invalid')
+              ? '❌ Invalid user information'
+              : `❌ ${error}`}
+        </div>
+      )}
+
+      {validationMessage.text && !error && (
+        <div
+          className={`px-4 py-3 rounded-lg text-sm font-medium border transition-all duration-300 ${
+            validationMessage.type === 'success'
+              ? 'bg-green-50 dark:bg-green-950/30 border-green-200 dark:border-green-800 text-green-600 dark:text-green-400'
+              : validationMessage.type === 'warning'
+                ? 'bg-amber-50 dark:bg-amber-950/30 border-amber-200 dark:border-amber-800 text-amber-600 dark:text-amber-400'
+                : 'bg-red-50 dark:bg-red-950/30 border-red-200 dark:border-red-800 text-red-600 dark:text-red-400'
+          }`}
+        >
+          {validationMessage.text}
+        </div>
+      )}
 
       <button
         type="submit"

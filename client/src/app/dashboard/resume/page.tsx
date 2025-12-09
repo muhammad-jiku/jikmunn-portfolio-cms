@@ -113,8 +113,10 @@ export default function ResumePage() {
     <DashboardLayout>
       <div className="space-y-6">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Resume Management</h1>
-          <p className="mt-2 text-gray-600 dark:text-gray-400">
+          <h1 className="text-3xl font-bold bg-linear-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+            Resume Management
+          </h1>
+          <p className="mt-2 text-zinc-600 dark:text-zinc-400">
             Manage your professional resume information
           </p>
         </div>
@@ -123,22 +125,22 @@ export default function ResumePage() {
         <ResumeSummaryForm />
 
         {/* Education Section */}
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+        <div className="bg-white dark:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-800 shadow-sm p-6">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
-              <GraduationCap className="w-5 h-5 text-blue-600" />
-              <h2 className="text-xl font-bold text-gray-900 dark:text-white">Education</h2>
+              <GraduationCap className="w-5 h-5 text-purple-600 dark:text-purple-400" />
+              <h2 className="text-xl font-bold text-zinc-900 dark:text-zinc-50">Education</h2>
             </div>
             <button
               onClick={() => handleCreate('education')}
-              className="flex items-center gap-2 px-3 py-2 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+              className="flex items-center gap-2 px-3 py-2 text-sm bg-linear-to-r from-primary to-secondary hover:from-primary-hover hover:to-secondary-hover text-white rounded-lg transition-all duration-200"
             >
               <Plus className="w-4 h-4" />
               Add Education
             </button>
           </div>
           {education.length === 0 ? (
-            <p className="text-gray-500 dark:text-gray-400 text-center py-4">
+            <p className="text-zinc-500 dark:text-zinc-400 text-center py-4">
               No education entries yet
             </p>
           ) : (
@@ -146,17 +148,17 @@ export default function ResumePage() {
               {education.map((edu) => (
                 <div
                   key={edu.id}
-                  className="flex items-start justify-between p-4 border border-gray-200 dark:border-gray-700 rounded-lg"
+                  className="flex items-start justify-between p-4 border border-zinc-200 dark:border-zinc-700 rounded-lg hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors"
                 >
                   <div>
-                    <h3 className="font-medium text-gray-900 dark:text-white">{edu.degree}</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">{edu.university}</p>
-                    <p className="text-xs text-gray-500 dark:text-gray-500">{edu.years}</p>
+                    <h3 className="font-medium text-zinc-900 dark:text-zinc-50">{edu.degree}</h3>
+                    <p className="text-sm text-zinc-600 dark:text-zinc-400">{edu.university}</p>
+                    <p className="text-xs text-zinc-500 dark:text-zinc-500">{edu.years}</p>
                   </div>
                   <div className="flex gap-2">
                     <button
                       onClick={() => handleEdit('education', edu)}
-                      className="text-blue-600 hover:text-blue-700"
+                      className="text-primary hover:text-primary-hover"
                     >
                       <Edit className="w-4 h-4" />
                     </button>
@@ -174,24 +176,24 @@ export default function ResumePage() {
         </div>
 
         {/* Experience Section */}
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+        <div className="bg-white dark:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-800 shadow-sm p-6">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
-              <Briefcase className="w-5 h-5 text-green-600" />
-              <h2 className="text-xl font-bold text-gray-900 dark:text-white">
+              <Briefcase className="w-5 h-5 text-pink-600 dark:text-pink-400" />
+              <h2 className="text-xl font-bold text-zinc-900 dark:text-zinc-50">
                 Professional Experience
               </h2>
             </div>
             <button
               onClick={() => handleCreate('experience')}
-              className="flex items-center gap-2 px-3 py-2 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+              className="flex items-center gap-2 px-3 py-2 text-sm bg-linear-to-r from-secondary to-accent hover:from-secondary-hover hover:to-accent-hover text-white rounded-lg transition-all duration-200"
             >
               <Plus className="w-4 h-4" />
               Add Experience
             </button>
           </div>
           {experiences.length === 0 ? (
-            <p className="text-gray-500 dark:text-gray-400 text-center py-4">
+            <p className="text-zinc-500 dark:text-zinc-400 text-center py-4">
               No experience entries yet
             </p>
           ) : (
@@ -199,13 +201,13 @@ export default function ResumePage() {
               {experiences.map((exp) => (
                 <div
                   key={exp.id}
-                  className="flex items-start justify-between p-4 border border-gray-200 dark:border-gray-700 rounded-lg"
+                  className="flex items-start justify-between p-4 border border-zinc-200 dark:border-zinc-700 rounded-lg hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors"
                 >
                   <div>
-                    <h3 className="font-medium text-gray-900 dark:text-white">{exp.jobTitle}</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">{exp.companyName}</p>
-                    <p className="text-xs text-gray-500 dark:text-gray-500 mb-2">{exp.years}</p>
-                    <ul className="list-disc list-inside text-sm text-gray-600 dark:text-gray-400 space-y-1">
+                    <h3 className="font-medium text-zinc-900 dark:text-zinc-50">{exp.jobTitle}</h3>
+                    <p className="text-sm text-zinc-600 dark:text-zinc-400">{exp.companyName}</p>
+                    <p className="text-xs text-zinc-500 dark:text-zinc-500 mb-2">{exp.years}</p>
+                    <ul className="list-disc list-inside text-sm text-zinc-600 dark:text-zinc-400 space-y-1">
                       {exp.achievements.slice(0, 2).map((ach, i) => (
                         <li key={i}>{ach}</li>
                       ))}
@@ -214,7 +216,7 @@ export default function ResumePage() {
                   <div className="flex gap-2">
                     <button
                       onClick={() => handleEdit('experience', exp)}
-                      className="text-blue-600 hover:text-blue-700"
+                      className="text-primary hover:text-primary-hover"
                     >
                       <Edit className="w-4 h-4" />
                     </button>
@@ -232,22 +234,22 @@ export default function ResumePage() {
         </div>
 
         {/* Achievements Section */}
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+        <div className="bg-white dark:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-800 shadow-sm p-6">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
-              <Award className="w-5 h-5 text-yellow-600" />
-              <h2 className="text-xl font-bold text-gray-900 dark:text-white">Achievements</h2>
+              <Award className="w-5 h-5 text-violet-600 dark:text-violet-400" />
+              <h2 className="text-xl font-bold text-zinc-900 dark:text-zinc-50">Achievements</h2>
             </div>
             <button
               onClick={() => handleCreate('achievement')}
-              className="flex items-center gap-2 px-3 py-2 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+              className="flex items-center gap-2 px-3 py-2 text-sm bg-linear-to-r from-primary to-accent hover:from-primary-hover hover:to-accent-hover text-white rounded-lg transition-all duration-200"
             >
               <Plus className="w-4 h-4" />
               Add Achievement
             </button>
           </div>
           {achievements.length === 0 ? (
-            <p className="text-gray-500 dark:text-gray-400 text-center py-4">No achievements yet</p>
+            <p className="text-zinc-500 dark:text-zinc-400 text-center py-4">No achievements yet</p>
           ) : (
             <div className="space-y-3">
               {achievements.map((ach) => (
@@ -285,44 +287,44 @@ export default function ResumePage() {
         </div>
 
         {/* References Section */}
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+        <div className="bg-white dark:bg-zinc-900 rounded-lg shadow-sm border border-zinc-200 dark:border-zinc-800 p-6">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
-              <Users className="w-5 h-5 text-purple-600" />
-              <h2 className="text-xl font-bold text-gray-900 dark:text-white">References</h2>
+              <Users className="w-5 h-5 text-primary" />
+              <h2 className="text-xl font-bold text-zinc-900 dark:text-zinc-50">References</h2>
             </div>
             <button
               onClick={() => handleCreate('reference')}
-              className="flex items-center gap-2 px-3 py-2 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+              className="flex items-center gap-2 px-3 py-2 text-sm bg-linear-to-r from-primary to-secondary hover:from-primary-hover hover:to-secondary-hover text-white rounded-lg transition-all duration-200"
             >
               <Plus className="w-4 h-4" />
               Add Reference
             </button>
           </div>
           {references.length === 0 ? (
-            <p className="text-gray-500 dark:text-gray-400 text-center py-4">No references yet</p>
+            <p className="text-zinc-500 dark:text-zinc-400 text-center py-4">No references yet</p>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {references.map((ref) => (
                 <div
                   key={ref.id}
-                  className="flex items-start justify-between p-4 border border-gray-200 dark:border-gray-700 rounded-lg"
+                  className="flex items-start justify-between p-4 border border-zinc-200 dark:border-zinc-800 rounded-lg hover:border-primary/50 dark:hover:border-primary/50 transition-colors"
                 >
                   <div>
-                    <h3 className="font-medium text-gray-900 dark:text-white">{ref.name}</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">{ref.jobTitle}</p>
-                    <p className="text-xs text-gray-500 dark:text-gray-500">{ref.companyName}</p>
+                    <h3 className="font-medium text-zinc-900 dark:text-zinc-50">{ref.name}</h3>
+                    <p className="text-sm text-zinc-600 dark:text-zinc-400">{ref.jobTitle}</p>
+                    <p className="text-xs text-zinc-500 dark:text-zinc-500">{ref.companyName}</p>
                   </div>
                   <div className="flex gap-2">
                     <button
                       onClick={() => handleEdit('reference', ref)}
-                      className="text-blue-600 hover:text-blue-700"
+                      className="text-primary hover:text-primary-hover transition-colors"
                     >
                       <Edit className="w-4 h-4" />
                     </button>
                     <button
                       onClick={() => handleDelete('reference', ref.id)}
-                      className="text-red-600 hover:text-red-700"
+                      className="text-red-600 hover:text-red-700 transition-colors"
                     >
                       <Trash2 className="w-4 h-4" />
                     </button>
