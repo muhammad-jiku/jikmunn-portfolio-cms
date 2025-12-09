@@ -83,6 +83,15 @@ export const loginUser = (credentials: LoginCredentials): Promise<AuthResponse> 
         const accessToken = session.getAccessToken().getJwtToken();
         const refreshToken = session.getRefreshToken().getToken();
 
+        // Store rememberMe preference
+        if (credentials.rememberMe) {
+          localStorage.setItem('rememberMe', 'true');
+          localStorage.setItem('lastLoginEmail', credentials.email);
+        } else {
+          localStorage.removeItem('rememberMe');
+          localStorage.removeItem('lastLoginEmail');
+        }
+
         resolve({ user, idToken, accessToken, refreshToken });
       },
       onFailure: (err) => {
@@ -126,6 +135,13 @@ export const logoutUser = (): Promise<void> => {
     if (cognitoUser) {
       cognitoUser.signOut();
     }
+
+    // Clear rememberMe data on logout
+    const rememberMe = localStorage.getItem('rememberMe');
+    if (!rememberMe) {
+      localStorage.removeItem('lastLoginEmail');
+    }
+
     resolve();
   });
 };
